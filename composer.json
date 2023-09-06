@@ -1,0 +1,17 @@
+{
+    "name": "jacques/projet-php-gestion-projets",
+    "description": "Projet en PHP - CDA PHP",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Jacques\\ProjetPhpGestionProjets\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jacques",
+            "email": "jac.granarolo.info@gmail.com"
+        }
+    ],
+    "require": {}
+}
