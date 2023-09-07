@@ -14,16 +14,19 @@
             echo '<form action="/index.php?page=Tache" method="POST">';
         }
         echo '<div>';
+
         // id_tache
         echo '<label for="id_tache">Id tâche : </label>';
         echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_tache" id="id_tache" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_tache() : '') . '">';
         echo '</div>';
+
         // nom
         echo '<div>';
         echo '<label for="nom">Nom : </label>';
         echo '<input type="text" placeholder="Saisir un nom" name="nom" id="nom" value="' . (($mode !== 'create') ? $tache->getNom() : '') 
         . '" '. (($mode === 'view') ? "disabled='disabled'" : "") . '>';
         echo '</div>';
+
         // description
         echo '<div>';
         echo '<label for="description">Description : </label>';
@@ -35,7 +38,7 @@
         if($utilisateurs !== null) {
             echo '<div>';
             echo '<label for="utilisateur">Utilisateur : </label>';
-            echo '<select name="utilisateur">';
+            echo '<select name="utilisateur"' . (($mode === 'view') ? 'disabled' : '') . '>';
             foreach($utilisateurs as $u) {
                 echo '<option value="' . $u->getId_utilisateur() 
                 . '" ' . (($mode !=='create' && $u->getId_utilisateur() === $tache->getId_utilisateur() ? 'selected' : '')) . '>';
@@ -52,7 +55,7 @@
         if($statuts !== null) {
             echo '<div>';
             echo '<label for="statut">Statut : </label>';
-            echo '<select name="statut">';
+            echo '<select name="statut"' . (($mode === 'view') ? 'disabled' : '') . '>';
             foreach($statuts as $s) {
                 echo '<option value="' . $s->getId_statut() 
                 . '" ' . (($mode !=='create' && $s->getId_statut() === $tache->getId_statut() ? 'selected' : '')) . '>';
@@ -66,7 +69,7 @@
         if($priorites !== null) {
             echo '<div>';
             echo '<label for="priorite">Priorité : </label>';
-            echo '<select name="priorite">';
+            echo '<select name="priorite"' . (($mode === 'view') ? 'disabled' : '') . '>';
             foreach($priorites as $p) {
                 echo '<option value="' . $p->getId_priorite() 
                 . '" ' . (($mode !=='create' && $p->getId_priorite() === $tache->getId_priorite() ? 'selected' : '')) . '>';
