@@ -21,7 +21,6 @@
                     . '<a href="index.php?page=Home&method=delete&id='
                     . $projet->getId_projet()
                     . '">Supprimer</a>'
-                    . ' / '
                     . '<br />';
             }
         }
@@ -36,18 +35,11 @@
                     . '<a href="index.php?page=Projet&method=view&id='
                     . $projet->getId_projet()
                     . '">Voir</a>'
-                    . ' / '
-                    . '<a href="index.php?page=Projet&method=edit&id='
-                    . $projet->getId_projet()
-                    . '">Editer</a>'
-                    . ' / '
-                    . '<a href="index.php?page=Home&method=delete&id='
-                    . $projet->getId_projet()
-                    . '">Supprimer</a>'
-                    . ' / '
                     . '<br />';
             }
         }
+        echo '<br />';
+        echo '<a href="index.php?page=Projet&method=create">Créer un projet</a>';
     } else {
         echo '<h3>Veuillez vous connecter</h3>';
     }

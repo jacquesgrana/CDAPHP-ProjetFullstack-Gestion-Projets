@@ -1,6 +1,7 @@
 <header class="header bg-primary pt-3 pb-1">
     <h1 class="text-center">Gestion de Projets</h1>
     <?php if ($isConnected) {
+        echo '<p>' . $_SESSION['user_firstname'] .  ' / ' . $_SESSION['user_lastname'].  ' / ' . $_SESSION['user_email'] . '</p>';
         echo '<a href="index.php?page=Home&method=disconnect">Déconnecter</a>';
     } ?>
     <nav class="">

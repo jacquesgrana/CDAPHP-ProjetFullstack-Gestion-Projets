@@ -8,6 +8,9 @@
         if($mode === 'edit') {
             echo '<form action="/index.php?page=Projet&method=update" method="POST">';
         }
+        if($mode === 'create') {
+            echo '<form action="/index.php?page=Projet&method=create" method="POST">';
+        }
         else {
             echo '<form action="/index.php?page=Projet" method="POST">';
         }
@@ -26,7 +29,7 @@
         echo '</div>';
         echo '<div>';
         echo '<label for="id_utilisateur">Id directeur : </label>';
-        echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_utilisateur" id="id_utilisateur" disabled="disabled" value="' . (($mode !== 'create') ? $projet->getId_utilisateur() : '' ) . '">';
+        echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_utilisateur" id="id_utilisateur" disabled="disabled" value="' . (($mode !== 'create') ? $projet->getId_utilisateur() : $_SESSION['user_id'] ) . '">';
         echo '</div>';
         echo '<div>';
         if($mode !== 'view') echo '<button type="submit">&#10004; Valider</button>';
@@ -34,6 +37,27 @@
         echo '</div>';
         echo '</form>';
         //var_dump($projet);
+        if(count($taches) > 0) {
+            echo '<h3>Tache(s) associée(s)</h3>';
+            //var_dump($taches);
+            foreach($taches as $t) {
+                echo '<p>' 
+                . $t->getId_tache()
+                . ' / '
+                . $t->getNom()
+                . ' / '
+                . $t->getDescription()
+                . ' / '
+                . $t->getId_utilisateur()
+                . ' / '
+                . $t->getId_statut()
+                . ' / '
+                . $t->getId_priorite()
+                . ' / '
+                . $t->getId_projet()
+                . '</p>';
+            }
+        }
     }
     else {
         echo '<h3>Veuillez vous connecter</h3>';
