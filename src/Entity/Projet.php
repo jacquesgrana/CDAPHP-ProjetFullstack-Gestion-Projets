@@ -28,7 +28,6 @@ class Projet extends Model {
     public function setDescription($description)
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -48,7 +47,6 @@ class Projet extends Model {
     public function setTitre($titre)
     {
         $this->titre = $titre;
-
         return $this;
     }
 
@@ -68,7 +66,6 @@ class Projet extends Model {
     public function setId_projet($id)
     {
         $this->id_projet = $id;
-
         return $this;
     }
 
@@ -90,7 +87,6 @@ class Projet extends Model {
     public function setId_utilisateur($id_utilisateur)
     {
         $this->id_utilisateur = $id_utilisateur;
-
         return $this;
     }
 }

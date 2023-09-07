@@ -12,19 +12,24 @@ class UtilisateurDB {
     public static function getUserByEmail(string $email): Utilisateur 
     {
         $sql = "SELECT * FROM " . self::$tableName . " WHERE email='$email'";
-        $userTab = Model::Execute($sql)[0];
+        $userGen = Model::Execute($sql)[0];
         //echo 'user tab :';
         //var_dump($userTab);
         //echo '<br />';
-        $userObj = new Utilisateur();
-        //echo 'id : ' . $userTab->id_utilisateur;
-        $userObj->setId_utilisateur($userTab->id_utilisateur);
-        $userObj->setEmail($userTab->email);
-        $userObj->setMdp($userTab->mdp);
-        $userObj->setNom($userTab->nom);
-        $userObj->setPrenom($userTab->prenom);
+        
         //echo 'user obj :';
         //var_dump($userObj);
+        return self::makeObjectFromGeneric($userGen);
+    }
+
+    // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
+    private static function makeObjectFromGeneric($generic): Utilisateur {
+        $userObj = new Utilisateur();
+        $userObj->setId_utilisateur($generic->id_utilisateur);
+        $userObj->setEmail($generic->email);
+        $userObj->setMdp($generic->mdp);
+        $userObj->setNom($generic->nom);
+        $userObj->setPrenom($generic->prenom);
         return $userObj;
     }
 }
