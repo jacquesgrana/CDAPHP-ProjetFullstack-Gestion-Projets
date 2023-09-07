@@ -10,6 +10,10 @@
                     . ' / description : ' . $projet->getDescription()
                     . ' / id_directeur : ' . $projet->getId_utilisateur()
                     . ' / '
+                    . '<a href="index.php?page=Projet&method=view&id='
+                    . $projet->getId_projet()
+                    . '">Voir</a>'
+                    . ' / '
                     . '<a href="index.php?page=Projet&method=edit&id='
                     . $projet->getId_projet()
                     . '">Editer</a>'
@@ -28,6 +32,10 @@
                     . ' / nom : ' . $projet->getTitre()
                     . ' / description : ' . $projet->getDescription()
                     . ' / id_directeur : ' . $projet->getId_utilisateur()
+                    . ' / '
+                    . '<a href="index.php?page=Projet&method=view&id='
+                    . $projet->getId_projet()
+                    . '">Voir</a>'
                     . ' / '
                     . '<a href="index.php?page=Projet&method=edit&id='
                     . $projet->getId_projet()

@@ -40,5 +40,16 @@ class Projet extends AbstractController {
         $this->mode = 'edit';
         $this->index();
     }
+
+    public function view() {
+        if (Securite::isConnected()) {
+            if(isset($_GET['id'])) {
+                $id_projet = $_GET['id'];
+                $this->projet = ProjetObj::getById($id_projet);
+            }            
+        }
+        $this->mode = 'view';
+        $this->index();
+    }
 }
 ?>
