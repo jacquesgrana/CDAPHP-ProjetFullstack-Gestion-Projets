@@ -11,6 +11,7 @@ class Home extends AbstractController{
 
     public function index()
     {
+        // TODO recuperer le nom et le prenom du directeur
         if (Securite::isConnected()) {
             $id = $_SESSION['user_id'];
             //echo 'id : ' . $id . '<br />';

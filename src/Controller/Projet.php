@@ -10,7 +10,7 @@ use Jacques\ProjetPhpGestionProjets\Entity\Projet as ProjetObj;
 class Projet extends AbstractController {
     private string $mode;
     private ProjetObj $projet; 
-    private array $taches;
+    //private array $taches;
     private array $tachesAll;
     private string $titlePage = 'Page d\'un projet';
 
@@ -18,7 +18,7 @@ class Projet extends AbstractController {
     {
         
         if($this->mode !== 'create') {
-            $this->taches = TacheDB::getByProjetId($this->projet->getId_projet());
+            //$this->taches = TacheDB::getByProjetId($this->projet->getId_projet());
             $this->tachesAll = TacheDB::getAllByProjetId($this->projet->getId_projet());
         }
         $view = new View();
@@ -31,8 +31,8 @@ class Projet extends AbstractController {
             'titlePage' => $this->titlePage,
             'windowName' => 'Gestion de Projets - Projet',
             'projet' => $this->projet ?? null,
-            'taches' => $this->taches,
-            'tachesAll' => $this->tachesAll,
+            //'taches' => $this->taches,
+            'tachesAll' => $this->tachesAll ?? [],
             'mode' => $this->mode,
             'isConnected' => Securite::isConnected()
         ]);
