@@ -5,7 +5,7 @@ use Jacques\ProjetPhpGestionProjets\Kernel\View;
 use Jacques\ProjetPhpGestionProjets\Kernel\AbstractController;
 use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
 
-class Connexion extends AbstractController{
+class Connexion extends AbstractController {
 
     //private static bool $isConnected;
 

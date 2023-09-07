@@ -41,7 +41,8 @@ class Model  {
 
     public static function getById(int $id)
     {
-        $sql = "SELECT * FROM " . self::getEntityName() . " where id=$id";
+        $idName = 'id_' . static::$tableName;
+        $sql = "SELECT * FROM " . static::$tableName . " where $idName=$id";
         $result =  self::Execute($sql);
         //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
         return $result[0];
