@@ -11,6 +11,7 @@ class Projet extends AbstractController {
     private string $mode;
     private ProjetObj $projet; 
     private array $taches;
+    private array $tachesAll;
     private string $titlePage = 'Page d\'un projet';
 
     public function index()
@@ -18,6 +19,7 @@ class Projet extends AbstractController {
         
         if($this->mode !== 'create') {
             $this->taches = TacheDB::getByProjetId($this->projet->getId_projet());
+            $this->tachesAll = TacheDB::getAllByProjetId($this->projet->getId_projet());
         }
         $view = new View();
         $view->setHead('head.html')
@@ -30,6 +32,7 @@ class Projet extends AbstractController {
             'windowName' => 'Gestion de Projets - Projet',
             'projet' => $this->projet ?? null,
             'taches' => $this->taches,
+            'tachesAll' => $this->tachesAll,
             'mode' => $this->mode,
             'isConnected' => Securite::isConnected()
         ]);

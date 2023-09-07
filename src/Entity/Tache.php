@@ -13,9 +13,6 @@ class Tache extends Model {
     private int $id_priorite;
     private int $id_projet;
 
-    
-
-
     /**
      * Get the value of id_tache
      */ 

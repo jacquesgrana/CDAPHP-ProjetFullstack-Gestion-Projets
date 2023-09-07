@@ -17,6 +17,18 @@ class TacheDB {
         return $tachesObj;
     }
 
+    public static function getAllByProjetId(int $id_projet): array {
+        $sql = "SELECT t.id_tache , t.nom , t.description , u.nom , u.prenom , s.statut , pri.priorite 
+        FROM tache t, utilisateur u , statut s , priorite pri, projet pro
+        WHERE pro.id_projet = " . $id_projet . "
+        AND t.id_utilisateur = u.id_utilisateur 
+        AND t.id_statut = s.id_statut 
+        AND t.id_priorite = pri.id_priorite
+        AND t.id_projet = pro.id_projet ";
+        $taches = Model::Execute($sql);
+        return $taches;
+    }
+
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
     private static function makeObjectFromGeneric($generic): Tache {
         $tObj = new Tache();

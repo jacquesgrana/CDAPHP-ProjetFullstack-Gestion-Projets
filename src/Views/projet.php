@@ -37,6 +37,7 @@
         echo '</div>';
         echo '</form>';
         //var_dump($projet);
+        /*
         if(count($taches) > 0) {
             echo '<h3>Tache(s) associée(s)</h3>';
             //var_dump($taches);
@@ -55,6 +56,27 @@
                 . $t->getId_priorite()
                 . ' / '
                 . $t->getId_projet()
+                . '</p>';
+            }
+
+            var_dump($tachesAll);
+        }*/
+
+        if(count($tachesAll) > 0) {
+            echo '<h3>Tache(s) associée(s)</h3>';
+            foreach($tachesAll as $t) {
+                echo '<p>'
+                . $t->id_tache
+                . ' / '
+                . $t->nom
+                . ' / '
+                . $t->description
+                . ' / '
+                . $t->nom . ' : ' . $t->prenom
+                . ' / '
+                . $t->statut
+                . ' / '
+                . $t->priorite     
                 . '</p>';
             }
         }
