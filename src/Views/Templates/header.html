@@ -1,17 +1,16 @@
 <header class="header bg-primary pt-3 pb-1">
     <h1 class="text-center">Gestion de Projets</h1>
+    <?php if ($isConnected) {
+        echo '<a href="index.php?page=Home&method=disconnect">Déconnecter</a>';
+    } ?>
     <nav class="">
         <ul class="d-flex gap-3 justify-content-center list-unstyled">
-        <?php
-        
-        echo "<li class=''>";
-        echo "<a class='link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover' href='./index.php?page=Home&method=index'>Accueil</a>";
-        echo "</li>";
-        echo "<li class=''>";
-        echo "<a class='link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover' href='./index.php?page=Connexion&method=index'>Connexion</a>";
-        echo "</li>"; 
-               
-        ?>
+        <li class=''>
+        <a class='link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover' href='./index.php?page=Home&method=index'>Accueil</a>
+        </li>
+        <li class=''>
+        <a class='link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover' href='./index.php?page=Connexion&method=index'>Connexion</a>
+        </li>
         </ul>
     </nav>
 </header>

@@ -6,6 +6,8 @@ use Jacques\ProjetPhpGestionProjets\Kernel\View;
 //use Digi\Keha\Utils\MyFunction;
 use Jacques\ProjetPhpGestionProjets\Kernel\AbstractController;
 use Jacques\ProjetPhpGestionProjets\Entity\Projet;
+use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
+
 
 class Home extends AbstractController{
 
@@ -27,7 +29,14 @@ class Home extends AbstractController{
             'titlePage' => 'Page Accueil',
             'windowName' => 'Gestion de Projets - Accueil',
             'projets' => $projets,
+            'isConnected' => Securite::isConnected()
         ]);
+    }
+
+    public function disconnect() {
+        //echo 'deco';
+        Securite::disconnect();
+        self::index();
     }
 
 }

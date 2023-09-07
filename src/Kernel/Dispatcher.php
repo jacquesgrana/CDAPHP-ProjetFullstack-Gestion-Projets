@@ -39,24 +39,28 @@ class Dispatcher {
         
         $this->controller = Config::CONTROLLER .'Home';
         $this->method = 'index';
+        $isClassOk = false;
         if (isset($_GET['page'])) {    
-            $this->controller = Config::CONTROLLER.$_GET['page'];
-            /*
-            if(class_exists(Config::CONTROLLER.$_GET['controller'])) {
-                $this->controller = Config::CONTROLLER.$_GET['controller'];
+            //$this->controller = Config::CONTROLLER.$_GET['page'];
+            //$isClassOk = true;
+            //echo 'class exists : ' . class_exists(Config::CONTROLLER.$_GET['page']);
+            
+            if(class_exists(Config::CONTROLLER.$_GET['page'])) {
+                $this->controller = Config::CONTROLLER.$_GET['page'];
+                $isClassOk = true;
             }
-            */ 
+            
         }
-        if (isset($_GET['method'])) {
-            $this->method = $_GET['method'];
-            /*
+        if (isset($_GET['method']) && $isClassOk) {
+            //$this->method = $_GET['method'];
+            
             if (method_exists($this->controller, $_GET['method'])) {
                 $this->method = $_GET['method'];
             } else {
                 $this->controller = Config::CONTROLLER . 'Home';
                 // $this->method = 'index';
             }
-            */
+            
         }
     }
 

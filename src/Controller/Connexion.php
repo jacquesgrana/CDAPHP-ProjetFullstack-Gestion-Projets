@@ -3,11 +3,18 @@ namespace Jacques\ProjetPhpGestionProjets\Controller;
 
 use Jacques\ProjetPhpGestionProjets\Kernel\View;
 use Jacques\ProjetPhpGestionProjets\Kernel\AbstractController;
+use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
 
 class Connexion extends AbstractController{
 
+    //private static bool $isConnected;
+
     public function index()
     {
+        if (isset($_POST["email"]) && isset($_POST["mdp"])) {
+            Securite::connect();
+        }
+        //self::$isConnected = Securite::isConnected();
         $view = new View();
         //$users= Users::getAll();
 
@@ -21,9 +28,14 @@ class Connexion extends AbstractController{
             'flash' => $this->getFlashMessage(),
             'titlePage' => 'Page Connexion',
             'windowName' => 'Gestion de Projets - Connexion',
+            'isConnected' => Securite::isConnected()
             //'projets' => $projets,
             //'users'=> $users,
         ]);
+    }
+
+    public function test() {
+        echo 'fonction test';
     }
 
 }

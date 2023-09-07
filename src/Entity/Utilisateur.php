@@ -3,30 +3,30 @@ namespace Jacques\ProjetPhpGestionProjets\Entity;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
 
 class Utilisateur extends Model {
-    private int $id;
+    public static $tableName = 'utilisateur';
+
+    private int $id_utilisateur;
     private string $nom;
     private string $prenom;
     private string $mdp;
     private string $email;
 
-    
-
     /**
-     * Get the value of id
+     * Get the value of id_utilisateur
      */ 
-    public function getId()
+    public function getId_utilisateur()
     {
-        return $this->id;
+        return $this->id_utilisateur;
     }
 
     /**
-     * Set the value of id
+     * Set the value of id_utilisateur
      *
      * @return  self
      */ 
-    public function setId($id)
+    public function setId_utilisateur($id_utilisateur)
     {
-        $this->id = $id;
+        $this->id_utilisateur = $id_utilisateur;
 
         return $this;
     }

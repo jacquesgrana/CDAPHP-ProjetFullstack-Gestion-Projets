@@ -22,8 +22,9 @@ class Model  {
         return static::class;
     }
 
-    private static function Execute($sql)
+    public static function Execute($sql)
     {
+        //echo 'sql : ' . $sql;
         $pdostatement = DataBase::getInstance()->query($sql);
         return $pdostatement->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
     }
@@ -32,7 +33,7 @@ class Model  {
     public static function getAll()
     {
         $tableName = static::$tableName;
-        $sql = "select * from " . $tableName;
+        $sql = "SELECT * FROM " . $tableName;
         return self::Execute($sql);
     }
 
@@ -40,26 +41,11 @@ class Model  {
 
     public static function getById(int $id)
     {
-        $sql = "select * from " . self::getEntityName() . " where id=$id";
+        $sql = "SELECT * FROM " . self::getEntityName() . " where id=$id";
         $result =  self::Execute($sql);
         //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
         return $result[0];
     }
-
-
-
-    public static function findNotesByUser()
-    {
-        $sql = "SELECT notes.id, notes.note, users.id as users
-            FROM notes
-            LEFT JOIN users
-            on user_id= users.id
-            
-        ";
-        // var_dump($sql);
-        return self::Execute($sql);
-    }
-
 
     public static function insert(array $datas)
     {
