@@ -19,21 +19,24 @@
         echo '</div>';
         echo '<div>';
         echo '<label for="nom">Description : </label>';
-        echo '<input type="text" placeholder="Saisir une description" name="nom" id="nom" value="' . (($mode !== 'create') ? $tache->getNom() : '') . '">';
+        echo '<input type="text" placeholder="Saisir une description" name="nom" id="nom" value="' . (($mode !== 'create') ? $tache->getNom() : '') 
+        . '" '. (($mode === 'view') ? "disabled='disabled'" : "") . '>';
         echo '</div>';
         echo '<div>';
         echo '<label for="description">Description : </label>';
-        echo '<input type="text" placeholder="Saisir une description" name="description" id="description" value="' . (($mode !== 'create') ? $tache->getDescription() : '') . '">';
+        echo '<input type="text" placeholder="Saisir une description" name="description" id="description" value="' . (($mode !== 'create') ? $tache->getDescription() : '') 
+        . '" '. (($mode === 'view') ? "disabled='disabled'" : "") . '>';
         echo '</div>';
         echo '<div>';
+        echo '<div>';
+        echo '<label for="id_projet">Id projet : </label>';
+        echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_projet" id="id_projet" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_projet() : '') . '">';
+        echo '</div>';
+
+        //boutons
         if ($mode !== 'view') echo '<button type="submit">&#10004; Valider</button>';
-        // TODO modifier url !!!! selon $mode !!!
-        // recuperer l'id du projet par $_SESSION['id_projet'] et faire le formaction en fonction
         $formaction = '/index.php?page=Projet&method=create';
         if(isset($_SESSION['id_projet']) && isset($_SESSION['mode_projet'])) {
-            //var_dump($_SESSION['id_projet']);
-            //var_dump($_SESSION['mode_projet']);
-
             if($_SESSION['mode_projet'] = 'edit') {
                 $formaction = "/index.php?page=Projet&method=edit&id=" . $_SESSION['id_projet'];
             }

@@ -18,12 +18,14 @@
         echo '</div>';
         echo '<div>';
         echo '<label for="titre">Titre : </label>';
-        echo '<input type="text" placeholder="Saisir un titre" name="titre" id="titre" value="' . (($mode !== 'create') ? $projet->getTitre() : '') . '">';
+        echo '<input type="text" placeholder="Saisir un titre" name="titre" id="titre" value="' . (($mode !== 'create') ? $projet->getTitre() : '') 
+        . '" '. (($mode === 'view') ? "disabled='disabled'" : "") . '>';
         //echo '<input type="hidden" name="connexion" value="connect">';
         echo '</div>';
         echo '<div>';
         echo '<label for="description">Description : </label>';
-        echo '<input type="text" placeholder="Saisir une description" name="description" id="description" value="' . (($mode !== 'create') ? $projet->getDescription() : '') . '">';
+        echo '<input type="text" placeholder="Saisir une description" name="description" id="description" value="' . (($mode !== 'create') ? $projet->getDescription() : '') 
+        . '" '. (($mode === 'view') ? "disabled='disabled'" : "") . '>';
         echo '</div>';
         echo '<div>';
         echo '<label for="id_utilisateur">Id directeur : </label>';
@@ -77,18 +79,18 @@
                     . $t->priorite
                     . ' / '
                     . '<a href="index.php?page=Tache&method=view&id='
-                    . $projet->getId_projet()
+                    . $t->id_tache
                     . '">Voir</a>';
    
 
                 if ($mode !== 'view') {
                     echo ' / '
                     . '<a href="index.php?page=Tache&method=edit&id='
-                    . $projet->getId_projet()
+                    . $t->id_tache
                     . '">Editer</a>'
                     . ' / '
                     . '<a href="index.php?page=Projet&method=delete&id='
-                    . $projet->getId_projet()
+                    . $t->id_tache
                     . '">Supprimer</a>';
                 }
                 echo '</p>';
