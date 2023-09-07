@@ -4,7 +4,6 @@
 
     if ($isConnected) {
         echo '<h3>Affichage du projet</h3>';
-        // modifier selon le mode
         if ($mode === 'edit') {
             echo '<form action="/index.php?page=Projet&method=update" method="POST">';
         }

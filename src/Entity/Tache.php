@@ -29,7 +29,6 @@ class Tache extends Model {
     public function setId_tache($id_tache)
     {
         $this->id_tache = $id_tache;
-
         return $this;
     }
 
@@ -49,7 +48,6 @@ class Tache extends Model {
     public function setNom($nom)
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -69,7 +67,6 @@ class Tache extends Model {
     public function setDescription($description)
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -89,7 +86,6 @@ class Tache extends Model {
     public function setId_utilisateur($id_utilisateur)
     {
         $this->id_utilisateur = $id_utilisateur;
-
         return $this;
     }
 
@@ -109,7 +105,6 @@ class Tache extends Model {
     public function setId_statut($id_statut)
     {
         $this->id_statut = $id_statut;
-
         return $this;
     }
 
@@ -129,7 +124,6 @@ class Tache extends Model {
     public function setId_priorite($id_priorite)
     {
         $this->id_priorite = $id_priorite;
-
         return $this;
     }
 
@@ -149,7 +143,6 @@ class Tache extends Model {
     public function setId_projet($id_projet)
     {
         $this->id_projet = $id_projet;
-
         return $this;
     }
 }

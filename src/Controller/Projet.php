@@ -43,9 +43,11 @@ class Projet extends AbstractController {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
                 $this->projet = ProjetObj::getById($id_projet);
+                $_SESSION['id_projet'] = $id_projet;
             }            
         }
         $this->mode = 'edit';
+        $_SESSION['mode_projet'] = $this->mode;
         $this->titlePage = 'Page d\'édition d\'un projet';
         $this->index();
     }
@@ -55,9 +57,11 @@ class Projet extends AbstractController {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
                 $this->projet = ProjetObj::getById($id_projet);
+                $_SESSION['id_projet'] = $id_projet;
             }            
         }
         $this->mode = 'view';
+        $_SESSION['mode_projet'] = $this->mode;
         $this->titlePage = 'Page de consultation d\'un projet';
         $this->index();
     }
@@ -65,6 +69,7 @@ class Projet extends AbstractController {
     public function create() {
         //$this->projet = null;
         $this->mode = 'create';
+        $_SESSION['mode_projet'] = $this->mode;
         $this->titlePage = 'Page de création d\'un projet';
         $this->index();
     }
