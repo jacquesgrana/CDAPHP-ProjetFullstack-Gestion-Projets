@@ -14,23 +14,73 @@
             echo '<form action="/index.php?page=Tache" method="POST">';
         }
         echo '<div>';
+        // id_tache
         echo '<label for="id_tache">Id tâche : </label>';
         echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_tache" id="id_tache" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_tache() : '') . '">';
         echo '</div>';
+        // nom
         echo '<div>';
-        echo '<label for="nom">Description : </label>';
-        echo '<input type="text" placeholder="Saisir une description" name="nom" id="nom" value="' . (($mode !== 'create') ? $tache->getNom() : '') 
+        echo '<label for="nom">Nom : </label>';
+        echo '<input type="text" placeholder="Saisir un nom" name="nom" id="nom" value="' . (($mode !== 'create') ? $tache->getNom() : '') 
         . '" '. (($mode === 'view') ? "disabled='disabled'" : "") . '>';
         echo '</div>';
+        // description
         echo '<div>';
         echo '<label for="description">Description : </label>';
         echo '<input type="text" placeholder="Saisir une description" name="description" id="description" value="' . (($mode !== 'create') ? $tache->getDescription() : '') 
         . '" '. (($mode === 'view') ? "disabled='disabled'" : "") . '>';
         echo '</div>';
-        echo '<div>';
+
+        // utilisateur
+        if($utilisateurs !== null) {
+            echo '<div>';
+            echo '<label for="utilisateur">Utilisateur : </label>';
+            echo '<select name="utilisateur">';
+            foreach($utilisateurs as $u) {
+                echo '<option value="' . $u->getId_utilisateur() 
+                . '" ' . (($mode !=='create' && $u->getId_utilisateur() === $tache->getId_utilisateur() ? 'selected' : '')) . '>';
+                echo $u->getPrenom() 
+                . ' ' . $u->getNom();
+                // . ' ' . $u->getEmail();
+                echo '</option>';
+            }
+            echo '</select>';
+            echo '</div>';
+        }
+
+        // statut
+        if($statuts !== null) {
+            echo '<div>';
+            echo '<label for="statut">Statut : </label>';
+            echo '<select name="statut">';
+            foreach($statuts as $s) {
+                echo '<option value="' . $s->getId_statut() 
+                . '" ' . (($mode !=='create' && $s->getId_statut() === $tache->getId_statut() ? 'selected' : '')) . '>';
+                echo $s->getStatut();
+                echo '</option>';
+            }
+            echo '</select>';
+            echo '</div>';
+        }
+        // priorite
+        if($priorites !== null) {
+            echo '<div>';
+            echo '<label for="priorite">Priorité : </label>';
+            echo '<select name="priorite">';
+            foreach($priorites as $p) {
+                echo '<option value="' . $p->getId_priorite() 
+                . '" ' . (($mode !=='create' && $p->getId_priorite() === $tache->getId_priorite() ? 'selected' : '')) . '>';
+                echo $p->getPriorite();
+                echo '</option>';
+            }
+            echo '</select>';
+            echo '</div>';
+        }
+
+        // id_projet
         echo '<div>';
         echo '<label for="id_projet">Id projet : </label>';
-        echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_projet" id="id_projet" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_projet() : '') . '">';
+        echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_projet" id="id_projet" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_projet() : $_SESSION['id_projet']) . '">';
         echo '</div>';
 
         //boutons

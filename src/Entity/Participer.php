@@ -2,13 +2,11 @@
 namespace Jacques\ProjetPhpGestionProjets\Entity;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
 
-class Priorite extends Model {
-    public static $tableName = 'priorite';
+class Participer extends Model {
+    public static $tableName = 'participer';
 
     private int $id_priorite;
     private string $priorite;
-
-    
 
     /**
      * Get the value of id_priorite
@@ -50,4 +48,3 @@ class Priorite extends Model {
         return $this;
     }
 }
-?>

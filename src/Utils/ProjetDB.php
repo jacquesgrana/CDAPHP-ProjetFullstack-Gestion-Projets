@@ -26,7 +26,7 @@ class ProjetDB {
         $sql = "SELECT pr.id_projet, pr.titre, pr.description, pr.id_utilisateur 
         FROM projet pr, participer pa, utilisateur u  
         WHERE pr.id_projet = pa.id_projet 
-        AND pa.id_utlilisateur = u.id_utilisateur 
+        AND pa.id_utilisateur = u.id_utilisateur 
         AND u.id_utilisateur=$id_utilisateur
         ";
         // TODO factoriser
