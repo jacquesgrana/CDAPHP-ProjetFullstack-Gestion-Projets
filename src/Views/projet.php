@@ -5,7 +5,9 @@
     if ($isConnected) {
         echo '<h3>Affichage du projet</h3>';
         if ($mode === 'edit') {
-            echo '<form action="/index.php?page=Projet&method=update" method="POST">';
+            echo '<form action="/index.php?page=Projet&method=update&id='
+            . $projet->getId_projet()
+            . '" method="POST">';
         }
         if ($mode === 'create') {
             echo '<form action="/index.php?page=Projet&method=insert" method="POST">';

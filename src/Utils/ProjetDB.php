@@ -56,6 +56,25 @@ class ProjetDB {
         return $stmt->execute();
     }
 
+    public static function update($id_projet, $titre, $description, $id_utilisateur) {
+        $sql = "UPDATE " . self::$tableName .
+        " SET titre = '$titre', description = '$description', id_utilisateur = $id_utilisateur" .
+        " WHERE id_projet=" . $id_projet;
+        //echo 'sql : ' . $sql . '<br />';
+        $db = DataBase::getInstance();
+        $stmt = $db->prepare($sql);
+        return $stmt->execute();
+    }
+
+    public static function delete($id_projet) {
+        $sql = "DELETE FROM " . self::$tableName . " WHERE id_projet=" . $id_projet;
+        //echo 'sql : ' . $sql . '<br />';
+
+        $db = DataBase::getInstance();
+        $stmt = $db->prepare($sql);
+        return $stmt->execute();
+    }
+
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
     private static function makeObjectFromGeneric($generic): Projet {
         $pObj = new Projet();

@@ -18,7 +18,7 @@
                     . $projet->getId_projet()
                     . '">&#9998; Editer</a>'
                     . ' / '
-                    . '<a href="index.php?page=Home&method=delete&id='
+                    . '<a href="index.php?page=Home&method=deleteProjet&id='
                     . $projet->getId_projet()
                     . '">X Supprimer</a>'
                     . '<br />';

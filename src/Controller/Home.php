@@ -37,6 +37,7 @@ class Home extends AbstractController{
         ]);
     }
 
+    // TODO mettre ailleurs -> Securite?
     public function disconnect() {
         //echo 'deco';
         Securite::disconnect();
@@ -44,21 +45,17 @@ class Home extends AbstractController{
         //self::index();
     }
 
-/**
- * Fonction qui redirige vers $url avec des paramtres dans la query string.
- * Utilise du js pour moins utiliser la fonction 'header' de php.
- * @param string $url : destination de la redirection.
- * @param array $queryParameters : tableau associatif contenant les paramètres 
- * de la query string.
- */
-/*
-public function redirect($url, $queryParameters = [])
-{
-    $queryString = http_build_query($queryParameters);
-    if (!empty($queryString)) {
-        $url .= '?' . $queryString;
+public function deleteProjet() {
+        // recuperer l'id
+        if(isset($_GET['id'])) {
+            $id_projet = intVal($_GET['id']);
+            // appeler fonction de TacheDB pour supprimer la tache
+            $isOk = ProjetDB::delete($id_projet);
+            // selon retour afficher message
+            ($isOk) ? $this->setFlashMessage('Suppression effectuée' , 'success') : $this->setFlashMessage('Suppression non effectuée' , 'error');
+            // appeler index() pour afficher la page -> marche pas, pas le temps de chercher pourquoi...
+            
+            Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
+        }
     }
-    echo '<script type="text/javascript"> window.location="' . $url . '";</script>';
-}
-*/
 }

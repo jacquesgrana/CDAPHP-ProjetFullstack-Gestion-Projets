@@ -99,7 +99,14 @@ class Projet extends AbstractController {
 
     public function update() {
         // tester et recuperer les variables $_POST
-        // appeler fonction de ProjetDB
+        if(isset($_POST['titre']) && isset($_POST['description']) && isset($_GET['id'])) {
+            $id_projet = intval($_GET['id']);
+            $titre = $_POST['titre'];
+            $description = $_POST['description'];
+            $id_utilisateur = intval($_SESSION['user_id']);
+            // appeler fonction de ProjetDB
+            $isOk = ProjetDB::update($id_projet, $titre, $description, $id_utilisateur);
+        }
         // rediriger sur la page home
         Librairie::redirect('index.php', ['method' => 'index']);
 
