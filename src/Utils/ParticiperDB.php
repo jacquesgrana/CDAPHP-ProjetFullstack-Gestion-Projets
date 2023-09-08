@@ -16,5 +16,15 @@ class ParticiperDB {
         $stmt = $db->prepare($sql);
         return $stmt->execute();
     }
+
+    public static function updateIdUtilByIdTache($id_tache, $id_utilisateur) {
+        $sql = "UPDATE " . self::$tableName .
+            " SET id_utilisateur = $id_utilisateur" .
+            " WHERE id_tache=" . $id_tache;
+        //echo 'sql : ' . $sql . '<br />';
+        $db = DataBase::getInstance();
+        $stmt = $db->prepare($sql);
+        return $stmt->execute();
+    }
 }
 ?>

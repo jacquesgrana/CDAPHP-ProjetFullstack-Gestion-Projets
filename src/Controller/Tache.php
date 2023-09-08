@@ -110,6 +110,8 @@ class Tache extends AbstractController {
 
             // TODO : faire requete sur participer pour mettre a jour l'id_utilisateur , recuperer par l'id_tache **************************************************************
 
+            $isOkPart = ParticiperDB::updateIdUtilByIdTache($id_tache, $id_utilisateur);
+
             ($isOk) ? $this->setFlashMessage('Modification effectuée' , 'success') : $this->setFlashMessage('Modification non effectuée' , 'error');
 
             Librairie::returnToProjet();
