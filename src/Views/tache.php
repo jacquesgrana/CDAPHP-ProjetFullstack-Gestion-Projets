@@ -5,11 +5,13 @@
     if ($isConnected) {
         //var_dump($tache);
         echo '<h3>Affichage de la tâche</h3>';
+        // mettre l'id de la tache dans la requete &id=... pour l'update
         if ($mode === 'edit') {
-            echo '<form action="/index.php?page=Tache&method=update" method="POST">';
+            echo '<form action="/index.php?page=Tache&method=update&id=' 
+            .  $tache->getId_tache() . '" method="POST">';
         }
         if ($mode === 'create') {
-            echo '<form action="/index.php?page=Tache&method=create" method="POST">';
+            echo '<form action="/index.php?page=Tache&method=insert" method="POST">';
         } else {
             echo '<form action="/index.php?page=Tache" method="POST">';
         }
@@ -17,7 +19,7 @@
 
         // id_tache
         echo '<label for="id_tache">Id tâche : </label>';
-        echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_tache" id="id_tache" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_tache() : '') . '">';
+        echo '<input type="number" placeholder="Id géré automatiquement" name="id_tache" id="id_tache" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_tache() : '') . '">';
         echo '</div>';
 
         // nom
@@ -55,7 +57,7 @@
         if($statuts !== null) {
             echo '<div>';
             echo '<label for="statut">Statut : </label>';
-            echo '<select name="statut"' . (($mode === 'view') ? 'disabled' : '') . '>';
+            echo '<select name="statut" ' . (($mode === 'view') ? 'disabled' : '') . '>';
             foreach($statuts as $s) {
                 echo '<option value="' . $s->getId_statut() 
                 . '" ' . (($mode !=='create' && $s->getId_statut() === $tache->getId_statut() ? 'selected' : '')) . '>';
@@ -80,14 +82,18 @@
             echo '</div>';
         }
 
-        // id_projet
+        // projet
         echo '<div>';
-        echo '<label for="id_projet">Id projet : </label>';
-        echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_projet" id="id_projet" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_projet() : $_SESSION['id_projet']) . '">';
+        echo '<label for="projet">Id projet : </label>';
+        echo '<input type="number" placeholder="Id géré automatiquement" name="projet" id="projet" disabled="disabled" value="' 
+        . intval($_SESSION['id_projet'])
+        . '">';
         echo '</div>';
 
         //boutons
         if ($mode !== 'view') echo '<button type="submit">&#10004; Valider</button>';
+        
+        // faire fonction ?
         $formaction = '/index.php?page=Projet&method=create';
         if(isset($_SESSION['id_projet']) && isset($_SESSION['mode_projet'])) {
             if($_SESSION['mode_projet'] = 'edit') {

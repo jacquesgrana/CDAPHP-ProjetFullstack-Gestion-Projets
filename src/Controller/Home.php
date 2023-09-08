@@ -5,6 +5,7 @@ use Jacques\ProjetPhpGestionProjets\Kernel\View;
 use Jacques\ProjetPhpGestionProjets\Kernel\AbstractController;
 use Jacques\ProjetPhpGestionProjets\Utils\ProjetDB;
 use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
+use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
 
 
 class Home extends AbstractController{
@@ -36,17 +37,18 @@ class Home extends AbstractController{
     public function disconnect() {
         //echo 'deco';
         Securite::disconnect();
-        self::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
+        Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
         //self::index();
     }
 
-    /**
+/**
  * Fonction qui redirige vers $url avec des paramtres dans la query string.
  * Utilise du js pour moins utiliser la fonction 'header' de php.
  * @param string $url : destination de la redirection.
  * @param array $queryParameters : tableau associatif contenant les paramètres 
  * de la query string.
  */
+/*
 public function redirect($url, $queryParameters = [])
 {
     $queryString = http_build_query($queryParameters);
@@ -55,5 +57,5 @@ public function redirect($url, $queryParameters = [])
     }
     echo '<script type="text/javascript"> window.location="' . $url . '";</script>';
 }
-
+*/
 }

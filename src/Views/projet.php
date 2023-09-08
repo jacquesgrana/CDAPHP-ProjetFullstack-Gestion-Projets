@@ -20,7 +20,6 @@
         echo '<label for="titre">Titre : </label>';
         echo '<input type="text" placeholder="Saisir un titre" name="titre" id="titre" value="' . (($mode !== 'create') ? $projet->getTitre() : '') 
         . '" '. (($mode === 'view') ? "disabled='disabled'" : "") . '>';
-        //echo '<input type="hidden" name="connexion" value="connect">';
         echo '</div>';
         echo '<div>';
         echo '<label for="description">Description : </label>';
@@ -80,25 +79,24 @@
                     . ' / '
                     . '<a href="index.php?page=Tache&method=view&id='
                     . $t->id_tache
-                    . '">Voir</a>';
-   
+                    . '">&#128196; Voir</a>';
 
                 if ($mode !== 'view') {
                     echo ' / '
                     . '<a href="index.php?page=Tache&method=edit&id='
                     . $t->id_tache
-                    . '">Editer</a>'
+                    . '">&#9998; Editer</a>'
                     . ' / '
                     . '<a href="index.php?page=Projet&method=delete&id='
                     . $t->id_tache
-                    . '">Supprimer</a>';
+                    . '">X Supprimer</a>';
                 }
                 echo '</p>';
             }
         }
         if ($mode !== 'view') {
             echo '<br />';
-            echo '<a href="index.php?page=Tache&method=create">Créer une tâche</a>';
+            echo '<a href="index.php?page=Tache&method=create">Ajouter une nouvelle tâche</a>';
         }
     } else {
         echo '<h3>Veuillez vous connecter</h3>';

@@ -12,15 +12,15 @@
                     . ' / '
                     . '<a href="index.php?page=Projet&method=view&id='
                     . $projet->getId_projet()
-                    . '">Voir</a>'
+                    . '">&#128196; Voir</a>'
                     . ' / '
                     . '<a href="index.php?page=Projet&method=edit&id='
                     . $projet->getId_projet()
-                    . '">Editer</a>'
+                    . '">&#9998; Editer</a>'
                     . ' / '
                     . '<a href="index.php?page=Home&method=delete&id='
                     . $projet->getId_projet()
-                    . '">Supprimer</a>'
+                    . '">X Supprimer</a>'
                     . '<br />';
             }
         }
@@ -34,7 +34,7 @@
                     . ' / '
                     . '<a href="index.php?page=Projet&method=view&id='
                     . $projet->getId_projet()
-                    . '">Voir</a>'
+                    . '">&#128196; Voir</a>'
                     . '<br />';
             }
         }

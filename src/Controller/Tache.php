@@ -4,11 +4,12 @@ namespace Jacques\ProjetPhpGestionProjets\Controller;
 use Jacques\ProjetPhpGestionProjets\Kernel\View;
 use Jacques\ProjetPhpGestionProjets\Kernel\AbstractController;
 use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
-//use Jacques\ProjetPhpGestionProjets\Utils\TacheDB;
+use Jacques\ProjetPhpGestionProjets\Utils\TacheDB;
 use Jacques\ProjetPhpGestionProjets\Entity\Tache as TacheObj;
 use Jacques\ProjetPhpGestionProjets\Entity\Statut;
 use Jacques\ProjetPhpGestionProjets\Entity\Priorite;
 use Jacques\ProjetPhpGestionProjets\Entity\Utilisateur;
+use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
 
 class Tache extends AbstractController {
     private string $titlePage = 'Page d\'une tâche';
@@ -79,5 +80,40 @@ class Tache extends AbstractController {
         $this->titlePage = 'Page de création d\'une tâche';
         $this->index();
     }
+
+    public function insert() {
+        //echo 'methode insert';
+            
+        // tester et recuperer les variables post et get
+        if (isset($_POST['nom']) && isset($_POST['description']) 
+        && isset($_POST['utilisateur']) && isset($_POST['statut']) 
+        && isset($_POST['priorite'])) {
+            $nom = $_POST['nom'];
+            $description = $_POST['description'];
+            $utilisateur = intval($_POST['utilisateur']);
+            $statut = intval($_POST['statut']);
+            $priorite = intval($_POST['priorite']);
+            $projet = intval($_SESSION['id_projet']);
+            
+        // appeler fonction de TacheDB en lui passant les datas en parametre
+            $isOk = TacheDB::insert($nom, $description, $utilisateur, $statut, $priorite, $projet);
+
+            echo (($isOk) ? 'Requete ok' : 'Requete ko');
+        // selon retour creer des messages d'alertes
+        
+        // ********************************* IMPORTANT *************
+        // faire ajout dans table participer avec id_utilisateur et id_projet si pas deja present (faire fonction dans TacheDB)
+        
+            self::returnToProjet();
+        }
+    }
+
+    private static function returnToProjet() {
+        // revenir a la page du projet en respectant le mode et l'id du projet (faire fonction pour construire l'url)
+        $id_projet = $_SESSION['id_projet'];
+        $method = $_SESSION['mode_projet'];
+        $tabParams = ['page' => 'Projet', 'method' => $method, 'id' => $id_projet];
+        // appeler fonction de la librairie de redirection js
+        Librairie::redirect('index.php', $tabParams);
+    }
 }
-?>

@@ -2,7 +2,9 @@
 namespace Jacques\ProjetPhpGestionProjets\Utils;
 use Jacques\ProjetPhpGestionProjets\Entity\Tache;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
+use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
 
+// TODO mettre des try/catch !!!!
 class TacheDB {
     
     public static $tableName = 'tache';
@@ -29,6 +31,17 @@ class TacheDB {
         return $taches;
     }
 
+    public static function insert(string $nom, string $description, int $id_utilisateur, int $id_statut, int $id_priorite, int $id_projet) 
+    {
+        $sql = "INSERT INTO " . self::$tableName . 
+        " (nom, description, id_utilisateur, id_statut, id_priorite, id_projet) 
+        VALUES ('$nom', '$description', $id_utilisateur, $id_statut, $id_priorite, $id_projet)";
+        //echo '$sql : ' . $sql;
+        $db = DataBase::getInstance();
+        $stmt = $db->prepare($sql);
+        return $stmt->execute();
+    }
+    
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
     private static function makeObjectFromGeneric($generic): Tache {
         $tObj = new Tache();
@@ -43,4 +56,3 @@ class TacheDB {
         return $tObj;
     }
 }
-?>
