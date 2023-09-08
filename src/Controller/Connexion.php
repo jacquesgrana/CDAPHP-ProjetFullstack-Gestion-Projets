@@ -14,15 +14,11 @@ class Connexion extends AbstractController {
         if (isset($_POST["email"]) && isset($_POST["mdp"])) {
             Securite::connect();
         }
-        //self::$isConnected = Securite::isConnected();
         $view = new View();
-        //$users= Users::getAll();
-
         $view->setHead('head.html')
         ->setHeader('header.html')
         ->setMain('connexion.php')
         ->setFooter('footer.html');
-
 
         $view->render([
             'flash' => $this->getFlashMessage(),
