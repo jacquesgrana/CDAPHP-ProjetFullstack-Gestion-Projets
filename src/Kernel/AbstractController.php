@@ -14,14 +14,17 @@ class AbstractController
     public function setFlashMessage(string $message, string $type)
     {
         if ($type === 'success') {
-            $this->flashMessage = "<div class='alert alert-success text-center' role='alert'>$message</div>";
+            $this->flashMessage = "<div class='' role='alert'>$message</div>";
+            $_SESSION['flash'] = $this->flashMessage;
             return $this;
         }
         if ($type === 'error') {
-            $this->flashMessage = "<div class='alert alert-danger text-center' role='alert'>$message</div>";
+            $this->flashMessage = "<div class='' role='alert'>$message</div>";
+            $_SESSION['flash'] = $this->flashMessage;
             return $this;
         }
         $this->flashMessage = "<p>$message</p>";
+        $_SESSION['flash'] = $this->flashMessage;
         return $this;
     }
 }

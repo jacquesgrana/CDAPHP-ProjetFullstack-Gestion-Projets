@@ -14,4 +14,9 @@
         </li>
         </ul>
     </nav>
+    <?php 
+    if ($isConnected && isset($_SESSION['flash'])) {
+        echo $_SESSION['flash'];
+    }
+    ?>
 </header>

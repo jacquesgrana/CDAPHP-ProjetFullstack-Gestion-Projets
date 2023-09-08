@@ -20,7 +20,7 @@ class TacheDB {
     }
 
     public static function getAllByProjetId(int $id_projet): array {
-        $sql = "SELECT t.id_tache , t.nom , t.description , u.nom , u.prenom , s.statut , pri.priorite 
+        $sql = "SELECT t.id_tache , t.nom AS nom_tache , t.description , u.nom , u.prenom , s.statut , pri.priorite 
         FROM tache t, utilisateur u , statut s , priorite pri, projet pro
         WHERE pro.id_projet = " . $id_projet . "
         AND t.id_utilisateur = u.id_utilisateur 
@@ -29,6 +29,17 @@ class TacheDB {
         AND t.id_projet = pro.id_projet ";
         $taches = Model::Execute($sql);
         return $taches;
+    }
+
+    public static function update($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet)
+    {
+        $sql = "UPDATE " . self::$tableName .
+        " SET nom = '$nom', description = '$description', id_utilisateur = $id_utilisateur, id_statut = $id_statut, id_priorite = $id_priorite, id_projet = $id_projet" . 
+        " WHERE id_tache=" . $id_tache;
+        //echo 'sql : ' . $sql . '<br />';
+        $db = DataBase::getInstance();
+        $stmt = $db->prepare($sql);
+        return $stmt->execute();
     }
 
     public static function insert(string $nom, string $description, int $id_utilisateur, int $id_statut, int $id_priorite, int $id_projet) 

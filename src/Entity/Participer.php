@@ -5,45 +5,68 @@ use Jacques\ProjetPhpGestionProjets\Entity\Model;
 class Participer extends Model {
     public static $tableName = 'participer';
 
-    private int $id_priorite;
-    private string $priorite;
+    private $id_projet;
+    private $id_utilisateur;
+    private $id_tache;
+
+    
 
     /**
-     * Get the value of id_priorite
+     * Get the value of id_projet
      */ 
-    public function getId_priorite()
+    public function getId_projet()
     {
-        return $this->id_priorite;
+        return $this->id_projet;
     }
 
     /**
-     * Set the value of id_priorite
+     * Set the value of id_projet
      *
      * @return  self
      */ 
-    public function setId_priorite($id_priorite)
+    public function setId_projet($id_projet)
     {
-        $this->id_priorite = $id_priorite;
+        $this->id_projet = $id_projet;
 
         return $this;
     }
 
     /**
-     * Get the value of priorite
+     * Get the value of id_utilisateur
      */ 
-    public function getPriorite()
+    public function getId_utilisateur()
     {
-        return $this->priorite;
+        return $this->id_utilisateur;
     }
 
     /**
-     * Set the value of priorite
+     * Set the value of id_utilisateur
      *
      * @return  self
      */ 
-    public function setPriorite($priorite)
+    public function setId_utilisateur($id_utilisateur)
     {
-        $this->priorite = $priorite;
+        $this->id_utilisateur = $id_utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id_tache
+     */ 
+    public function getId_tache()
+    {
+        return $this->id_tache;
+    }
+
+    /**
+     * Set the value of id_tache
+     *
+     * @return  self
+     */ 
+    public function setId_tache($id_tache)
+    {
+        $this->id_tache = $id_tache;
 
         return $this;
     }

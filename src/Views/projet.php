@@ -67,7 +67,7 @@
                 echo '<p>'
                     . $t->id_tache
                     . ' / '
-                    . $t->nom
+                    . $t->nom_tache
                     . ' / '
                     . $t->description
                     . ' / '

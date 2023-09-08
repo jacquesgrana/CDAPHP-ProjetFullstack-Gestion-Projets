@@ -78,15 +78,18 @@ class Projet extends AbstractController {
     public function delete() {
         // recuperer l'id
         if(isset($_GET['id'])) {
-        $id_tache = intVal($_GET['id']);
-        // appeler fonction de TacheDB pour supprimer la tache
-        $isOk = TacheDB::delete($id_tache);
-        // selon retour afficher message
-        echo (($isOk) ? 'Requete ok' : 'Requete ko');
-        // appeler index() pour afficher la page
-        Librairie::returnToProjet();
+            $id_tache = intVal($_GET['id']);
+            // appeler fonction de TacheDB pour supprimer la tache
+            $isOk = TacheDB::delete($id_tache);
+            // selon retour afficher message
+            ($isOk) ? $this->setFlashMessage('Suppression effectuée' , 'success') : $this->setFlashMessage('Suppression non effectuée' , 'error');
+            //echo (($isOk) ? 'Requete ok' : 'Requete ko');
+            // appeler index() pour afficher la page -> marche pas, pas le temps de chercher pourquoi...
+            
+            //Librairie::returnToProjet();
         }
+        Librairie::returnToProjet();
+        //$this->index();
 
     }
 }
-?>
