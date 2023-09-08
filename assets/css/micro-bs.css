@@ -1,0 +1,158 @@
+.color01-01 {
+    color: hsl(133, 94%, 14%);
+}
+
+.color01-02 {
+    color: hsl(133, 95%, 24%);
+}
+
+.color01-03 {
+    color: hsl(133, 71%, 40%);
+}
+
+.color01-04 {
+    color: hsl(133, 68%, 59%);
+}
+
+.color02-01 {
+    color: hsl(34, 94%, 14%);
+}
+
+.color02-02 {
+    color: hsl(34, 95%, 24%);
+}
+
+.color02-03 {
+    color: hsl(34, 71%, 40%);
+}
+
+.color02-04 {
+    color: hsl(34, 68%, 59%);
+}
+
+.color01-Black {
+    color: hsl(134, 81%, 4%);
+}
+
+.color02-Black {
+    color: hsl(34, 81%, 4%);
+}
+
+.color01-White {
+    color: hsl(135, 75%, 89%);
+}
+
+.color02-White {
+    color: hsl(34, 75%, 89%);
+}
+
+
+
+.bg-color01-01 {
+    background-color: hsl(133, 94%, 14%);
+}
+
+.bg-color01-02 {
+    background-color: hsl(133, 95%, 24%);
+}
+
+.bg-color01-03 {
+    background-color: hsl(133, 71%, 40%);
+}
+
+.bg-color01-04 {
+    background-color: hsl(133, 68%, 59%);
+}
+
+.bg-color02-01 {
+    background-color: hsl(34, 94%, 14%);
+}
+
+.bg-color02-02 {
+    background-color: hsl(34, 95%, 24%);
+}
+
+.bg-color02-03 {
+    background-color: hsl(34, 71%, 40%);
+}
+
+.bg-color02-04 {
+    background-color: hsl(34, 68%, 59%);
+}
+
+.bg-color01-Black {
+    background-color: hsl(134, 81%, 4%);
+}
+
+.bg-color02-Black {
+    background-color: hsl(34, 81%, 4%);
+}
+
+.color01-White {
+    background-color: hsl(135, 75%, 89%);
+}
+
+.color02-White {
+    background-color: hsl(34, 75%, 89%);
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-start {
+    justify-content: start;
+}
+
+.justify-content-end {
+    justify-content: end;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-start {
+    align-items: start;
+}
+
+.align-items-end {
+    align-items: end;
+}
+
+.align-items-between {
+    align-items: space-between;
+}
+
+
+
+.gap-10 {
+    gap: 10PX;
+}
+
+.gap-20 {
+    gap: 20px;
+}
+
+
+
+.text-center {
+    margin-left: auto;
+    margin-right: auto;
+}

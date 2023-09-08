@@ -1,0 +1,71 @@
+@font-face {
+    font-family: mplus-light;
+    src: url(../font/M_PLUS_1p/MPLUS1p-Light.ttf);
+    font-weight:lighter;
+}
+
+@font-face {
+    font-family: mplus-regular;
+    src: url(../font/M_PLUS_1p/MPLUS1p-Regular.ttf);
+    font-weight:normal;
+}
+
+@font-face {
+    font-family: mplus-Medium;
+    src: url(../font/M_PLUS_1p/MPLUS1p-Medium.ttf);
+    font-weight:normal;
+}
+
+@font-face {
+    font-family: mplus-Bold;
+    src: url(../font/M_PLUS_1p/MPLUS1p-Bold.ttf);
+    font-weight:bold;
+}
+
+@font-face {
+    font-family: mplus-Black;
+    src: url(../font/M_PLUS_1p/MPLUS1p-Black.ttf);
+    font-weight:bolder;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: mplus-regular;
+}
+
+header {
+    padding: 20px;
+}
+
+#nav {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.li-nav {
+    margin-left: 15px;
+    margin-right: 15px;
+    list-style: none;
+}
+
+.btn-01 {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color : rgb(255, 255, 255);
+}
+
+.btn-01:hover {
+    color: hsl(34, 95%, 24%);
+    background-color: hsl(133, 71%, 40%);
+}
+
+header h1 {
+    font-family: mplus-Bold;
+    margin-top: 20px;
+    margin-top: 10px;
+}

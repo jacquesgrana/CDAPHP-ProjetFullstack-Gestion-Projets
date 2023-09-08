@@ -53,7 +53,6 @@ public function deleteProjet() {
             $isOk = ProjetDB::delete($id_projet);
             // selon retour afficher message
             ($isOk) ? $this->setFlashMessage('Suppression effectuée' , 'success') : $this->setFlashMessage('Suppression non effectuée' , 'error');
-            // appeler index() pour afficher la page -> marche pas, pas le temps de chercher pourquoi...
             
             Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
         }
