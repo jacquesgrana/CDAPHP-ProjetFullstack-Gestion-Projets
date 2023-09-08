@@ -6,6 +6,7 @@ use Jacques\ProjetPhpGestionProjets\Kernel\AbstractController;
 use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
 use Jacques\ProjetPhpGestionProjets\Utils\TacheDB;
 use Jacques\ProjetPhpGestionProjets\Entity\Projet as ProjetObj;
+use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
 
 class Projet extends AbstractController {
     private string $mode;
@@ -16,7 +17,7 @@ class Projet extends AbstractController {
 
     public function index()
     {
-        
+        // attention : verifier si vraiement necessaire
         if($this->mode !== 'create') {
             //$this->taches = TacheDB::getByProjetId($this->projet->getId_projet());
             $this->tachesAll = TacheDB::getAllByProjetId($this->projet->getId_projet());
@@ -72,6 +73,20 @@ class Projet extends AbstractController {
         $_SESSION['mode_projet'] = $this->mode;
         $this->titlePage = 'Page de création d\'un projet';
         $this->index();
+    }
+
+    public function delete() {
+        // recuperer l'id
+        if(isset($_GET['id'])) {
+        $id_tache = intVal($_GET['id']);
+        // appeler fonction de TacheDB pour supprimer la tache
+        $isOk = TacheDB::delete($id_tache);
+        // selon retour afficher message
+        echo (($isOk) ? 'Requete ok' : 'Requete ko');
+        // appeler index() pour afficher la page
+        Librairie::returnToProjet();
+        }
+
     }
 }
 ?>

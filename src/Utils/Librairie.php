@@ -17,5 +17,13 @@ public static function redirect($url, $queryParameters = [])
     }
     echo '<script type="text/javascript"> window.location="' . $url . '";</script>';
 }
+
+public static function returnToProjet() {
+    // revenir a la page du projet en respectant le mode et l'id du projet (faire fonction pour construire l'url)
+    $id_projet = $_SESSION['id_projet'];
+    $method = $_SESSION['mode_projet'];
+    $tabParams = ['page' => 'Projet', 'method' => $method, 'id' => $id_projet];
+    // appeler fonction de la librairie de redirection js
+    self::redirect('index.php', $tabParams);
 }
-?>
+}

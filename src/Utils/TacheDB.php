@@ -41,6 +41,15 @@ class TacheDB {
         $stmt = $db->prepare($sql);
         return $stmt->execute();
     }
+
+    public static function delete(int $id_tache) {
+        $sql = "DELETE FROM ". self::$tableName . " WHERE id_tache=" .$id_tache;
+        //echo 'sql : ' . $sql . '<br />';
+        
+        $db = DataBase::getInstance();
+        $stmt = $db->prepare($sql);
+        return $stmt->execute();
+    }
     
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
     private static function makeObjectFromGeneric($generic): Tache {

@@ -103,11 +103,11 @@ class Tache extends AbstractController {
         
         // ********************************* IMPORTANT *************
         // faire ajout dans table participer avec id_utilisateur et id_projet si pas deja present (faire fonction dans TacheDB)
-        
-            self::returnToProjet();
+
+            Librairie::returnToProjet();
         }
     }
-
+    /*
     private static function returnToProjet() {
         // revenir a la page du projet en respectant le mode et l'id du projet (faire fonction pour construire l'url)
         $id_projet = $_SESSION['id_projet'];
@@ -115,5 +115,5 @@ class Tache extends AbstractController {
         $tabParams = ['page' => 'Projet', 'method' => $method, 'id' => $id_projet];
         // appeler fonction de la librairie de redirection js
         Librairie::redirect('index.php', $tabParams);
-    }
+    }*/
 }
