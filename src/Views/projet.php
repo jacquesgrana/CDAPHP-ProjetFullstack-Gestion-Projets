@@ -8,7 +8,7 @@
             echo '<form action="/index.php?page=Projet&method=update" method="POST">';
         }
         if ($mode === 'create') {
-            echo '<form action="/index.php?page=Projet&method=create" method="POST">';
+            echo '<form action="/index.php?page=Projet&method=insert" method="POST">';
         } else {
             echo '<form action="/index.php?page=Projet" method="POST">';
         }
@@ -94,7 +94,7 @@
                 echo '</p>';
             }
         }
-        if ($mode !== 'view') {
+        if ($mode == 'edit') {
             echo '<br />';
             echo '<a href="index.php?page=Tache&method=create">Ajouter une nouvelle tâche</a>';
         }

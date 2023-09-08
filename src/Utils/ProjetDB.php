@@ -2,6 +2,7 @@
 namespace Jacques\ProjetPhpGestionProjets\Utils;
 use Jacques\ProjetPhpGestionProjets\Entity\Projet;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
+use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
 
 class ProjetDB {
     public static $tableName = 'projet';
@@ -43,8 +44,16 @@ class ProjetDB {
     {
         $sql = "SELECT * FROM " . static::$tableName . " where id_projet=$id";
         $result =  Model::Execute($sql);
-        //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
         return $result[0];
+    }
+
+    public static function insert(string $titre, string $description, int $id_utilisateur) {
+        $sql = "INSERT INTO " . self::$tableName .
+            " (titre, description, id_utilisateur)" . 
+            " VALUES ('$titre', '$description', $id_utilisateur)";
+        $db = DataBase::getInstance();
+        $stmt = $db->prepare($sql);
+        return $stmt->execute();
     }
 
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique

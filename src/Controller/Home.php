@@ -10,6 +10,9 @@ use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
 
 class Home extends AbstractController{
 
+    /**
+     * TODO Ajouter affichage des taches de l'user
+     */
     public function index()
     {
         // TODO recuperer le nom et le prenom du directeur

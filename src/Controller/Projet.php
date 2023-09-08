@@ -7,6 +7,8 @@ use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
 use Jacques\ProjetPhpGestionProjets\Utils\TacheDB;
 use Jacques\ProjetPhpGestionProjets\Entity\Projet as ProjetObj;
 use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
+use Jacques\ProjetPhpGestionProjets\Entity\Utilisateur;
+use Jacques\ProjetPhpGestionProjets\Utils\ProjetDB;
 
 class Projet extends AbstractController {
     private string $mode;
@@ -14,9 +16,12 @@ class Projet extends AbstractController {
     //private array $taches;
     private array $tachesAll;
     private string $titlePage = 'Page d\'un projet';
+    private ?array $utilisateurs;
+
 
     public function index()
     {
+        $this->utilisateurs = Utilisateur::getAll();
         // attention : verifier si vraiement necessaire
         if($this->mode !== 'create') {
             //$this->taches = TacheDB::getByProjetId($this->projet->getId_projet());
@@ -35,6 +40,7 @@ class Projet extends AbstractController {
             //'taches' => $this->taches,
             'tachesAll' => $this->tachesAll ?? [],
             'mode' => $this->mode,
+            'utilisateurs' => $this->utilisateurs,
             'isConnected' => Securite::isConnected()
         ]);
     }
@@ -75,7 +81,6 @@ class Projet extends AbstractController {
         $this->index();
     }
 
-    // TODO : faire requete sur participer pour supprimer un tuple selon l'id_tache **************************************************************
     public function deleteTache() {
         // recuperer l'id
         if(isset($_GET['id'])) {
@@ -90,6 +95,30 @@ class Projet extends AbstractController {
         }
         Librairie::returnToProjet();
         //$this->index();
+    }
 
+    public function update() {
+        // tester et recuperer les variables $_POST
+        // appeler fonction de ProjetDB
+        // rediriger sur la page home
+        Librairie::redirect('index.php', ['method' => 'index']);
+
+    }
+
+    public function insert() {
+        // tester et recuperer les variables $_POST
+        if(isset($_POST['titre']) && isset($_POST['description'])) {
+            $titre = $_POST['titre'];
+            $description = $_POST['description'];
+            $id_utilisateur = intval($_SESSION['user_id']);
+            //echo 'titre : ' . $titre . '<br />';
+            //echo 'description : ' . $description . '<br />';
+            //echo 'id_utilisateur : ' . $id_utilisateur . '<br />';
+            // appeler fonction de ProjetDB
+            $isOk = ProjetDB::insert($titre, $description, $id_utilisateur);
+
+        }
+        // rediriger sur la page home *************************************
+        Librairie::redirect('index.php', ['method' => 'index']);
     }
 }
