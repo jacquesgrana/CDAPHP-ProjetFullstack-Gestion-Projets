@@ -1,6 +1,7 @@
 <?php
 namespace Jacques\ProjetPhpGestionProjets\Controller;
 
+use Jacques\ProjetPhpGestionProjets\Entity\Participer;
 use Jacques\ProjetPhpGestionProjets\Kernel\View;
 use Jacques\ProjetPhpGestionProjets\Kernel\AbstractController;
 use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
@@ -10,6 +11,7 @@ use Jacques\ProjetPhpGestionProjets\Entity\Statut;
 use Jacques\ProjetPhpGestionProjets\Entity\Priorite;
 use Jacques\ProjetPhpGestionProjets\Entity\Utilisateur;
 use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
+use Jacques\ProjetPhpGestionProjets\Utils\ParticiperDB;
 
 class Tache extends AbstractController {
     private string $titlePage = 'Page d\'une tâche';
@@ -106,6 +108,8 @@ class Tache extends AbstractController {
 
             $isOk = TacheDB::update($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet);
 
+            // TODO : faire requete sur participer pour mettre a jour l'id_utilisateur , recuperer par l'id_tache **************************************************************
+
             ($isOk) ? $this->setFlashMessage('Modification effectuée' , 'success') : $this->setFlashMessage('Modification non effectuée' , 'error');
 
             Librairie::returnToProjet();
@@ -127,9 +131,19 @@ class Tache extends AbstractController {
             $projet = intval($_SESSION['id_projet']);
             
         // appeler fonction de TacheDB en lui passant les datas en parametre
-            $isOk = TacheDB::insert($nom, $description, $utilisateur, $statut, $priorite, $projet);
+            $idTache = TacheDB::insert($nom, $description, $utilisateur, $statut, $priorite, $projet);
+            echo 'id_tache : ' . $idTache . '<br />';
 
-            ($isOk) ? $this->setFlashMessage('Ajout effectué' , 'success') : $this->setFlashMessage('Ajout non effectué' , 'error');
+            // TODO : faire requete sur participer pour inserer un tuple avec l'id_utilisateur, l'id_projet et l'id_tache **************************************************************
+
+            
+
+            if ($idTache !== false) { 
+                $this->setFlashMessage('Ajout effectué' , 'success'); 
+                $isOkPart = ParticiperDB::insert($projet, $utilisateur, $idTache);
+            } 
+            else { $this->setFlashMessage('Ajout non effectué' , 'error');
+            }
             //echo (($isOk) ? 'Requete ok' : 'Requete ko');
         // selon retour creer des messages d'alertes
         

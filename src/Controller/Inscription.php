@@ -42,13 +42,6 @@ class Inscription extends AbstractController {
                 $email = $_POST['email'];
                 // hasher le mdp
                 $hash = password_hash($mdp, PASSWORD_DEFAULT);
-                /*
-                echo 'nom : ' . $nom . '<br />';
-                echo 'prenom : ' . $prenom . '<br />';
-                echo 'hash : ' . $hash . '<br />';
-                echo 'email : ' . $email . '<br />';
-                */
-
                 // tester si l'email est deja dans la bdd (faire requete avec UtilisateurDB)
                 if(!UtilisateurDB::isEmailIsInDB($email)) {
                     // ajouter en bdd avec fonction de UtilisateurDB

@@ -87,7 +87,7 @@
                     . $t->id_tache
                     . '">&#9998; Editer</a>'
                     . ' / '
-                    . '<a href="index.php?page=Projet&method=delete&id='
+                    . '<a href="index.php?page=Projet&method=deleteTache&id='
                     . $t->id_tache
                     . '">X Supprimer</a>';
                 }

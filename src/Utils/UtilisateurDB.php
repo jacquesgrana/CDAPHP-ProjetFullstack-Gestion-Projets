@@ -51,7 +51,7 @@ class UtilisateurDB {
         return $stmt->execute();
     }
 
-    // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
+    // TODO mettre dans une classe abstraite avec boucle sur l'objet generique et ajouter le nom de l'objet concret en parametre
     private static function makeObjectFromGeneric($generic): Utilisateur {
         $userObj = new Utilisateur();
         $userObj->setId_utilisateur($generic->id_utilisateur);

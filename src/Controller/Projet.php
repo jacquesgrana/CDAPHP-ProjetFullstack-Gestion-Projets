@@ -75,7 +75,8 @@ class Projet extends AbstractController {
         $this->index();
     }
 
-    public function delete() {
+    // TODO : faire requete sur participer pour supprimer un tuple selon l'id_tache **************************************************************
+    public function deleteTache() {
         // recuperer l'id
         if(isset($_GET['id'])) {
             $id_tache = intVal($_GET['id']);
@@ -83,7 +84,6 @@ class Projet extends AbstractController {
             $isOk = TacheDB::delete($id_tache);
             // selon retour afficher message
             ($isOk) ? $this->setFlashMessage('Suppression effectuée' , 'success') : $this->setFlashMessage('Suppression non effectuée' , 'error');
-            //echo (($isOk) ? 'Requete ok' : 'Requete ko');
             // appeler index() pour afficher la page -> marche pas, pas le temps de chercher pourquoi...
             
             //Librairie::returnToProjet();
