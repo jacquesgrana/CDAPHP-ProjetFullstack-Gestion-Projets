@@ -24,7 +24,7 @@ class Home extends AbstractController{
         }
         $view = new View();
         $view->setHead('head.html')
-        ->setHeader('header.html')
+        ->setHeader('header.php')
         ->setMain('home.php')
         ->setFooter('footer.html');
         $view->render([

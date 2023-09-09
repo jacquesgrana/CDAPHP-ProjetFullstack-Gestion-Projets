@@ -16,7 +16,7 @@ class Connexion extends AbstractController {
         }
         $view = new View();
         $view->setHead('head.html')
-        ->setHeader('header.html')
+        ->setHeader('header.php')
         ->setMain('connexion.php')
         ->setFooter('footer.html');
 
