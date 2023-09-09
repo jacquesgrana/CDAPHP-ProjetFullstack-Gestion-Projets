@@ -34,10 +34,6 @@
     font-family: mplus-regular;
 }
 
-header {
-    padding: 20px;
-}
-
 #nav {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -47,25 +43,82 @@ header {
     margin-left: 15px;
     margin-right: 15px;
     list-style: none;
+    width:max-content;
+    display: block;
 }
 
 .btn-01 {
     border-radius: 5px;
     border: 1px solid black;
     padding-top: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
     padding-left: 15px;
     padding-right: 15px;
     color : rgb(255, 255, 255);
+    text-decoration: none;
+    min-width: 120px;
+    min-height: 30px;
+    display: inline-block;
+    text-align: center;
 }
 
 .btn-01:hover {
-    color: hsl(34, 95%, 24%);
-    background-color: hsl(133, 71%, 40%);
+    color: hsl(34, 68%, 59%);
+    background-color: hsl(133, 95%, 24%);
 }
 
-header h1 {
+.btn-01-sm {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding-top: -5px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    text-decoration: none;
+    min-width: 80px;
+    min-height: 20px;
+    display: inline-block;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+header h1,
+main h2 {
     font-family: mplus-Bold;
     margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+main h3 {
+    font-family: mplus-Bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#bloc-grow {
+    flex-grow: 1;
+}
+
+header {
+    padding: 20px;
+    min-height: 15%;
+}
+
+body {
+    height: 100vh;
+}
+
+main {
+    min-height: 70%;
+}
+
+footer {
+    height: 6%;
+}
+
+table {
     margin-top: 10px;
+    margin-bottom: 30px;
 }
