@@ -1,4 +1,4 @@
-<main class="d-flex flex-column align-items-center">
+<main class="d-flex flex-column align-items-center justify-content-start">
     <?php
     echo '<h2>' . $titlePage . '</h2>';
 
@@ -33,10 +33,10 @@
         echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_utilisateur" id="id_utilisateur" disabled="disabled" value="' . (($mode !== 'create') ? $projet->getId_utilisateur() : $_SESSION['user_id']) . '">';
         echo '</div>';
 
-        echo '<div>';
-        if ($mode !== 'view') echo '<button class="btn-01 bg-color01-02" type="submit">&#10004; Valider</button>';
+        echo '';
+        if ($mode !== 'view') echo '<div><button class="btn-01 bg-color01-02" type="submit">&#10004; Valider</button></div>';
         //echo '<button class="" formaction="/index.php?page=Home&method=index">&#10226; Retour</button>';
-        echo '</div>';
+        echo '';
 
         echo '</form>';
         //var_dump($projet);
@@ -98,35 +98,38 @@
                 echo '</p>';
             }
         }*/
+        if (count($tachesAll) > 0) {
+            echo '<h3>Tache(s) associée(s)</h3>';
+            echo '<table>';
+            echo '<tr><th>ID</th><th>Nom</th><th>Description</th><th>Utilisateur</th><th>Statut</th><th>Priorité</th><th>Actions</th></tr>';
+            foreach ($tachesAll as $t) {
+                echo '<tr>'
+                    . '<td>' . $t->id_tache . '</td>'
+                    . '<td>' . $t->nom_tache . '</td>'
+                    . '<td>' . $t->description . '</td>'
+                    . '<td>' . $t->nom . ' : ' . $t->prenom . '</td>'
+                    . '<td>' . $t->statut . '</td>'
+                    . '<td>' . $t->priorite . '</td>'
+                    . '<td>'
+                    . '<a href="index.php?page=Tache&method=view&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">&#128196; Voir</a>';
 
-        echo '<h3>Tache(s) associée(s)</h3>';
-        echo '<table>';
-        echo '<tr><th>ID</th><th>Nom</th><th>Description</th><th>Utilisateur</th><th>Statut</th><th>Priorité</th><th>Actions</th></tr>';
-        foreach ($tachesAll as $t) {
-            echo '<tr>'
-                . '<td>' . $t->id_tache . '</td>'
-                . '<td>' . $t->nom_tache . '</td>'
-                . '<td>' . $t->description . '</td>'
-                . '<td>' . $t->nom . ' : ' . $t->prenom . '</td>'
-                . '<td>' . $t->statut . '</td>'
-                . '<td>' . $t->priorite . '</td>'
-                . '<td>'
-                . '<a href="index.php?page=Tache&method=view&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">&#128196; Voir</a>';
-
-            if ($mode !== 'view') {
-                echo '<a href="index.php?page=Tache&method=edit&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">&#9998; Editer</a>'
-                    . '<a href="index.php?page=Projet&method=deleteTache&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">X Supprimer</a>';
+                if ($mode !== 'view') {
+                    echo '<a href="index.php?page=Tache&method=edit&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">&#9998; Editer</a>'
+                        . '<a href="index.php?page=Projet&method=deleteTache&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">X Supprimer</a>';
+                }
+                echo '</td></tr>';
             }
-            echo '</td></tr>';
+            echo '</table>';
         }
-        echo '</table>';
-        if ($mode === 'edit') {
-            echo '<div>';
-            echo '<a href="/index.php?page=Tache&method=create" class="btn-01 bg-color01-01 btn-space-01">Ajouter une nouvelle tâche</a>';
-            echo '<a href="/index.php?page=Home&method=index" class="btn-01 bg-color01-01 btn-space-01">&#10226; Retour</a>';
-            echo '</div>';
 
+
+
+        echo '<div>';
+        if ($mode === 'edit') {
+            echo '<a href="/index.php?page=Tache&method=create" class="btn-01 bg-color01-01 btn-space-01">Ajouter une nouvelle tâche</a>';
         }
+        echo '<a href="/index.php?page=Home&method=index" class="btn-01 bg-color01-01 btn-space-01">&#10226; Retour</a>';
+        echo '</div>';
     } else {
         echo '<h3>Veuillez vous connecter</h3>';
     }

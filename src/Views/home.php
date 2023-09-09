@@ -1,4 +1,4 @@
-<main class="d-flex flex-column align-items-center">
+<main class="main">
     <?php
     echo '<h2>' . $titlePage . '</h2>';
     if ($isConnected) {

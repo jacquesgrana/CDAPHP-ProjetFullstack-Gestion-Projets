@@ -1,4 +1,4 @@
-<main class="d-flex flex-column align-items-center">
+<main class="d-flex flex-column align-items-center justify-content-start">
     <?php
     echo '<h2>' . $titlePage . '</h2>';
 

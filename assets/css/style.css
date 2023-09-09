@@ -39,6 +39,7 @@ header {
     background-color: #f2f2f2;
     width: 100%;
     text-align: center;
+    min-height: 20%;
 }
 
 header h1 {
@@ -146,10 +147,6 @@ main h3 {
     margin-bottom: 20px;
 }
 
-#bloc-grow {
-    flex-grow: 1;
-}
-
 body {
     height: 100vh;
 }
@@ -158,8 +155,16 @@ main {
     min-height: 70%;
 }
 
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 footer {
-    height: 6%;
+    height: 10%;
 }
 
 footer p {
@@ -194,8 +199,8 @@ form {
     border-radius: 10px;
     padding: 20px;
     background-color: hsl(133, 43%, 81%);
-    width: 50%;
-    margin: auto;
+    max-width: 40%;
+    margin-top: 20px;
 }
 
 form div {
@@ -207,7 +212,10 @@ form label {
     margin-right: 10px;
 }
 
-form input[type="text"], form input[type="numeric"] {
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+ form input[type="numeric"] {
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
@@ -216,6 +224,6 @@ form input[type="text"], form input[type="numeric"] {
 
 form a {
     text-decoration: none;
-    color: black;
+    
 }
 

@@ -1,4 +1,4 @@
-<main class="">
+<main class="main">
     <h2><?= $titlePage ?></h2>
     <?php
         echo '<form action="index.php?page=Inscription&method=create" method="POST">';
@@ -20,7 +20,7 @@
         echo '<input type="hidden" name="connexion" value="create">';
         echo '</div>';
         echo '<div>';
-        echo '<button type="submit">Valider</button>';
+        echo '<button class="btn-01 bg-color01-02" type="submit">Valider</button>';
         echo '</div>';
         echo '</form>';
     ?>

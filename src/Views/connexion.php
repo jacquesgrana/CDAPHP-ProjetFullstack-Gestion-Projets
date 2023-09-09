@@ -1,4 +1,4 @@
-<main class="">
+<main class="main">
     <h2><?= $titlePage ?></h2>
     <?php
     if ($isConnected) {
@@ -15,7 +15,7 @@
         echo '<input type="hidden" name="connexion" value="connect">';
         echo '</div>';
         echo '<div>';
-        echo '<button type="submit">Valider</button>';
+        echo '<button class="btn-01 bg-color01-02" type="submit">Valider</button>';
         echo '</div>';
         echo '</form>';
     }
