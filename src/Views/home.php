@@ -41,7 +41,7 @@
         }*/
 
         if (count($projetsDirected) > 0) {
-            echo '<h3>Projet dirigés :</h3>';
+            echo '<h3>Projet(s) dirigé(s) :</h3>';
             echo '<table>';
             echo '<tr><th>ID</th><th>Nom</th><th>Description</th><th>ID Directeur</th><th>Actions</th></tr>';
             foreach ($projetsDirected as $projet) {
@@ -63,7 +63,7 @@
         }
         
         if (count($projetsParticip) > 0) {
-            echo '<h3>Projet avec participation :</h3>';
+            echo '<h3>Projet(s) avec participation :</h3>';
             echo '<table>';
             echo '<tr><th>ID</th><th>Nom</th><th>Description</th><th>ID Directeur</th><th>Actions</th></tr>';
             foreach ($projetsParticip as $projet) {
@@ -82,12 +82,12 @@
         
 
         echo '<br />';
-        echo '<a href="index.php?page=Projet&method=create" class="btn-01 bg-color01-01">Créer un projet</a>';
+        echo '<a href="index.php?page=Projet&method=create" class="btn-01 bg-color01-01 btn-space-01">Créer un projet</a>';
     } else {
         echo '<h3>Veuillez vous connecter</h3>';
     }
     ?>
-    <div id="bloc-grow">
+    <!--<div id="bloc-grow">-->
         
     </div>
 </main>

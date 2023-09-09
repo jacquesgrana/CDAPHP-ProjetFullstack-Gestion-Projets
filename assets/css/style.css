@@ -84,6 +84,11 @@
     margin-right: 5px;
 }
 
+.btn-space-01 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
 header h1,
 main h2 {
     font-family: mplus-Bold;
@@ -118,7 +123,29 @@ footer {
     height: 6%;
 }
 
+/* Style du tableau */
 table {
-    margin-top: 10px;
-    margin-bottom: 30px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 80%;
+}
+
+/* Style des cellules */
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Couleur de fond des lignes paires */
+tr:nth-child(even) {
+    background-color: hsl(34, 59%, 82%);
+}
+
+/* Couleur de fond des lignes impaires */
+tr:nth-child(odd) {
+    background-color: hsl(133, 43%, 81%);
 }
