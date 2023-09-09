@@ -1,4 +1,4 @@
-<main>
+<main class="d-flex flex-column align-items-center">
     <?php
     echo '<h2>' . $titlePage . '</h2>';
 
@@ -19,7 +19,7 @@
 
         // id_tache
         echo '<label for="id_tache">Id tâche : </label>';
-        echo '<input type="number" placeholder="Id géré automatiquement" name="id_tache" id="id_tache" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_tache() : '') . '">';
+        echo '<input type="numeric" placeholder="Id géré automatiquement" name="id_tache" id="id_tache" disabled="disabled" value="' . (($mode !== 'create') ? $tache->getId_tache() : '') . '">';
         echo '</div>';
 
         // nom
@@ -85,15 +85,16 @@
         // projet
         echo '<div>';
         echo '<label for="projet">Id projet : </label>';
-        echo '<input type="number" placeholder="Id géré automatiquement" name="projet" id="projet" disabled="disabled" value="' 
+        echo '<input type="numeric" placeholder="Id géré automatiquement" name="projet" id="projet" disabled="disabled" value="' 
         . intval($_SESSION['id_projet'])
         . '">';
         echo '</div>';
 
         //boutons
-        if ($mode !== 'view') echo '<button type="submit">&#10004; Valider</button>';
+        if ($mode !== 'view') echo '<button class="btn-01 bg-color01-02" type="submit">&#10004; Valider</button>';
         
         // faire fonction ?
+        /*
         $formaction = '/index.php?page=Projet&method=create';
         if(isset($_SESSION['id_projet']) && isset($_SESSION['mode_projet'])) {
             if($_SESSION['mode_projet'] = 'edit') {
@@ -105,8 +106,26 @@
         }
         //echo $formaction;
         echo '<button class="" formaction="' . $formaction . '">&#10226; Retour</button>';
+        */
         echo '</div>';
         echo '</form>';
+        // TODO faire fonction
+        $url = '/index.php?page=Projet&method=create';
+        if(isset($_SESSION['id_projet']) && isset($_SESSION['mode_projet'])) {
+            if($_SESSION['mode_projet'] = 'edit') {
+                $url = "/index.php?page=Projet&method=edit&id=" . $_SESSION['id_projet'];
+            }
+            elseif($_SESSION['mode_projet'] = 'view') {
+                $url = "/index.php?page=Projet&method=view&id=" . $_SESSION['id_projet'];
+            }
+        }
+        //echo $formaction;
+        echo '<div>';
+
+        //echo '<button class="" formaction="' . $url . '">&#10226; Retour</button>';
+        echo '<a href="' . $url . '" class="btn-01 bg-color01-01 btn-space-01">&#10226; Retour</a>';
+        echo '</div>';
+
         
     } else {
         echo '<h3>Veuillez vous connecter</h3>';

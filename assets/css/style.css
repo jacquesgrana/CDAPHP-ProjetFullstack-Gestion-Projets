@@ -34,6 +34,47 @@
     font-family: mplus-regular;
 }
 
+header {
+    padding: 20px;
+    background-color: #f2f2f2;
+    width: 100%;
+    text-align: center;
+}
+
+header h1 {
+    margin: 10px 0;
+}
+
+header div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+header a {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: black;
+}
+
+header nav {
+    margin: 10px 0;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+header nav ul li {
+    padding: 5px 10px;
+}
+
+/*
 #nav {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -46,6 +87,7 @@
     width:max-content;
     display: block;
 }
+*/
 
 .btn-01 {
     border-radius: 5px;
@@ -60,9 +102,12 @@
     min-height: 30px;
     display: inline-block;
     text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.btn-01:hover {
+.btn-01:hover,
+.btn-01-sm:hover {
     color: hsl(34, 68%, 59%);
     background-color: hsl(133, 95%, 24%);
 }
@@ -89,7 +134,6 @@
     margin-bottom: 20px;
 }
 
-header h1,
 main h2 {
     font-family: mplus-Bold;
     margin-top: 20px;
@@ -106,11 +150,6 @@ main h3 {
     flex-grow: 1;
 }
 
-header {
-    padding: 20px;
-    min-height: 15%;
-}
-
 body {
     height: 100vh;
 }
@@ -123,7 +162,10 @@ footer {
     height: 6%;
 }
 
-/* Style du tableau */
+footer p {
+    margin-top: 15px;
+}
+
 table {
     border-collapse: separate;
     border-spacing: 0;
@@ -133,19 +175,47 @@ table {
     max-width: 80%;
 }
 
-/* Style des cellules */
-th, td {
+td {
     border: 1px solid black;
     padding: 10px;
     text-align: left;
 }
 
-/* Couleur de fond des lignes paires */
 tr:nth-child(even) {
     background-color: hsl(34, 59%, 82%);
 }
 
-/* Couleur de fond des lignes impaires */
 tr:nth-child(odd) {
     background-color: hsl(133, 43%, 81%);
 }
+
+form {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: hsl(133, 43%, 81%);
+    width: 50%;
+    margin: auto;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+form input[type="text"], form input[type="numeric"] {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+}
+
+form a {
+    text-decoration: none;
+    color: black;
+}
+
