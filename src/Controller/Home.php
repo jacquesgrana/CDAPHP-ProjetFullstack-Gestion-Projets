@@ -52,7 +52,7 @@ public function deleteProjet() {
             // appeler fonction de TacheDB pour supprimer la tache
             $isOk = ProjetDB::delete($id_projet);
             // selon retour afficher message
-            ($isOk) ? $this->setFlashMessage('Suppression effectuée' , 'success') : $this->setFlashMessage('Suppression non effectuée' , 'error');
+            echo (($isOk) ?  '<script>alert("Suppression du projet effectuée");</script>' : '<script>alert("Suppression du projet non effectuée");</script>');
             
             Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
         }

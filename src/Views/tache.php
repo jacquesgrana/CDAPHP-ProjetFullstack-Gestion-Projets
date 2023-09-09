@@ -91,7 +91,7 @@
         echo '</div>';
 
         //boutons
-        if ($mode !== 'view') echo '<button class="btn-01 bg-color01-02" type="submit">&#10004; Valider</button>';
+        if ($mode !== 'view') echo '<button class="btn-01 bg-color01-02" type="submit"  onclick="return confirm(\'Voulez-vous valider les modifications ?\')">&#10004; Valider</button>';
         
         // faire fonction ?
         /*

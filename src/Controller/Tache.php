@@ -112,7 +112,8 @@ class Tache extends AbstractController {
 
             $isOkPart = ParticiperDB::updateIdUtilByIdTache($id_tache, $id_utilisateur);
 
-            ($isOk) ? $this->setFlashMessage('Modification effectuée' , 'success') : $this->setFlashMessage('Modification non effectuée' , 'error');
+            echo (($isOk) ?  '<script>alert("Modification de la taĉhe effectuée");</script>' : '<script>alert("Modification de la taĉhe non effectuée");</script>');
+            echo (($isOkPart) ?  '<script>alert("Modification de la participation effectuée");</script>' : '<script>alert("Modification de la participation non effectuée");</script>');
 
             Librairie::returnToProjet();
         }
@@ -135,16 +136,20 @@ class Tache extends AbstractController {
         // appeler fonction de TacheDB en lui passant les datas en parametre
             $idTache = TacheDB::insert($nom, $description, $utilisateur, $statut, $priorite, $projet);
             echo 'id_tache : ' . $idTache . '<br />';
-
+            echo '<script>alert("Ajout de la tâche effectué");</script>';
             // TODO : faire requete sur participer pour inserer un tuple avec l'id_utilisateur, l'id_projet et l'id_tache **************************************************************
 
             
 
             if ($idTache !== false) { 
-                $this->setFlashMessage('Ajout effectué' , 'success'); 
+                //$this->setFlashMessage('Ajout effectué' , 'success'); 
                 $isOkPart = ParticiperDB::insert($projet, $utilisateur, $idTache);
+                echo '<script>alert("Ajout de la participation effectué");</script>';
             } 
-            else { $this->setFlashMessage('Ajout non effectué' , 'error');
+            else { 
+                echo '<script>alert("Ajout de la tâche et de participation non effectué");</script>';
+
+                //$this->setFlashMessage('Ajout non effectué' , 'error');
             }
             //echo (($isOk) ? 'Requete ok' : 'Requete ko');
         // selon retour creer des messages d'alertes

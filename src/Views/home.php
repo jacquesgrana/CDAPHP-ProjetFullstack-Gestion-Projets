@@ -55,7 +55,7 @@
                    
                     . '<a href="index.php?page=Projet&method=edit&id=' . $projet->getId_projet() . '" class="btn-01-sm bg-color02-03">&#9998; Editer</a>'
                     
-                    . '<a href="index.php?page=Home&method=deleteProjet&id=' . $projet->getId_projet() . '" class="btn-01-sm bg-color02-03">X Supprimer</a>'
+                    . '<a href="index.php?page=Home&method=deleteProjet&id=' . $projet->getId_projet() . '" class="btn-01-sm bg-color02-03" onclick="return confirm(\'Voulez-vous supprimer ce projet ?\')">X Supprimer</a>'
                     . '</td>'
                     . '</tr>';
             }

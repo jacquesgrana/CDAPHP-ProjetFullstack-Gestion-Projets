@@ -34,36 +34,12 @@
         echo '</div>';
 
         echo '';
-        if ($mode !== 'view') echo '<div><button class="btn-01 bg-color01-02" type="submit">&#10004; Valider</button></div>';
+        if ($mode !== 'view') echo '<div><button class="btn-01 bg-color01-02" type="submit" onclick="return confirm(\'Voulez-vous valider les modifications ?\')">&#10004; Valider</button></div>';
         //echo '<button class="" formaction="/index.php?page=Home&method=index">&#10226; Retour</button>';
         echo '';
 
         echo '</form>';
         //var_dump($projet);
-        /*
-        if(count($taches) > 0) {
-            echo '<h3>Tache(s) associée(s)</h3>';
-            //var_dump($taches);
-            foreach($taches as $t) {
-                echo '<p>' 
-                . $t->getId_tache()
-                . ' / '
-                . $t->getNom()
-                . ' / '
-                . $t->getDescription()
-                . ' / '
-                . $t->getId_utilisateur()
-                . ' / '
-                . $t->getId_statut()
-                . ' / '
-                . $t->getId_priorite()
-                . ' / '
-                . $t->getId_projet()
-                . '</p>';
-            }
-
-            var_dump($tachesAll);
-        }*/
         /*
         if (count($tachesAll) > 0) {
             echo '<h3>Tache(s) associée(s)</h3>';
@@ -115,14 +91,12 @@
 
                 if ($mode !== 'view') {
                     echo '<a href="index.php?page=Tache&method=edit&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">&#9998; Editer</a>'
-                        . '<a href="index.php?page=Projet&method=deleteTache&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">X Supprimer</a>';
+                        . '<a href="index.php?page=Projet&method=deleteTache&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03" onclick="return confirm(\'Voulez-vous supprimer cette tâche ?\')">X Supprimer</a>';
                 }
                 echo '</td></tr>';
             }
             echo '</table>';
         }
-
-
 
         echo '<div>';
         if ($mode === 'edit') {

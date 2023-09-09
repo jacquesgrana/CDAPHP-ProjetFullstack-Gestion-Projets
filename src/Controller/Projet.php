@@ -88,7 +88,7 @@ class Projet extends AbstractController {
             // appeler fonction de TacheDB pour supprimer la tache
             $isOk = TacheDB::delete($id_tache);
             // selon retour afficher message
-            ($isOk) ? $this->setFlashMessage('Suppression effectuée' , 'success') : $this->setFlashMessage('Suppression non effectuée' , 'error');
+            echo (($isOk) ?  '<script>alert("Suppression de la taĉhe effectuée");</script>' : '<script>alert("Suppression de la taĉhe non effectuée");</script>');
             // appeler index() pour afficher la page -> marche pas, pas le temps de chercher pourquoi...
             
             //Librairie::returnToProjet();
@@ -106,6 +106,12 @@ class Projet extends AbstractController {
             $id_utilisateur = intval($_SESSION['user_id']);
             // appeler fonction de ProjetDB
             $isOk = ProjetDB::update($id_projet, $titre, $description, $id_utilisateur);
+            if($isOk) {
+                echo '<script>alert("Modification du projet effectuée");</script>';
+            }
+            else {
+                echo '<script>alert("Modification du projet non effectuée");</script>';
+            }
         }
         // rediriger sur la page home
         Librairie::redirect('index.php', ['method' => 'index']);
@@ -123,6 +129,12 @@ class Projet extends AbstractController {
             //echo 'id_utilisateur : ' . $id_utilisateur . '<br />';
             // appeler fonction de ProjetDB
             $isOk = ProjetDB::insert($titre, $description, $id_utilisateur);
+            if($isOk) {
+                echo '<script>alert("Ajout du projet effectué");</script>';
+            }
+            else {
+                echo '<script>alert("Ajout du projet non effectué");</script>';
+            }
 
         }
         // rediriger sur la page home *************************************
