@@ -5,10 +5,15 @@ use Jacques\ProjetPhpGestionProjets\Kernel\View;
 use Jacques\ProjetPhpGestionProjets\Kernel\AbstractController;
 use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
 
+/**
+ * Contrôleur de la page connexion. Gère la requête de connexion, 
+ * appelle la fonction connect().
+ */
 class Connexion extends AbstractController {
 
-    //private static bool $isConnected;
-
+    /**
+     * Fonction qui construit et demande l'affichage de la vue.
+     */
     public function index()
     {
         if (isset($_POST["email"]) && isset($_POST["mdp"])) {
@@ -25,8 +30,6 @@ class Connexion extends AbstractController {
             'titlePage' => 'Page Connexion',
             'windowName' => 'Gestion de Projets - Connexion',
             'isConnected' => Securite::isConnected()
-            //'projets' => $projets,
-            //'users'=> $users,
         ]);
     }
 }

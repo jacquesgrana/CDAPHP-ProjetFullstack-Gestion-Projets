@@ -7,25 +7,26 @@ use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
 use Jacques\ProjetPhpGestionProjets\Utils\TacheDB;
 use Jacques\ProjetPhpGestionProjets\Entity\Projet as ProjetObj;
 use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
-use Jacques\ProjetPhpGestionProjets\Entity\Utilisateur;
 use Jacques\ProjetPhpGestionProjets\Utils\ProjetDB;
 use Jacques\ProjetPhpGestionProjets\Utils\UtilisateurDB;
 
+/**
+ * Contrôleur de la page projet. Gère différentes requêtes.
+ */
 class Projet extends AbstractController {
     private string $mode;
     private ProjetObj $projet; 
-    //private array $taches;
     private array $tachesAll;
     private string $titlePage = 'Page d\'un projet';
     private ?array $utilisateurs;
 
-
+    /**
+     * Fonction qui construit et demande l'affichage de la vue.
+     */
     public function index()
     {
         $this->utilisateurs = UtilisateurDB::getAll();
-        // attention : verifier si vraiement necessaire
         if($this->mode !== 'create') {
-            //$this->taches = TacheDB::getByProjetId($this->projet->getId_projet());
             $this->tachesAll = TacheDB::getAllByProjetId($this->projet->getId_projet());
         }
         $view = new View();
@@ -46,6 +47,9 @@ class Projet extends AbstractController {
         ]);
     }
 
+    /**
+     * Fonction qui demande l'affichage de la page en mode edit/modifier.
+     */
     public function edit() {
         if (Securite::isConnected()) {
             if(isset($_GET['id'])) {
@@ -61,6 +65,9 @@ class Projet extends AbstractController {
         $this->index();
     }
 
+    /**
+     * Fonction qui demande l'affichage de la page en mode view/consulter.
+     */
     public function view() {
         if (Securite::isConnected()) {
             if(isset($_GET['id'])) {
@@ -77,6 +84,9 @@ class Projet extends AbstractController {
         $this->index();
     }
 
+    /**
+     * Fonction qui demande l'affichage de la page en mode create/créer.
+     */
     public function create() {
         //$this->projet = null;
         $this->mode = 'create';
@@ -85,6 +95,10 @@ class Projet extends AbstractController {
         $this->index();
     }
 
+    /**
+     * Fonction qui gère la requête de suppression d'une tâche selon 
+     * son id.
+     */
     public function deleteTache() {
         // recuperer l'id
         if(isset($_GET['id'])) {
@@ -93,14 +107,14 @@ class Projet extends AbstractController {
             $isOk = TacheDB::deleteTache($id_tache);
             // selon retour afficher message
             echo (($isOk) ?  '<script>alert("Suppression de la taĉhe effectuée");</script>' : '<script>alert("Suppression de la taĉhe non effectuée");</script>');
-            // appeler index() pour afficher la page -> marche pas, pas le temps de chercher pourquoi...
-            
-            //Librairie::returnToProjet();
         }
         Librairie::returnToProjet();
-        //$this->index();
     }
 
+    /**
+     * Fonction qui gère la requête de modification d'une tâche selon 
+     * son id.
+     */
     public function update() {
         // tester et recuperer les variables $_POST
         if(isset($_POST['titre']) && isset($_POST['description']) && isset($_GET['id'])) {
@@ -119,18 +133,17 @@ class Projet extends AbstractController {
         }
         // rediriger sur la page home
         Librairie::redirect('index.php', ['method' => 'index']);
-
     }
 
+    /**
+     * Fonction qui gère la requête d'insertion d'une nouvelle tâche.
+     */
     public function insert() {
         // tester et recuperer les variables $_POST
         if(isset($_POST['titre']) && isset($_POST['description'])) {
             $titre = $_POST['titre'];
             $description = $_POST['description'];
             $id_utilisateur = intval($_SESSION['user_id']);
-            //echo 'titre : ' . $titre . '<br />';
-            //echo 'description : ' . $description . '<br />';
-            //echo 'id_utilisateur : ' . $id_utilisateur . '<br />';
             // appeler fonction de ProjetDB
             $isOk = ProjetDB::insertProjet($titre, $description, $id_utilisateur);
             if($isOk) {
@@ -139,9 +152,7 @@ class Projet extends AbstractController {
             else {
                 echo '<script>alert("Ajout du projet non effectué");</script>';
             }
-
         }
-        // rediriger sur la page home *************************************
         Librairie::redirect('index.php', ['method' => 'index']);
     }
 }

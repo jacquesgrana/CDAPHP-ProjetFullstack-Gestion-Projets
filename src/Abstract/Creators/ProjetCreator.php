@@ -3,8 +3,15 @@ namespace Jacques\ProjetPhpGestionProjets\Abstract\Creators;
 use Jacques\ProjetPhpGestionProjets\Abstract\Creator;
 use Jacques\ProjetPhpGestionProjets\Entity\Projet;
 
+/**
+ * Classe fabrique de l'objet Projet
+ */
 class ProjetCreator extends Creator {
 
+    /**
+     * Fabrique un objet Projet à partir d'un objet générique avec des 
+     * propriétés publiques.
+     */
     public static function makeObjectFromGeneric($generic): Projet {
         $pObj = new Projet();
         $pObj->setDescription($generic->description);

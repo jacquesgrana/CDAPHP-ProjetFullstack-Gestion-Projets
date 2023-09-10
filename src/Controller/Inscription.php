@@ -7,10 +7,15 @@ use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
 use Jacques\ProjetPhpGestionProjets\Utils\UtilisateurDB;
 use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
 
+/**
+ * Contrôleur de la page inscription. Gère la requête création 
+ * d'un, utilisateur.
+ */
 class Inscription extends AbstractController {
 
-    //private ?string $comment = null;
-
+    /**
+     * Fonction qui construit et demande l'affichage de la vue.
+     */
     public function index()
     {
         $view = new View();
@@ -28,6 +33,9 @@ class Inscription extends AbstractController {
         ]);
     }
 
+    /**
+     * Fonction qui gère la création d'un utilisateur.
+     */
     public function create() {
         // tester et recuperer les donnees du formulaire
         if(isset($_POST['nom']) 
@@ -49,18 +57,15 @@ class Inscription extends AbstractController {
                     echo (($isOk) ?  '<script>alert("Création de l\'utilisateur effectué");</script>' : '<script>alert("Création de l\'utilisateur non effectué");</script>');
                     // renvoyer sur la page de connexion
                     Librairie::redirect('index.php', ['page' => 'Connexion', 'method' => 'index']);
-                    //echo ($isOk) ? '' : 'erreur sql';
                 }
                 else {
                     // sinon renvoyer sur page d'incription, faire apparaitre une alerte si possible ('email déjà pris')
-                    
+                    echo '<script>alert("Email déjà présent, choisissez en un autre");</script>';
                     Librairie::redirect('index.php', ['page' => 'Inscription', 'method' => 'index']);
-                    //echo ('email déjà présent');
+                    
                 }
             }
-
-        }
-        
+        }   
         $this->index();
     }
 }

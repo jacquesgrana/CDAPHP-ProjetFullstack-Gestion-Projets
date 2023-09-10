@@ -1,22 +1,20 @@
 <?php
 namespace Jacques\ProjetPhpGestionProjets\Controller;
 
-use Jacques\ProjetPhpGestionProjets\Entity\Participer;
 use Jacques\ProjetPhpGestionProjets\Kernel\View;
 use Jacques\ProjetPhpGestionProjets\Kernel\AbstractController;
 use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
 use Jacques\ProjetPhpGestionProjets\Utils\TacheDB;
 use Jacques\ProjetPhpGestionProjets\Entity\Tache as TacheObj;
-use Jacques\ProjetPhpGestionProjets\Entity\Statut;
-use Jacques\ProjetPhpGestionProjets\Entity\Priorite;
-use Jacques\ProjetPhpGestionProjets\Entity\Utilisateur;
 use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
 use Jacques\ProjetPhpGestionProjets\Utils\ParticiperDB;
 use Jacques\ProjetPhpGestionProjets\Utils\UtilisateurDB;
 use Jacques\ProjetPhpGestionProjets\Utils\StatutDB;
 use Jacques\ProjetPhpGestionProjets\Utils\PrioriteDB;
 
-
+/**
+ * Contrôleur de la page tache. Gère différentes requêtes.
+ */
 class Tache extends AbstractController {
     private string $titlePage = 'Page d\'une tâche';
     private string $mode = 'view';
@@ -25,20 +23,14 @@ class Tache extends AbstractController {
     private array $priorites;
     private array $utilisateurs;
 
+    /**
+     * Fonction qui construit et demande l'affichage de la vue.
+     */
     public function index()
     {
         $this->statuts = StatutDB::getAll();
         $this->priorites = PrioriteDB::getAll();
         $this->utilisateurs = UtilisateurDB::getAll();
-/*
-        var_dump($this->statuts);
-        echo '<br />';
-        echo '<br />';
-        var_dump($this->priorites);
-        echo '<br />';
-        echo '<br />';
-        var_dump($this->utilisateurs);
-*/
         $view = new View();
         $view->setHead('head.html')
         ->setHeader('header.php')
@@ -100,19 +92,7 @@ class Tache extends AbstractController {
             $id_priorite = intval($_POST['priorite']);
             $id_projet = intval($_SESSION['id_projet']);
 
-            /*
-            echo 'id_tache : ' . $id_tache . '<br />';
-            echo 'nom : ' . $nom . '<br />';
-            echo 'description : ' . $description . '<br />';
-            echo 'id_utilisateur : ' . $id_utilisateur . '<br />';
-            echo 'id_statut : ' . $id_statut . '<br />';
-            echo 'id_priorite : ' . $id_priorite . '<br />';
-            echo 'id_projet : ' . $id_projet . '<br />';
-            */
-
             $isOk = TacheDB::updateTache($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet);
-
-            // TODO : faire requete sur participer pour mettre a jour l'id_utilisateur , recuperer par l'id_tache **************************************************************
 
             $isOkPart = ParticiperDB::updateIdUtilByIdTache($id_tache, $id_utilisateur);
 
@@ -124,9 +104,6 @@ class Tache extends AbstractController {
     }
 
     public function insert() {
-        //echo 'methode insert';
-            
-        // tester et recuperer les variables post et get
         if (isset($_POST['nom']) && isset($_POST['description']) 
         && isset($_POST['utilisateur']) && isset($_POST['statut']) 
         && isset($_POST['priorite'])) {
@@ -136,41 +113,16 @@ class Tache extends AbstractController {
             $statut = intval($_POST['statut']);
             $priorite = intval($_POST['priorite']);
             $projet = intval($_SESSION['id_projet']);
-            
-        // appeler fonction de TacheDB en lui passant les datas en parametre
             $idTache = TacheDB::insertTache($nom, $description, $utilisateur, $statut, $priorite, $projet);
-            echo 'id_tache : ' . $idTache . '<br />';
-            echo '<script>alert("Ajout de la tâche effectué");</script>';
-            // TODO : faire requete sur participer pour inserer un tuple avec l'id_utilisateur, l'id_projet et l'id_tache **************************************************************
-
-            
-
             if ($idTache !== false) { 
-                //$this->setFlashMessage('Ajout effectué' , 'success'); 
+                echo '<script>alert("Ajout de la tâche effectué");</script>';
                 $isOkPart = ParticiperDB::insertParticiper($projet, $utilisateur, $idTache);
-                echo '<script>alert("Ajout de la participation effectué");</script>';
+                echo ($isOkPart ? '<script>alert("Ajout de la participation effectué");</script>' : '');
             } 
             else { 
                 echo '<script>alert("Ajout de la tâche et de participation non effectué");</script>';
-
-                //$this->setFlashMessage('Ajout non effectué' , 'error');
             }
-            //echo (($isOk) ? 'Requete ok' : 'Requete ko');
-        // selon retour creer des messages d'alertes
-        
-        // ********************************* IMPORTANT *************
-        // faire ajout dans table participer avec id_utilisateur et id_projet et id_tache (faire fonction dans TacheDB)
-
             Librairie::returnToProjet();
         }
     }
-    /*
-    private static function returnToProjet() {
-        // revenir a la page du projet en respectant le mode et l'id du projet (faire fonction pour construire l'url)
-        $id_projet = $_SESSION['id_projet'];
-        $method = $_SESSION['mode_projet'];
-        $tabParams = ['page' => 'Projet', 'method' => $method, 'id' => $id_projet];
-        // appeler fonction de la librairie de redirection js
-        Librairie::redirect('index.php', $tabParams);
-    }*/
 }

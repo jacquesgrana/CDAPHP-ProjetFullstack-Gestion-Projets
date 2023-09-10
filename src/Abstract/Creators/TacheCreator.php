@@ -3,21 +3,15 @@ namespace Jacques\ProjetPhpGestionProjets\Abstract\Creators;
 use Jacques\ProjetPhpGestionProjets\Abstract\Creator;
 use Jacques\ProjetPhpGestionProjets\Entity\Tache;
 
-
+/**
+ * Classe fabrique de l'objet Tache
+ */
 class TacheCreator extends Creator {
-    /*
-    public static function make($data): Tache {
-        $tache = new Tache();
-
-    foreach($data as $key => $value) {
-        $method = 'set' . ucfirst($key);
-        if (method_exists($tache, $method)) {
-            $tache->$method($value);
-        }
-    }
-    return $tache;
-    }*/
-
+    
+    /**
+     * Fabrique un objet Tache à partir d'un objet générique avec des 
+     * propriétés publiques.
+     */
     public static function makeObjectFromGeneric($generic): Tache {
         $tObj = new Tache();
         $tObj->setId_tache($generic->id_tache);

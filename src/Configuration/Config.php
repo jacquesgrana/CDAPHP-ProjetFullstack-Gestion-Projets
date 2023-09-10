@@ -1,6 +1,9 @@
 <?php
 namespace Jacques\ProjetPhpGestionProjets\Configuration;
 
+/**
+ * Classe de configuration, contient les constantes de l'application.
+ */
 class Config {
     public const CONTROLLER = 'Jacques\ProjetPhpGestionProjets\Controller\\';
     public const VIEWS = 'Views/';
