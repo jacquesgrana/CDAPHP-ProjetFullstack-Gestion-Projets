@@ -49,6 +49,9 @@ class Tache extends AbstractController {
         ]);
     }
 
+    /**
+     * Fonction qui demande l'affichage de la page en mode edit/modifier.
+     */
     public function edit() {
         if (Securite::isConnected()) {
             if(isset($_GET['id'])) {
@@ -61,6 +64,9 @@ class Tache extends AbstractController {
         $this->index();
     }
 
+    /**
+     * Fonction qui demande l'affichage de la page en mode view/consulter.
+     */
     public function view() {
         if (Securite::isConnected()) {
             if(isset($_GET['id'])) {
@@ -73,14 +79,21 @@ class Tache extends AbstractController {
         $this->index();
     }
 
+    /**
+     * Fonction qui demande l'affichage de la page en mode create/créer.
+     */
     public function create() {
         $this->mode = 'create';
         $this->titlePage = 'Page de création d\'une tâche';
         $this->index();
     }
 
+    /**
+     * Fonction qui gère la requête de modification d'une tâche selon 
+     * son id.
+     * Demande une requête sur la table participer pour la mettre à jour.
+     */
     public function update() {
-        // si changement d'id_utilisateur -> mettre ajour la table participer, faire requete avec id_tache et modifier id_utilisateur
         if (isset($_POST['nom']) && isset($_POST['description']) 
         && isset($_POST['utilisateur']) && isset($_POST['statut']) 
         && isset($_POST['priorite']) && isset($_GET['id'])) {
@@ -103,6 +116,10 @@ class Tache extends AbstractController {
         }
     }
 
+    /**
+     * Fonction qui gère la requête d'insertion d'une nouvelle tâche.
+     * Demande une requête sur la table participer pour la mettre à jour.
+     */
     public function insert() {
         if (isset($_POST['nom']) && isset($_POST['description']) 
         && isset($_POST['utilisateur']) && isset($_POST['statut']) 

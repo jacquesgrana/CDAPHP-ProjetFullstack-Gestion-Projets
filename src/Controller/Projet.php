@@ -112,7 +112,7 @@ class Projet extends AbstractController {
     }
 
     /**
-     * Fonction qui gère la requête de modification d'une tâche selon 
+     * Fonction qui gère la requête de modification d'un projet selon 
      * son id.
      */
     public function update() {
@@ -136,7 +136,7 @@ class Projet extends AbstractController {
     }
 
     /**
-     * Fonction qui gère la requête d'insertion d'une nouvelle tâche.
+     * Fonction qui gère la requête d'insertion d'un nouveau projet.
      */
     public function insert() {
         // tester et recuperer les variables $_POST
