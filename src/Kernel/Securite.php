@@ -95,7 +95,7 @@ class Securite
     // Améliorer
     public static function isUserExistsAndValidated(string $email, string $pwd): bool
     {
-        $users = Utilisateur::getAll();
+        $users = UtilisateurDB::getAll();
         /*
     if (is_array($users) && array_key_exists($email, $users) &&  password_verify($pwd, $users[$email])) {
         //echo "pw ok";

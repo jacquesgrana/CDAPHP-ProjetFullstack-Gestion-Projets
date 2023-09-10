@@ -9,6 +9,7 @@ use Jacques\ProjetPhpGestionProjets\Entity\Projet as ProjetObj;
 use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
 use Jacques\ProjetPhpGestionProjets\Entity\Utilisateur;
 use Jacques\ProjetPhpGestionProjets\Utils\ProjetDB;
+use Jacques\ProjetPhpGestionProjets\Utils\UtilisateurDB;
 
 class Projet extends AbstractController {
     private string $mode;
@@ -21,7 +22,7 @@ class Projet extends AbstractController {
 
     public function index()
     {
-        $this->utilisateurs = Utilisateur::getAll();
+        $this->utilisateurs = UtilisateurDB::getAll();
         // attention : verifier si vraiement necessaire
         if($this->mode !== 'create') {
             //$this->taches = TacheDB::getByProjetId($this->projet->getId_projet());
@@ -49,7 +50,8 @@ class Projet extends AbstractController {
         if (Securite::isConnected()) {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
-                $this->projet = ProjetObj::getById($id_projet);
+                $tempObj= ProjetDB::getById($id_projet);
+                $this->projet = ProjetDB::makeObjectFromGeneric($tempObj);
                 $_SESSION['id_projet'] = $id_projet;
             }            
         }
@@ -63,7 +65,9 @@ class Projet extends AbstractController {
         if (Securite::isConnected()) {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
-                $this->projet = ProjetObj::getById($id_projet);
+                $tempObj= ProjetDB::getById($id_projet);
+                $this->projet = ProjetDB::makeObjectFromGeneric($tempObj);
+                //$this->projet = ProjetObj::getById($id_projet);
                 $_SESSION['id_projet'] = $id_projet;
             }            
         }
@@ -86,7 +90,7 @@ class Projet extends AbstractController {
         if(isset($_GET['id'])) {
             $id_tache = intVal($_GET['id']);
             // appeler fonction de TacheDB pour supprimer la tache
-            $isOk = TacheDB::delete($id_tache);
+            $isOk = TacheDB::deleteTache($id_tache);
             // selon retour afficher message
             echo (($isOk) ?  '<script>alert("Suppression de la taĉhe effectuée");</script>' : '<script>alert("Suppression de la taĉhe non effectuée");</script>');
             // appeler index() pour afficher la page -> marche pas, pas le temps de chercher pourquoi...
@@ -105,7 +109,7 @@ class Projet extends AbstractController {
             $description = $_POST['description'];
             $id_utilisateur = intval($_SESSION['user_id']);
             // appeler fonction de ProjetDB
-            $isOk = ProjetDB::update($id_projet, $titre, $description, $id_utilisateur);
+            $isOk = ProjetDB::updateProjet($id_projet, $titre, $description, $id_utilisateur);
             if($isOk) {
                 echo '<script>alert("Modification du projet effectuée");</script>';
             }
@@ -128,7 +132,7 @@ class Projet extends AbstractController {
             //echo 'description : ' . $description . '<br />';
             //echo 'id_utilisateur : ' . $id_utilisateur . '<br />';
             // appeler fonction de ProjetDB
-            $isOk = ProjetDB::insert($titre, $description, $id_utilisateur);
+            $isOk = ProjetDB::insertProjet($titre, $description, $id_utilisateur);
             if($isOk) {
                 echo '<script>alert("Ajout du projet effectué");</script>';
             }

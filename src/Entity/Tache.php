@@ -1,8 +1,10 @@
 <?php
 namespace Jacques\ProjetPhpGestionProjets\Entity;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
+use Jacques\ProjetPhpGestionProjets\Abstract\Entity;
 
-class Tache extends Model {
+
+class Tache {
     public static $tableName = 'tache';
 
     private int $id_tache;

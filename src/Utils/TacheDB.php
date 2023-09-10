@@ -7,7 +7,7 @@ use Jacques\ProjetPhpGestionProjets\Entity\Model;
 use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
 
 // TODO mettre des try/catch !!!!
-class TacheDB
+class TacheDB extends Model
 {
 
     public static $tableName = 'tache';
@@ -36,7 +36,7 @@ class TacheDB
         return $taches;
     }
 
-    public static function update($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet)
+    public static function updateTache($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet)
     {
         $sql = "UPDATE " . self::$tableName .
             " SET nom = '$nom', description = '$description', id_utilisateur = $id_utilisateur, id_statut = $id_statut, id_priorite = $id_priorite, id_projet = $id_projet" .
@@ -47,7 +47,7 @@ class TacheDB
         return $stmt->execute();
     }
 
-    public static function insert(string $nom, string $description, int $id_utilisateur, int $id_statut, int $id_priorite, int $id_projet)
+    public static function insertTache(string $nom, string $description, int $id_utilisateur, int $id_statut, int $id_priorite, int $id_projet)
     {
         $sql = "INSERT INTO " . self::$tableName .
             " (nom, description, id_utilisateur, id_statut, id_priorite, id_projet)" . 
@@ -65,7 +65,7 @@ class TacheDB
     }
 
 
-    public static function delete(int $id_tache)
+    public static function deleteTache(int $id_tache)
     {
         $sql = "DELETE FROM " . self::$tableName . " WHERE id_tache=" . $id_tache;
         //echo 'sql : ' . $sql . '<br />';

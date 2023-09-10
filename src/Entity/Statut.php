@@ -2,7 +2,7 @@
 namespace Jacques\ProjetPhpGestionProjets\Entity;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
 
-class Statut extends Model {
+class Statut {
     public static $tableName = 'statut';
 
     private int $id_statut;

@@ -2,7 +2,7 @@
 namespace Jacques\ProjetPhpGestionProjets\Entity;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
 
-class Priorite extends Model {
+class Priorite {
     public static $tableName = 'priorite';
 
     private int $id_priorite;

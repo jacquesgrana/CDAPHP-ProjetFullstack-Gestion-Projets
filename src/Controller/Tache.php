@@ -12,6 +12,10 @@ use Jacques\ProjetPhpGestionProjets\Entity\Priorite;
 use Jacques\ProjetPhpGestionProjets\Entity\Utilisateur;
 use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
 use Jacques\ProjetPhpGestionProjets\Utils\ParticiperDB;
+use Jacques\ProjetPhpGestionProjets\Utils\UtilisateurDB;
+use Jacques\ProjetPhpGestionProjets\Utils\StatutDB;
+use Jacques\ProjetPhpGestionProjets\Utils\PrioriteDB;
+
 
 class Tache extends AbstractController {
     private string $titlePage = 'Page d\'une tâche';
@@ -23,9 +27,9 @@ class Tache extends AbstractController {
 
     public function index()
     {
-        $this->statuts = Statut::getAll();
-        $this->priorites = Priorite::getAll();
-        $this->utilisateurs = Utilisateur::getAll();
+        $this->statuts = StatutDB::getAll();
+        $this->priorites = PrioriteDB::getAll();
+        $this->utilisateurs = UtilisateurDB::getAll();
 /*
         var_dump($this->statuts);
         echo '<br />';
@@ -57,7 +61,7 @@ class Tache extends AbstractController {
         if (Securite::isConnected()) {
             if(isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
-                $this->tache = TacheObj::getById($id_tache);
+                $this->tache = TacheDB::getById($id_tache);
             }
         }
         $this->mode = 'edit';
@@ -69,7 +73,7 @@ class Tache extends AbstractController {
         if (Securite::isConnected()) {
             if(isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
-                $this->tache = TacheObj::getById($id_tache);
+                $this->tache = TacheDB::getById($id_tache);
             }
         }
         $this->mode = 'view';
@@ -106,7 +110,7 @@ class Tache extends AbstractController {
             echo 'id_projet : ' . $id_projet . '<br />';
             */
 
-            $isOk = TacheDB::update($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet);
+            $isOk = TacheDB::updateTache($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet);
 
             // TODO : faire requete sur participer pour mettre a jour l'id_utilisateur , recuperer par l'id_tache **************************************************************
 
@@ -134,7 +138,7 @@ class Tache extends AbstractController {
             $projet = intval($_SESSION['id_projet']);
             
         // appeler fonction de TacheDB en lui passant les datas en parametre
-            $idTache = TacheDB::insert($nom, $description, $utilisateur, $statut, $priorite, $projet);
+            $idTache = TacheDB::insertTache($nom, $description, $utilisateur, $statut, $priorite, $projet);
             echo 'id_tache : ' . $idTache . '<br />';
             echo '<script>alert("Ajout de la tâche effectué");</script>';
             // TODO : faire requete sur participer pour inserer un tuple avec l'id_utilisateur, l'id_projet et l'id_tache **************************************************************
@@ -143,7 +147,7 @@ class Tache extends AbstractController {
 
             if ($idTache !== false) { 
                 //$this->setFlashMessage('Ajout effectué' , 'success'); 
-                $isOkPart = ParticiperDB::insert($projet, $utilisateur, $idTache);
+                $isOkPart = ParticiperDB::insertParticiper($projet, $utilisateur, $idTache);
                 echo '<script>alert("Ajout de la participation effectué");</script>';
             } 
             else { 

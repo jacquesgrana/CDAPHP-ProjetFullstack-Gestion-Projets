@@ -2,7 +2,7 @@
 namespace Jacques\ProjetPhpGestionProjets\Entity;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
 
-class Utilisateur extends Model {
+class Utilisateur {
     public static $tableName = 'utilisateur';
 
     private int $id_utilisateur;

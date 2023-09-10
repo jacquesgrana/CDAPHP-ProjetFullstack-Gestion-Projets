@@ -4,7 +4,7 @@ use Jacques\ProjetPhpGestionProjets\Entity\Projet;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
 use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
 
-class ProjetDB {
+class ProjetDB extends Model {
     public static $tableName = 'projet';
     public static $tableUtilName = 'utilisateur';
     public static $tablePartname = 'participer';
@@ -47,7 +47,7 @@ class ProjetDB {
         return $result[0];
     }
 
-    public static function insert(string $titre, string $description, int $id_utilisateur) {
+    public static function insertProjet(string $titre, string $description, int $id_utilisateur) {
         $sql = "INSERT INTO " . self::$tableName .
             " (titre, description, id_utilisateur)" . 
             " VALUES ('$titre', '$description', $id_utilisateur)";
@@ -56,7 +56,7 @@ class ProjetDB {
         return $stmt->execute();
     }
 
-    public static function update($id_projet, $titre, $description, $id_utilisateur) {
+    public static function updateProjet($id_projet, $titre, $description, $id_utilisateur) {
         $sql = "UPDATE " . self::$tableName .
         " SET titre = '$titre', description = '$description', id_utilisateur = $id_utilisateur" .
         " WHERE id_projet=" . $id_projet;
@@ -66,7 +66,7 @@ class ProjetDB {
         return $stmt->execute();
     }
 
-    public static function delete($id_projet) {
+    public static function deleteProjet($id_projet) {
         $sql = "DELETE FROM " . self::$tableName . " WHERE id_projet=" . $id_projet;
         //echo 'sql : ' . $sql . '<br />';
 
@@ -76,7 +76,7 @@ class ProjetDB {
     }
 
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
-    private static function makeObjectFromGeneric($generic): Projet {
+    public static function makeObjectFromGeneric($generic): Projet {
         $pObj = new Projet();
         $pObj->setDescription($generic->description);
         $pObj->setId_projet($generic->id_projet);

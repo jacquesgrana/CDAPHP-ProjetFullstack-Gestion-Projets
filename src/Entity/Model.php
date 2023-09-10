@@ -9,17 +9,21 @@ class Model  {
 
     public static $tableName;
 
+    /*
     private static function getEntityName()
     {
         $classname = static::class;
         $tab = explode('\\', $classname);
         $entity = $tab[count($tab) - 1];
         return $entity;
-    }
+    }*/
 
     private static function getClassName()
     {
-        return static::class;
+        $toReturn = str_replace('DB', '', static::class);
+        $toReturn = str_replace('Utils', 'Entity', $toReturn);
+        //echo 'toReturn : ' . $toReturn;
+        return $toReturn;
     }
 
     public static function Execute($sql)
@@ -48,6 +52,7 @@ class Model  {
         return $result[0];
     }
 
+    /*
     public static function insert(array $datas)
     {
         $sql = "insert into " . self::getEntityName() . " values (NULL,";
@@ -91,6 +96,6 @@ class Model  {
         $sql .= " where id=$id";
         return DataBase::getInstance()->exec($sql);
     }
-
+*/
 
 }

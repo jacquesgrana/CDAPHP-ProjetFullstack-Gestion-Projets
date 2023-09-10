@@ -5,7 +5,7 @@ use Jacques\ProjetPhpGestionProjets\Entity\Model;
 use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
 
 
-class UtilisateurDB {
+class UtilisateurDB extends Model {
     public static $tableName = 'utilisateur';
 
     // TODO faire requête préparée
@@ -39,7 +39,7 @@ class UtilisateurDB {
     }
     
 
-    public static function insert($nom, $prenom, $hash, $email) {
+    public static function insertUtilisateur($nom, $prenom, $hash, $email) {
         //echo 'insert';
         
         $sql = "INSERT INTO " . self::$tableName . 

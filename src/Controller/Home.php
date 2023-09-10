@@ -50,7 +50,7 @@ public function deleteProjet() {
         if(isset($_GET['id'])) {
             $id_projet = intVal($_GET['id']);
             // appeler fonction de TacheDB pour supprimer la tache
-            $isOk = ProjetDB::delete($id_projet);
+            $isOk = ProjetDB::deleteProjet($id_projet);
             // selon retour afficher message
             echo (($isOk) ?  '<script>alert("Suppression du projet effectuée");</script>' : '<script>alert("Suppression du projet non effectuée");</script>');
             
