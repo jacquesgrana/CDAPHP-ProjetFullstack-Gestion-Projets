@@ -19,8 +19,8 @@
         echo '<input type="password" placeholder="Saisir votre mot de passe" name="mdp" id="mdp">';
         echo '<input type="hidden" name="connexion" value="create">';
         echo '</div>';
-        echo '<div>';
-        echo '<button class="btn-01 bg-color01-02" type="submit">Valider</button>';
+        echo '<div class="d-flex justify-content-center">';
+        echo '<button class="btn-01" type="submit">Valider</button>';
         echo '</div>';
         echo '</form>';
     ?>

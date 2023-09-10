@@ -34,7 +34,7 @@
         echo '</div>';
 
         echo '';
-        if ($mode !== 'view') echo '<div><button class="btn-01 bg-color01-02" type="submit" onclick="return confirm(\'Voulez-vous valider les modifications ?\')">&#10004; Valider</button></div>';
+        if ($mode !== 'view') echo '<div class="d-flex justify-content-center"><button class="btn-01" type="submit" onclick="return confirm(\'Voulez-vous valider les modifications ?\')">&#10004; Valider</button></div>';
         //echo '<button class="" formaction="/index.php?page=Home&method=index">&#10226; Retour</button>';
         echo '';
 
@@ -87,11 +87,11 @@
                     . '<td>' . $t->statut . '</td>'
                     . '<td>' . $t->priorite . '</td>'
                     . '<td>'
-                    . '<a href="index.php?page=Tache&method=view&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">&#128196; Voir</a>';
+                    . '<a href="index.php?page=Tache&method=view&id=' . $t->id_tache . '" class="btn-01-sm-blue">&#128196; Voir</a>';
 
                 if ($mode !== 'view') {
-                    echo '<a href="index.php?page=Tache&method=edit&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03">&#9998; Editer</a>'
-                        . '<a href="index.php?page=Projet&method=deleteTache&id=' . $t->id_tache . '" class="btn-01-sm bg-color02-03" onclick="return confirm(\'Voulez-vous supprimer cette tâche ?\')">X Supprimer</a>';
+                    echo '<a href="index.php?page=Tache&method=edit&id=' . $t->id_tache . '" class="btn-01-sm">&#9998; Modifier</a>'
+                        . '<a href="index.php?page=Projet&method=deleteTache&id=' . $t->id_tache . '" class="btn-01-sm-red" onclick="return confirm(\'Voulez-vous supprimer cette tâche ?\')">X Supprimer</a>';
                 }
                 echo '</td></tr>';
             }
@@ -100,12 +100,13 @@
 
         echo '<div>';
         if ($mode === 'edit') {
-            echo '<a href="/index.php?page=Tache&method=create" class="btn-01 bg-color01-01 btn-space-01">Ajouter une nouvelle tâche</a>';
+            echo '<a href="/index.php?page=Tache&method=create" class="btn-01 btn-space-01">Ajouter une nouvelle tâche</a>';
         }
-        echo '<a href="/index.php?page=Home&method=index" class="btn-01 bg-color01-01 btn-space-01">&#10226; Retour</a>';
+        echo '<a href="/index.php?page=Home&method=index" class="btn-01  btn-space-01">&#10226; Retour</a>';
         echo '</div>';
     } else {
         echo '<h3>Veuillez vous connecter</h3>';
+        echo '<p><a class="link01" href="./index.php?page=Connexion&method=index">Connectez-vous</a></p>';
     }
     ?>
 </main>

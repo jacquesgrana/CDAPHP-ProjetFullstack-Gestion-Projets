@@ -29,10 +29,5 @@ class Connexion extends AbstractController {
             //'users'=> $users,
         ]);
     }
-
-    public function test() {
-        echo 'fonction test';
-    }
-
 }
 ?>

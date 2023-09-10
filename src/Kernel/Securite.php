@@ -51,12 +51,12 @@ class Securite
         } 
         elseif (isset($_SESSION['user']) && $_SESSION['user'] === true) {
             //header('location: http://' . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . '/index.php?page=accueil');
-            echo 'login : déjà ok';
+            //echo 'login : déjà ok';
         } 
         else {
             $_SESSION['user'] = false;
             session_destroy();
-            echo 'login : ko';
+            //echo 'login : ko';
         }
     }
 

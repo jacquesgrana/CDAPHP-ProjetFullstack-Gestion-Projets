@@ -91,7 +91,7 @@
         echo '</div>';
 
         //boutons
-        if ($mode !== 'view') echo '<button class="btn-01 bg-color01-02" type="submit"  onclick="return confirm(\'Voulez-vous valider les modifications ?\')">&#10004; Valider</button>';
+        if ($mode !== 'view') echo '<div class="d-flex justify-content-center"><button class="btn-01" type="submit"  onclick="return confirm(\'Voulez-vous valider les modifications ?\')">&#10004; Valider</button></div>';
         
         // faire fonction ?
         /*
@@ -123,12 +123,13 @@
         echo '<div>';
 
         //echo '<button class="" formaction="' . $url . '">&#10226; Retour</button>';
-        echo '<a href="' . $url . '" class="btn-01 bg-color01-01 btn-space-01">&#10226; Retour</a>';
+        echo '<a href="' . $url . '" class="btn-01 btn-space-01">&#10226; Retour</a>';
         echo '</div>';
 
         
     } else {
         echo '<h3>Veuillez vous connecter</h3>';
+        echo '<p><a class="link01" href="./index.php?page=Connexion&method=index">Connectez-vous</a></p>';
     }
     ?>
 </main>

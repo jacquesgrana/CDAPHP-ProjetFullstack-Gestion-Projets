@@ -46,8 +46,8 @@ class Inscription extends AbstractController {
                 if(!UtilisateurDB::isEmailIsInDB($email)) {
                     // ajouter en bdd avec fonction de UtilisateurDB
                     $isOk = UtilisateurDB::insert($nom, $prenom, $hash, $email);
+                    echo (($isOk) ?  '<script>alert("Création de l\'utilisateur effectué");</script>' : '<script>alert("Création de l\'utilisateur non effectué");</script>');
                     // renvoyer sur la page de connexion
-                    
                     Librairie::redirect('index.php', ['page' => 'Connexion', 'method' => 'index']);
                     //echo ($isOk) ? '' : 'erreur sql';
                 }

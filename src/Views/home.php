@@ -51,11 +51,11 @@
                     . '<td>' . $projet->getDescription() . '</td>'
                     . '<td>' . $projet->getId_utilisateur() . '</td>'
                     . '<td>'
-                    . '<a href="index.php?page=Projet&method=view&id=' . $projet->getId_projet() . '" class="btn-01-sm bg-color02-03">&#128196; Voir</a>'
+                    . '<a href="index.php?page=Projet&method=view&id=' . $projet->getId_projet() . '" class="btn-01-sm-blue">&#128196; Voir</a>'
                    
-                    . '<a href="index.php?page=Projet&method=edit&id=' . $projet->getId_projet() . '" class="btn-01-sm bg-color02-03">&#9998; Editer</a>'
+                    . '<a href="index.php?page=Projet&method=edit&id=' . $projet->getId_projet() . '" class="btn-01-sm">&#9998; Modifier</a>'
                     
-                    . '<a href="index.php?page=Home&method=deleteProjet&id=' . $projet->getId_projet() . '" class="btn-01-sm bg-color02-03" onclick="return confirm(\'Voulez-vous supprimer ce projet ?\')">X Supprimer</a>'
+                    . '<a href="index.php?page=Home&method=deleteProjet&id=' . $projet->getId_projet() . '" class="btn-01-sm-red" onclick="return confirm(\'Voulez-vous supprimer ce projet ?\')">X Supprimer</a>'
                     . '</td>'
                     . '</tr>';
             }
@@ -73,7 +73,7 @@
                     . '<td>' . $projet->getDescription() . '</td>'
                     . '<td>' . $projet->getId_utilisateur() . '</td>'
                     . '<td>'
-                    . '<a href="index.php?page=Projet&method=view&id=' . $projet->getId_projet() . '" class="btn-01-sm bg-color02-03">&#128196; Voir</a>'
+                    . '<a href="index.php?page=Projet&method=view&id=' . $projet->getId_projet() . '" class="btn-01-sm-blue">&#128196; Voir</a>'
                     . '</td>'
                     . '</tr>';
             }
@@ -82,9 +82,11 @@
         
 
         echo '<br />';
-        echo '<a href="index.php?page=Projet&method=create" class="btn-01 bg-color01-01 btn-space-01">Créer un projet</a>';
+        echo '<a href="index.php?page=Projet&method=create" class="btn-01  btn-space-01">Créer un projet</a>';
     } else {
         echo '<h3>Veuillez vous connecter</h3>';
+        echo '<p><a class="link01" href="./index.php?page=Connexion&method=index">Connectez-vous</a></p>';
+
     }
     ?>
     <!--<div id="bloc-grow">-->
