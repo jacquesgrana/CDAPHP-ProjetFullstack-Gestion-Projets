@@ -91,7 +91,7 @@
         echo '</div>';
 
         //boutons
-        if ($mode !== 'view') echo '<div class="d-flex justify-content-center"><button class="btn-01" type="submit"  onclick="return confirm(\'Voulez-vous valider les modifications ?\')">&#10004; Valider</button></div>';
+        if ($mode !== 'view') echo '<div class="d-flex justify-content-center"><button class="btn-form" type="submit"  onclick="return confirm(\'Voulez-vous valider les modifications ?\')">&#10004; Valider</button></div>';
         
         // faire fonction ?
         /*

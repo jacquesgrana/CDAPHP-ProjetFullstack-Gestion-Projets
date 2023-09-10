@@ -20,7 +20,7 @@
         echo '<input type="hidden" name="connexion" value="create">';
         echo '</div>';
         echo '<div class="d-flex justify-content-center">';
-        echo '<button class="btn-01" type="submit">Valider</button>';
+        echo '<button class="btn-form" type="submit">&#10004; Valider</button>';
         echo '</div>';
         echo '</form>';
     ?>

@@ -136,6 +136,7 @@ footer p {
     color: hsl(133, 58%, 45%);
 }
 
+.btn-form,
 .btn-02,
 .btn-01 {
     border-radius: 5px;
@@ -152,6 +153,11 @@ footer p {
     text-align: center;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.btn-form {
+    background-color: hsl(133, 94%, 14%);
+    padding-top: 0px;
 }
 
 .btn-01 {
