@@ -112,10 +112,10 @@
         // TODO faire fonction
         $url = '/index.php?page=Projet&method=create';
         if(isset($_SESSION['id_projet']) && isset($_SESSION['mode_projet'])) {
-            if($_SESSION['mode_projet'] = 'edit') {
+            if($_SESSION['mode_projet'] === 'edit') {
                 $url = "/index.php?page=Projet&method=edit&id=" . $_SESSION['id_projet'];
             }
-            elseif($_SESSION['mode_projet'] = 'view') {
+            elseif($_SESSION['mode_projet'] === 'view') {
                 $url = "/index.php?page=Projet&method=view&id=" . $_SESSION['id_projet'];
             }
         }

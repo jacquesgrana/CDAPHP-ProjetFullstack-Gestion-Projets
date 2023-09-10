@@ -104,14 +104,10 @@ class Tache extends AbstractController {
             $id_statut = intval($_POST['statut']);
             $id_priorite = intval($_POST['priorite']);
             $id_projet = intval($_SESSION['id_projet']);
-
             $isOk = TacheDB::updateTache($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet);
-
             $isOkPart = ParticiperDB::updateIdUtilByIdTache($id_tache, $id_utilisateur);
-
             echo (($isOk) ?  '<script>alert("Modification de la taĉhe effectuée");</script>' : '<script>alert("Modification de la taĉhe non effectuée");</script>');
             echo (($isOkPart) ?  '<script>alert("Modification de la participation effectuée");</script>' : '<script>alert("Modification de la participation non effectuée");</script>');
-
             Librairie::returnToProjet();
         }
     }
