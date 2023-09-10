@@ -20,6 +20,7 @@ class Model  {
 
     private static function getClassName()
     {
+        // utiliser une constante ?
         $toReturn = str_replace('DB', '', static::class);
         $toReturn = str_replace('Utils', 'Entity', $toReturn);
         //echo 'toReturn : ' . $toReturn;

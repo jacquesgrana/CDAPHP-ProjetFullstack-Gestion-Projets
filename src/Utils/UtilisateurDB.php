@@ -3,7 +3,7 @@ namespace Jacques\ProjetPhpGestionProjets\Utils;
 use Jacques\ProjetPhpGestionProjets\Entity\Utilisateur;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
 use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
-
+use Jacques\ProjetPhpGestionProjets\Abstract\Creators\UtilisateurCreator;
 
 class UtilisateurDB extends Model {
     public static $tableName = 'utilisateur';
@@ -19,7 +19,7 @@ class UtilisateurDB extends Model {
         //echo '<br />';
         //echo 'user obj :';
         if(count($userGen) > 0) {
-            return self::makeObjectFromGeneric($userGen[0]);
+            return UtilisateurCreator::makeObjectFromGeneric($userGen[0]);
         }
         else {
             return null;
@@ -51,6 +51,7 @@ class UtilisateurDB extends Model {
         return $stmt->execute();
     }
 
+    /*
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique et ajouter le nom de l'objet concret en parametre
     private static function makeObjectFromGeneric($generic): Utilisateur {
         $userObj = new Utilisateur();
@@ -61,4 +62,5 @@ class UtilisateurDB extends Model {
         $userObj->setPrenom($generic->prenom);
         return $userObj;
     }
+    */
 }

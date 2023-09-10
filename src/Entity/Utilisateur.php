@@ -1,8 +1,9 @@
 <?php
 namespace Jacques\ProjetPhpGestionProjets\Entity;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
+use Jacques\ProjetPhpGestionProjets\Abstract\Entity;
 
-class Utilisateur {
+class Utilisateur implements Entity {
     public static $tableName = 'utilisateur';
 
     private int $id_utilisateur;

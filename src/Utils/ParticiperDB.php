@@ -11,7 +11,6 @@ class ParticiperDB extends Model {
         $sql = "INSERT INTO " . self::$tableName . 
         " (id_projet, id_utilisateur, id_tache)" . 
         " VALUES ($id_projet, $id_utilisateur, $id_tache)";
-        //echo 'sql' . $sql . '<br />';
         $db = DataBase::getInstance();
         $stmt = $db->prepare($sql);
         return $stmt->execute();
@@ -21,7 +20,6 @@ class ParticiperDB extends Model {
         $sql = "UPDATE " . self::$tableName .
             " SET id_utilisateur = $id_utilisateur" .
             " WHERE id_tache=" . $id_tache;
-        //echo 'sql : ' . $sql . '<br />';
         $db = DataBase::getInstance();
         $stmt = $db->prepare($sql);
         return $stmt->execute();

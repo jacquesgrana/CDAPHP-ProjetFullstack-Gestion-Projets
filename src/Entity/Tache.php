@@ -4,7 +4,7 @@ use Jacques\ProjetPhpGestionProjets\Entity\Model;
 use Jacques\ProjetPhpGestionProjets\Abstract\Entity;
 
 
-class Tache {
+class Tache implements Entity {
     public static $tableName = 'tache';
 
     private int $id_tache;

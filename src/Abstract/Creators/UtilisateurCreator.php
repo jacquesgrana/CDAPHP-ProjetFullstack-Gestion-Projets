@@ -1,0 +1,17 @@
+<?php
+namespace Jacques\ProjetPhpGestionProjets\Abstract\Creators;
+use Jacques\ProjetPhpGestionProjets\Abstract\Creator;
+use Jacques\ProjetPhpGestionProjets\Entity\Utilisateur;
+
+class UtilisateurCreator extends Creator {
+    public static function makeObjectFromGeneric($generic): Utilisateur {
+        $userObj = new Utilisateur();
+        $userObj->setId_utilisateur($generic->id_utilisateur);
+        $userObj->setEmail($generic->email);
+        $userObj->setMdp($generic->mdp);
+        $userObj->setNom($generic->nom);
+        $userObj->setPrenom($generic->prenom);
+        return $userObj;
+    }
+}
+?>

@@ -5,6 +5,7 @@ namespace Jacques\ProjetPhpGestionProjets\Utils;
 use Jacques\ProjetPhpGestionProjets\Entity\Tache;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
 use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
+use Jacques\ProjetPhpGestionProjets\Abstract\Creators\TacheCreator;
 
 // TODO mettre des try/catch !!!!
 class TacheDB extends Model
@@ -18,7 +19,7 @@ class TacheDB extends Model
         $tachesGeneric = Model::Execute($sql);
         $tachesObj = [];
         foreach ($tachesGeneric as $tGen) {
-            $tachesObj[] = self::makeObjectFromGeneric($tGen);
+            $tachesObj[] = TacheCreator::makeObjectFromGeneric($tGen);
         }
         return $tachesObj;
     }
@@ -75,6 +76,7 @@ class TacheDB extends Model
         return $stmt->execute();
     }
 
+    /*
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
     private static function makeObjectFromGeneric($generic): Tache
     {
@@ -88,5 +90,5 @@ class TacheDB extends Model
         $tObj->setId_projet($generic->id_projet);
         //var_dump($tObj);
         return $tObj;
-    }
+    }*/
 }
