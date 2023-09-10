@@ -9,8 +9,6 @@ class Participer {
     private $id_utilisateur;
     private $id_tache;
 
-    
-
     /**
      * Get the value of id_projet
      */ 

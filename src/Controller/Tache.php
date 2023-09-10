@@ -89,8 +89,8 @@ class Tache extends AbstractController {
     }
 
     /**
-     * Fonction qui gère la requête de modification d'une tâche selon 
-     * son id.
+     * Fonction qui gère la requête de demande de modification 
+     * d'une tâche selon son id.
      * Demande une requête sur la table participer pour la mettre à jour.
      */
     public function update() {
@@ -117,7 +117,8 @@ class Tache extends AbstractController {
     }
 
     /**
-     * Fonction qui gère la requête d'insertion d'une nouvelle tâche.
+     * Fonction qui gère la demande de requête d'insertion d'une 
+     * nouvelle tâche.
      * Demande une requête sur la table participer pour la mettre à jour.
      */
     public function insert() {
