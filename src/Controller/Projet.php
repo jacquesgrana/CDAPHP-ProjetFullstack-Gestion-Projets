@@ -133,7 +133,7 @@ class Projet extends AbstractController {
             }
         }
         // rediriger sur la page home
-        Librairie::redirect('index.php', ['method' => 'index']);
+        Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
     }
 
     /**
@@ -154,6 +154,7 @@ class Projet extends AbstractController {
                 echo '<script>alert("Ajout du projet non effectué");</script>';
             }
         }
-        Librairie::redirect('index.php', ['method' => 'index']);
+        Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
+
     }
 }

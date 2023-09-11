@@ -5,12 +5,20 @@ use Jacques\ProjetPhpGestionProjets\Entity\Model;
 use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
 use Jacques\ProjetPhpGestionProjets\Abstract\Creators\ProjetCreator;
 
+/**
+ * Classe chargée d'exécuter des requêtes sur la table projet.
+ */
 class ProjetDB extends Model {
     public static $tableName = 'projet';
     public static $tableUtilName = 'utilisateur';
     public static $tablePartname = 'participer';
 
     // TODO faire requête préparée
+    /**
+     * Fonction qui renvoie les projets selon l'id du directeur du projet.
+     * @param int $id_utilisateur : id du directeur
+     * @return array : tableau de Projet
+     */
     public static function getByDirectorUserId(int $id_utilisateur): array {
         $sql = "SELECT * FROM " . self::$tableName . " WHERE id_utilisateur=$id_utilisateur";
         $projetsGeneric = Model::Execute($sql);
@@ -21,7 +29,13 @@ class ProjetDB extends Model {
         return $projetsObj;
     }
 
-    public static function getByParticipation(int $id_utilisateur) {
+    /**
+     * Fonction qui renvoie les projets auxquels participe un utilisateur
+     * selon son id.
+     * @param int $id_utilisateur : id de l'utilisateur participant
+     * @return array : tableau d'objets génériques
+     */
+    public static function getByParticipation(int $id_utilisateur): array {
 
         $sql = "SELECT pr.id_projet, pr.titre, pr.description, pr.id_utilisateur 
         FROM projet pr, participer pa, utilisateur u  
@@ -37,6 +51,10 @@ class ProjetDB extends Model {
         return $projetsObj;
     }
 
+    /**
+     * Fonction qui renvoie un projet selon son id.
+     * @param int $id : id du projet
+     */
     public static function getById(int $id)
     {
         $sql = "SELECT * FROM " . static::$tableName . " where id_projet=$id";
@@ -44,6 +62,10 @@ class ProjetDB extends Model {
         return $result[0];
     }
 
+    /**
+     * Fonction qui insère un nouveau tuple.
+     * @param : propriétés du nouveau tuple.
+     */
     public static function insertProjet(string $titre, string $description, int $id_utilisateur) {
         $sql = "INSERT INTO " . self::$tableName .
             " (titre, description, id_utilisateur)" . 
@@ -53,6 +75,11 @@ class ProjetDB extends Model {
         return $stmt->execute();
     }
 
+    /**
+     * Fonction qui modifie un tuple selon son id.
+     * @param int $id_projet : id du tuple à modifier
+     * @param : le reste, propriétés du tuple à modifier.
+     */
     public static function updateProjet($id_projet, $titre, $description, $id_utilisateur) {
         $sql = "UPDATE " . self::$tableName .
         " SET titre = '$titre', description = '$description', id_utilisateur = $id_utilisateur" .
@@ -63,10 +90,12 @@ class ProjetDB extends Model {
         return $stmt->execute();
     }
 
+    /**
+     * Fonction qui supprime un tuple selon son id.
+     * @param int $id_projet : id du tuple à supprimer
+     */
     public static function deleteProjet($id_projet) {
         $sql = "DELETE FROM " . self::$tableName . " WHERE id_projet=" . $id_projet;
-        //echo 'sql : ' . $sql . '<br />';
-
         $db = DataBase::getInstance();
         $stmt = $db->prepare($sql);
         return $stmt->execute();

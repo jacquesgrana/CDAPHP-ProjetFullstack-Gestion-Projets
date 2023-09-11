@@ -112,11 +112,11 @@ main {
 footer {
     min-height: 10%;
     border-top: 1px solid black;
-
 }
 
 footer p {
     margin-top: 15px;
+    margin-bottom: 10px;
     text-align: center;
 }
 

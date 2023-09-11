@@ -8,10 +8,19 @@ use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
 use Jacques\ProjetPhpGestionProjets\Abstract\Creators\TacheCreator;
 
 // TODO mettre des try/catch !!!!
+
+/**
+ * Classe chargée d'exécuter des requêtes sur la table tache.
+ */
 class TacheDB extends Model
 {
     public static $tableName = 'tache';
 
+    /**
+     * Fonction qui renvoie les tâches selon l'id du projet.
+     * @param int $id_projet : id du projet
+     * @return array : tableau de Tache
+     */
     public static function getByProjetId(int $id_projet): array
     {
         $sql = "SELECT * FROM " . self::$tableName . " WHERE id_projet=$id_projet";
@@ -23,6 +32,12 @@ class TacheDB extends Model
         return $tachesObj;
     }
 
+    /**
+     * Fonction qui renvoie les tâches et d'autres informations 
+     * selon l'id du projet.
+     * @param int $id_projet : id du projet
+     * @return array : tableau d'objets génériques
+     */
     public static function getAllByProjetId(int $id_projet): array
     {
         $sql = "SELECT t.id_tache , t.nom AS nom_tache , t.description , u.nom , u.prenom , u.id_utilisateur, s.statut , pri.priorite 
@@ -36,6 +51,11 @@ class TacheDB extends Model
         return $taches;
     }
 
+     /**
+     * Fonction qui modifie un tuple selon son id.
+     * @param int $id_projet : id du tuple à modifier
+     * @param : le reste, propriétés du tuple à modifier.
+     */
     public static function updateTache($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet)
     {
         $sql = "UPDATE " . self::$tableName .
@@ -46,6 +66,10 @@ class TacheDB extends Model
         return $stmt->execute();
     }
 
+    /**
+     * Fonction qui insère un nouveau tuple.
+     * @param : propriétés du nouveau tuple.
+     */
     public static function insertTache(string $nom, string $description, int $id_utilisateur, int $id_statut, int $id_priorite, int $id_projet)
     {
         $sql = "INSERT INTO " . self::$tableName .
@@ -63,7 +87,10 @@ class TacheDB extends Model
         }
     }
 
-
+    /**
+     * Fonction qui supprime un tuple selon son id.
+     * @param int $id_projet : id du tuple à supprimer
+     */
     public static function deleteTache(int $id_tache)
     {
         $sql = "DELETE FROM " . self::$tableName . " WHERE id_tache=" . $id_tache;

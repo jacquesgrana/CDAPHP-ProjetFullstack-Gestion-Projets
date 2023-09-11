@@ -9,15 +9,15 @@ class UtilisateurDB extends Model {
     public static $tableName = 'utilisateur';
 
     // TODO faire requête préparée
-    // TODO factory pour construire l'userObj ?
+    /**
+     * Fonction qui récupère u utilisateur selon son email.
+     * @param string $email : email de l'utilisateur
+     * @return ?Utilisateur
+     */
     public static function getUserByEmail(string $email): ?Utilisateur 
     {
         $sql = "SELECT * FROM " . self::$tableName . " WHERE email='$email'";
         $userGen = Model::Execute($sql);
-        //echo 'user tab :';
-        //var_dump($userTab);
-        //echo '<br />';
-        //echo 'user obj :';
         if(count($userGen) > 0) {
             return UtilisateurCreator::makeObjectFromGeneric($userGen[0]);
         }
@@ -27,21 +27,26 @@ class UtilisateurDB extends Model {
         
     }
 
+    /**
+     * Fonction qui renvoie vrai si l'email est déjà présent
+     * dans la table utilisateur.
+     * @param string $email : email à tester
+     * @return bool vrai si email présent dans la table
+     */
     public static function isEmailIsInDB(string $email): bool {
         if(self::getUserByEmail($email) === null) {
-            //echo'pas dedans';
             return false;
         }
         else {
-            //echo'deja dedans';
             return true;
         }
     }
     
-
-    public static function insertUtilisateur($nom, $prenom, $hash, $email) {
-        //echo 'insert';
-        
+   /**
+     * Fonction qui insère un nouveau tuple.
+     * @param : propriétés du nouveau tuple.
+     */
+    public static function insertUtilisateur($nom, $prenom, $hash, $email) {     
         $sql = "INSERT INTO " . self::$tableName . 
         " (nom, prenom, mdp, email) 
         VALUES ('$nom', '$prenom', '$hash', '$email')";

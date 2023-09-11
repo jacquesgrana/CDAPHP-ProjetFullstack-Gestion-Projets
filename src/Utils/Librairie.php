@@ -6,8 +6,8 @@ class Librairie
 {
 
     /**
-     * Fonction qui redirige vers $url avec des paramtres dans la query string.
-     * Utilise du js pour moins utiliser la fonction 'header' de php.
+     * Fonction qui redirige vers $url avec des paramètres dans la query string.
+     * Utilise du js pour ne pas utiliser la fonction 'header' de php.
      * @param string $url : destination de la redirection.
      * @param array $queryParameters : tableau associatif contenant les paramètres 
      * de la query string.
@@ -21,6 +21,10 @@ class Librairie
         echo '<script type="text/javascript"> window.location="' . $url . '";</script>';
     }
 
+    /**
+     * Fonction qui redirige vers la page du projet avec 
+     * la bonne querystring. Utilise des variables de session.
+     */
     public static function returnToProjet()
     {
         // revenir a la page du projet en respectant le mode et l'id du projet (faire fonction pour construire l'url)
@@ -31,6 +35,11 @@ class Librairie
         self::redirect('index.php', $tabParams);
     }
 
+    /**
+     * Fonction qui renvoi l'url du projet en cours en fonction
+     * de variables de sessions.
+     * @return string $url
+     */
     public static function getProjetUrl()
     {
         $url = '/index.php?page=Projet&method=create';
