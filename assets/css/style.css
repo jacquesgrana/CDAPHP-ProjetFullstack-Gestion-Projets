@@ -171,6 +171,7 @@ footer p {
     background-color: hsl(219, 71%, 40%);
 }
 
+.btn-form:hover,
 .btn-01:hover {
     color: hsl(34, 68%, 59%);
     background-color: hsl(133, 95%, 24%);
