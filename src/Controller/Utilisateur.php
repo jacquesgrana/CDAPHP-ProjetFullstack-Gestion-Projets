@@ -20,9 +20,7 @@ class Utilisateur extends AbstractController {
     {
         if(isset($_GET['id']) && Securite::isConnected()) {
             $id_utilisateur = $_GET['id'];
-            $this->utilisateur = UtilisateurDB::getById($id_utilisateur);
-            //var_dump($this->utilisateur);
-        
+            $this->utilisateur = UtilisateurDB::getById($id_utilisateur);        
         }
         
         $view = new View();
