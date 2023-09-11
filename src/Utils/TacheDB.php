@@ -26,7 +26,7 @@ class TacheDB extends Model
 
     public static function getAllByProjetId(int $id_projet): array
     {
-        $sql = "SELECT t.id_tache , t.nom AS nom_tache , t.description , u.nom , u.prenom , s.statut , pri.priorite 
+        $sql = "SELECT t.id_tache , t.nom AS nom_tache , t.description , u.nom , u.prenom , u.id_utilisateur, s.statut , pri.priorite 
         FROM tache t, utilisateur u , statut s , priorite pri, projet pro
         WHERE pro.id_projet = " . $id_projet . "
         AND t.id_utilisateur = u.id_utilisateur 

@@ -83,7 +83,14 @@
                     . '<td>' . $t->id_tache . '</td>'
                     . '<td>' . $t->nom_tache . '</td>'
                     . '<td>' . $t->description . '</td>'
-                    . '<td>' . $t->nom . ' : ' . $t->prenom . '</td>'
+                    // ajouter bouton pour voir l'utilisateur
+                    . '<td>' . $t->nom 
+                    . ' : ' 
+                    . $t->prenom 
+                    . ' '
+                    . '<a href="index.php?page=Utilisateur&method=index&id=' . $t->id_utilisateur . '" class="btn-01-sm-blue">&#128196; Voir</a>'
+                    //. $t->id_utilisateur
+                    . '</td>'
                     . '<td>' . $t->statut . '</td>'
                     . '<td>' . $t->priorite . '</td>'
                     . '<td>'
