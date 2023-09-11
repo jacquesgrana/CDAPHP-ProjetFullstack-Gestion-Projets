@@ -9,6 +9,7 @@ use Jacques\ProjetPhpGestionProjets\Entity\Projet as ProjetObj;
 use Jacques\ProjetPhpGestionProjets\Utils\Librairie;
 use Jacques\ProjetPhpGestionProjets\Utils\ProjetDB;
 use Jacques\ProjetPhpGestionProjets\Utils\UtilisateurDB;
+use Jacques\ProjetPhpGestionProjets\Abstract\Creators\ProjetCreator;
 
 /**
  * Contrôleur de la page projet. Gère différentes requêtes.
@@ -55,7 +56,7 @@ class Projet extends AbstractController {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
                 $tempObj= ProjetDB::getById($id_projet);
-                $this->projet = ProjetDB::makeObjectFromGeneric($tempObj);
+                $this->projet = ProjetCreator::makeObjectFromGeneric($tempObj);
                 $_SESSION['id_projet'] = $id_projet;
             }            
         }
@@ -73,7 +74,7 @@ class Projet extends AbstractController {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
                 $tempObj= ProjetDB::getById($id_projet);
-                $this->projet = ProjetDB::makeObjectFromGeneric($tempObj);
+                $this->projet = ProjetCreator::makeObjectFromGeneric($tempObj);
                 //$this->projet = ProjetObj::getById($id_projet);
                 $_SESSION['id_projet'] = $id_projet;
             }            

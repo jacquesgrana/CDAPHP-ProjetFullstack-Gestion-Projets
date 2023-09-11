@@ -27,11 +27,13 @@ class Model  {
         return $toReturn;
     }
 
+
     public static function Execute($sql)
     {
-        //echo 'sql : ' . $sql;
-        $pdostatement = DataBase::getInstance()->query($sql);
-        return $pdostatement->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
+        
+        //$pdostatement = DataBase::getInstance()->query($sql);
+        //return $pdostatement->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
+        return DataBase::execute($sql, self::getClassName());
     }
 
 

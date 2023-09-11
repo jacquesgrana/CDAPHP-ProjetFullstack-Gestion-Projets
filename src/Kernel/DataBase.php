@@ -37,5 +37,11 @@ class DataBase extends PDO{
         }
         return self::$instance;
     }
+
+    public static function execute($sql, $classname)
+    {
+        $pdostatement = DataBase::getInstance()->query($sql);
+        return $pdostatement->fetchAll(PDO::FETCH_CLASS, $classname);
+    }
 }
 ?>

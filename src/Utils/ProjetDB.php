@@ -3,6 +3,7 @@ namespace Jacques\ProjetPhpGestionProjets\Utils;
 use Jacques\ProjetPhpGestionProjets\Entity\Projet;
 use Jacques\ProjetPhpGestionProjets\Entity\Model;
 use Jacques\ProjetPhpGestionProjets\Kernel\DataBase;
+use Jacques\ProjetPhpGestionProjets\Abstract\Creators\ProjetCreator;
 
 class ProjetDB extends Model {
     public static $tableName = 'projet';
@@ -10,14 +11,12 @@ class ProjetDB extends Model {
     public static $tablePartname = 'participer';
 
     // TODO faire requête préparée
-    // TODO factory pour construire l'$projetsObj ?
     public static function getByDirectorUserId(int $id_utilisateur): array {
         $sql = "SELECT * FROM " . self::$tableName . " WHERE id_utilisateur=$id_utilisateur";
         $projetsGeneric = Model::Execute($sql);
-        // TODO remplacer par un map
         $projetsObj = [];
         foreach($projetsGeneric as $pGen) {
-            $projetsObj[] = self::makeObjectFromGeneric($pGen);
+            $projetsObj[] = ProjetCreator::makeObjectFromGeneric($pGen);
         }
         return $projetsObj;
     }
@@ -30,12 +29,10 @@ class ProjetDB extends Model {
         AND pa.id_utilisateur = u.id_utilisateur 
         AND u.id_utilisateur=$id_utilisateur
         ";
-        // TODO factoriser
         $projetsGeneric = Model::Execute($sql);
-        // TODO remplacer par un map
         $projetsObj = [];
         foreach($projetsGeneric as $pGen) {
-            $projetsObj[] = self::makeObjectFromGeneric($pGen);
+            $projetsObj[] = ProjetCreator::makeObjectFromGeneric($pGen);
         }
         return $projetsObj;
     }
@@ -75,6 +72,7 @@ class ProjetDB extends Model {
         return $stmt->execute();
     }
 
+    /*
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
     public static function makeObjectFromGeneric($generic): Projet {
         $pObj = new Projet();
@@ -83,6 +81,6 @@ class ProjetDB extends Model {
         $pObj->setId_utilisateur($generic->id_utilisateur);
         $pObj->setTitre($generic->titre);
         return $pObj;
-    }
+    }*/
 }
 ?>

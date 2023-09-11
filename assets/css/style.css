@@ -91,11 +91,13 @@ main h3 {
 }
 
 body {
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
-    min-height: 70%;
+    flex-grow: 1;
     margin-bottom: 40px;
 }
 

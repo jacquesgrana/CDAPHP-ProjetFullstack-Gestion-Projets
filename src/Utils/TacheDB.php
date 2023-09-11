@@ -10,7 +10,6 @@ use Jacques\ProjetPhpGestionProjets\Abstract\Creators\TacheCreator;
 // TODO mettre des try/catch !!!!
 class TacheDB extends Model
 {
-
     public static $tableName = 'tache';
 
     public static function getByProjetId(int $id_projet): array
@@ -42,7 +41,6 @@ class TacheDB extends Model
         $sql = "UPDATE " . self::$tableName .
             " SET nom = '$nom', description = '$description', id_utilisateur = $id_utilisateur, id_statut = $id_statut, id_priorite = $id_priorite, id_projet = $id_projet" .
             " WHERE id_tache=" . $id_tache;
-        //echo 'sql : ' . $sql . '<br />';
         $db = DataBase::getInstance();
         $stmt = $db->prepare($sql);
         return $stmt->execute();
