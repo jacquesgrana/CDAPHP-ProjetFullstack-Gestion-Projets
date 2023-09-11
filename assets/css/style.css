@@ -38,34 +38,39 @@ header {
     padding: 20px;
     width: 100%;
     text-align: center;
-    max-height: 20%;
+    min-height: 20%;
+    border-bottom: 1px solid black;
 }
 
+header nav,
+header div,
 header h1 {
-    margin: 10px 0;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 
+/*
 header div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0;
-}
+    margin: 20px 0;
+}*/
 
 header a {
     padding: 5px 10px;
     text-decoration: none;
 }
-
+/*
 header nav {
-    margin: 10px 0;
-}
+    margin: 20px 0;
+}*/
 
 header nav ul {
     list-style: none;
     padding: 0;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -73,24 +78,9 @@ header nav ul li {
     padding: 5px 10px;
 }
 
-/*
-#nav {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.li-nav {
-    margin-left: 15px;
-    margin-right: 15px;
-    list-style: none;
-    width:max-content;
-    display: block;
-}
-*/
-
 main h2 {
     font-family: mplus-Bold;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 10px;
 }
 
@@ -119,6 +109,8 @@ main {
 
 footer {
     min-height: 10%;
+    border-top: 1px solid black;
+
 }
 
 footer p {
@@ -233,7 +225,7 @@ footer p {
 
 table {
     border-spacing: 0;
-    border: 2px solid black;
+    border: 1px solid black;
     border-collapse: collapse;
     overflow: hidden;
     max-width: 80%;
@@ -258,7 +250,7 @@ tr:nth-child(odd) {
 }
 
 form {
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
     padding-right: 30px;

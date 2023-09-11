@@ -31,7 +31,7 @@ class Utilisateur extends AbstractController {
         $view->render([
             'flash' => $this->getFlashMessage(),
             'titlePage' => $this->titlePage,
-            'windowName' => 'Gestion de Projets - Tache',
+            'windowName' => 'Gestion de Projets - Utilisateur',
             'utilisateur' => $this->utilisateur ?? null,
             'isConnected' => Securite::isConnected()
         ]);
