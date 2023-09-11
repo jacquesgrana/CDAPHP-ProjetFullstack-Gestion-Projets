@@ -23,5 +23,8 @@
         echo '<button class="btn-form" type="submit">&#10004; Valider</button>';
         echo '</div>';
         echo '</form>';
+        echo '<div>';
+        echo '<a href="/index.php?page=Home&method=index" class="btn-01  btn-space-01">&#10226; Accueil</a>';
+        echo '</div>';
     ?>
 </main>

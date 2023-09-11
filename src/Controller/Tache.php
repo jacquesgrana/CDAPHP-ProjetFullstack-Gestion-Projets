@@ -22,6 +22,7 @@ class Tache extends AbstractController {
     private array $statuts;
     private array $priorites;
     private array $utilisateurs;
+    private $getProUrl;
 
     /**
      * Fonction qui construit et demande l'affichage de la vue.
@@ -31,6 +32,7 @@ class Tache extends AbstractController {
         $this->statuts = StatutDB::getAll();
         $this->priorites = PrioriteDB::getAll();
         $this->utilisateurs = UtilisateurDB::getAll();
+        $this->getProUrl = Librairie::getProjetUrl();
         $view = new View();
         $view->setHead('head.html')
         ->setHeader('header.php')
@@ -45,6 +47,7 @@ class Tache extends AbstractController {
             'statuts' => $this->statuts,
             'priorites' => $this->priorites,
             'utilisateurs' => $this->utilisateurs,
+            'getProUrl' => $this->getProUrl ?? null,
             'isConnected' => Securite::isConnected()
         ]);
     }

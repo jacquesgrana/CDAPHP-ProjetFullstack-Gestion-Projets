@@ -95,19 +95,14 @@
         
         echo '</div>';
         echo '</form>';
-        // TODO faire fonction ?
-        $url = '/index.php?page=Projet&method=create';
-        if(isset($_SESSION['id_projet']) && isset($_SESSION['mode_projet'])) {
-            if($_SESSION['mode_projet'] === 'edit') {
-                $url = "/index.php?page=Projet&method=edit&id=" . $_SESSION['id_projet'];
-            }
-            elseif($_SESSION['mode_projet'] === 'view') {
-                $url = "/index.php?page=Projet&method=view&id=" . $_SESSION['id_projet'];
-            }
+        
+        if ($getProUrl !== null) {
+            //$url = $getUrlFct;
+            echo '<div>';
+            echo '<a href="' . $getProUrl . '" class="btn-01 btn-space-01">&#10226; Retour</a>';
+            echo '</div>';
         }
-        echo '<div>';
-        echo '<a href="' . $url . '" class="btn-01 btn-space-01">&#10226; Retour</a>';
-        echo '</div>';
+
     } else {
         echo '<h3>Veuillez vous connecter</h3>';
         echo '<p><a class="link01" href="./index.php?page=Connexion&method=index">Connectez-vous</a></p>';
