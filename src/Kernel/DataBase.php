@@ -9,7 +9,10 @@ use Jacques\ProjetPhpGestionProjets\Entity\Model;
 use Jacques\ProjetPhpGestionProjets\Configuration\Config;
 
 
-
+/**
+ * Classe chargée d'utiliser PDO.
+ * Utilise un design singleton pour $intance.
+ */
 class DataBase extends PDO{
 
     private static $instance = null;
