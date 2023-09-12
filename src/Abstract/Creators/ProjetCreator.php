@@ -14,8 +14,8 @@ class ProjetCreator extends Creator {
      */
     public static function makeObjectFromGeneric($generic): Projet {
         $pObj = new Projet();
-        $pObj->setDescription($generic->description);
         $pObj->setId_projet($generic->id_projet);
+        $pObj->setDescription($generic->description);
         $pObj->setId_utilisateur($generic->id_utilisateur);
         $pObj->setTitre($generic->titre);
         return $pObj;
