@@ -23,7 +23,7 @@ class Utilisateur extends AbstractController
     public function index()
     {
         if (isset($_GET['id']) && Securite::isConnected() && Securite::isTokenOk()) {
-            if(Securite::isTokenOk()) {
+            
                 $id_utilisateur = $_GET['id'];
                 $this->utilisateur = UtilisateurDB::getById($id_utilisateur);
                 $this->getProUrl = Librairie::getProjetUrl();
@@ -41,12 +41,8 @@ class Utilisateur extends AbstractController
                     'token' => Securite::getToken(),
                     'isConnected' => Securite::isConnected()
                 ]);
-            }
-            
-            
-            
         }
-        else {
+        if(!Securite::isTokenOk()) {
             Librairie::redirectErrorPage('Vue interdite : Problème de Token');
         }
     }
