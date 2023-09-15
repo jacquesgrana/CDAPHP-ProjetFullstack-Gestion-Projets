@@ -101,6 +101,12 @@ class TacheDB extends Model
         return $stmt->execute();
     }
 
+    /**
+     * Fonction qui renvoie l'id de l'utilisateur directeur de la tache
+     * dont l'id est en paramètre.
+     * @param int $id_tache : id de la tâche à tester
+     * @return int : id du directeur de la tâche
+     */
     public static function getUtilisateurIdByTacheId($id_tache): int {
         $sql ="SELECT p.id_utilisateur 
         FROM projet p , tache t 
@@ -110,20 +116,4 @@ class TacheDB extends Model
         $toReturn = $result->id_utilisateur;
         return intval($toReturn);
     }
-
-    /*
-    // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
-    private static function makeObjectFromGeneric($generic): Tache
-    {
-        $tObj = new Tache();
-        $tObj->setId_tache($generic->id_tache);
-        $tObj->setNom($generic->nom);
-        $tObj->setDescription($generic->description);
-        $tObj->setId_utilisateur($generic->id_utilisateur);
-        $tObj->setId_statut($generic->id_statut);
-        $tObj->setId_priorite($generic->id_priorite);
-        $tObj->setId_projet($generic->id_projet);
-        //var_dump($tObj);
-        return $tObj;
-    }*/
 }

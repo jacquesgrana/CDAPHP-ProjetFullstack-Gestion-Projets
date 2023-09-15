@@ -23,7 +23,12 @@ class Securite
         return false;
     }
 
-
+   /**
+     * Fonction qui renvoie vrai si le token de la query string
+     * est égal à celui généré à la connexion. 
+     * faux sinon.
+     * @return bool vrai si tokens matchent
+     */
     public static function isTokenOk(): bool {
         if(isset($_SESSION['user_token']) && isset($_GET['token'])) {
             return self::getToken() === $_GET['token'];
@@ -31,13 +36,22 @@ class Securite
         return false;
     }
 
+    /**
+     * Fonction qui renvoie une chaine aléatoire d'alphanumériques
+     * de longueur papamétrable.
+     * @param int $length : longueur de la chaîne à renvoyer
+     * @return string chaine alphanumérique aléatoire
+     */
     private static function generateToken(int $length): string {
         $start = 0;
-        //$length = 20;
         $strings='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         return substr(str_shuffle($strings), $start, $length);
     }
 
+    /**
+     * Fonction qui renvoi le token de connexion.
+     * @return string token de connexion
+     */
     public static function getToken(): string {
         if(isset($_SESSION['user_token'])) {
             return $_SESSION['user_token'];
@@ -45,6 +59,9 @@ class Securite
         return '';
     }
 
+    /**
+     * 
+     */
     private static function setToken(string $token): void {
         $_SESSION['user_token'] = $token;
     }
