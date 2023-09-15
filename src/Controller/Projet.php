@@ -69,6 +69,8 @@ class Projet extends AbstractController {
             echo '<script>alert("Token et/ou Connexion incorrects");</script>';
         }
         
+        if(!Securite::isTokenOk()) Librairie::redirectErrorPage('Edition interdite : Problème de Token');
+        
     }
 
     /**
@@ -91,6 +93,7 @@ class Projet extends AbstractController {
         else {
             echo '<script>alert("Token et/ou Connexion incorrects");</script>';
         }
+        if(!Securite::isTokenOk()) Librairie::redirectErrorPage('Vue interdite : Problème de Token');
         
     }
 
@@ -108,6 +111,7 @@ class Projet extends AbstractController {
         else {
             echo '<script>alert("Token et/ou Connexion incorrects");</script>';
         }
+        if(!Securite::isTokenOk()) Librairie::redirectErrorPage('Création interdite : Problème de Token');
     }
 
     /**
@@ -123,7 +127,12 @@ class Projet extends AbstractController {
             // selon retour afficher message
             echo (($isOk) ?  '<script>alert("Suppression de la taĉhe effectuée");</script>' : '<script>alert("Suppression de la taĉhe non effectuée");</script>');
         }
-        Librairie::returnToProjet();
+        if(!Securite::isTokenOk()) {
+            Librairie::redirectErrorPage('Suppression interdite : Problème de Token');
+        }
+        else {
+            Librairie::returnToProjet();
+        }
     }
 
     /**
@@ -131,14 +140,12 @@ class Projet extends AbstractController {
      * son id.
      */
     public function update() {
-        // tester et recuperer les variables $_POST
         if(isset($_POST['titre']) && isset($_POST['description']) 
         && isset($_GET['id']) && Securite::isTokenOk()) {
             $id_projet = intval($_GET['id']);
             $titre = $_POST['titre'];
             $description = $_POST['description'];
             $id_utilisateur = intval($_SESSION['user_id']);
-            // appeler fonction de ProjetDB
             $isOk = ProjetDB::updateProjet($id_projet, $titre, $description, $id_utilisateur);
             if($isOk) {
                 echo '<script>alert("Modification du projet effectuée");</script>';
@@ -147,8 +154,13 @@ class Projet extends AbstractController {
                 echo '<script>alert("Modification du projet non effectuée");</script>';
             }
         }
-        // rediriger sur la page home
-        Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
+        if(!Securite::isTokenOk()) {
+            Librairie::redirectErrorPage('Modification interdite : Problème de Token');
+        }
+        else {
+            Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
+        }
+        
     }
 
     /**
@@ -170,7 +182,13 @@ class Projet extends AbstractController {
                 echo '<script>alert("Ajout du projet non effectué");</script>';
             }
         }
-        Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
+        if(!Securite::isTokenOk()) {
+            Librairie::redirectErrorPage('Insertion interdite : Problème de Token');
+        }
+        else {
+            Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
+        }
+        //Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
 
     }
 }

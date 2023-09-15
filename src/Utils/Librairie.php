@@ -32,7 +32,10 @@ class Librairie
         // revenir a la page du projet en respectant le mode et l'id du projet (faire fonction pour construire l'url)
         $id_projet = $_SESSION['id_projet'];
         $method = $_SESSION['mode_projet'];
-        $tabParams = ['page' => 'Projet', 'method' => $method, 'id' => $id_projet, 'token' => Securite::getToken()];
+        $tabParams = ['page' => 'Projet', 
+        'method' => $method, 
+        'id' => $id_projet, 
+        'token' => Securite::getToken()];
         // appeler fonction de la librairie de redirection js
         self::redirect('index.php', $tabParams);
     }
@@ -53,5 +56,10 @@ class Librairie
             }
         }
         return $url;
+    }
+
+    public static function redirectErrorPage($comment) {
+        $_SESSION['error_comment'] = $comment;
+        self::redirect('index.php', ['page' => 'Erreur', 'method' => 'index']);
     }
 }

@@ -23,41 +23,31 @@ class Utilisateur extends AbstractController
     public function index()
     {
         if (isset($_GET['id']) && Securite::isConnected() && Securite::isTokenOk()) {
-            //echo '$_GET["token"] : ' . $_GET["token"] . '<br />';
-            //echo 'Securite::getToken() : ' . Securite::getToken() . '<br />';
-            //echo 'Securite::isTokenOk() : ' . Securite::isTokenOk() . '<br />';
-            $id_utilisateur = $_GET['id'];
-            $this->utilisateur = UtilisateurDB::getById($id_utilisateur);
-            $this->getProUrl = Librairie::getProjetUrl();
-            $view = new View();
-            $view->setHead('head.html')
-                ->setHeader('header.php')
-                ->setMain('utilisateur.php')
-                ->setFooter('footer.html');
-            $view->render([
-                'flash' => $this->getFlashMessage(),
-                'titlePage' => $this->titlePage,
-                'windowName' => 'Gestion de Projets - Utilisateur',
-                'utilisateur' => $this->utilisateur ?? null,
-                'getProUrl' => $this->getProUrl ?? null,
-                'token' => Securite::getToken(),
-                'isConnected' => Securite::isConnected()
-            ]);
+            if(Securite::isTokenOk()) {
+                $id_utilisateur = $_GET['id'];
+                $this->utilisateur = UtilisateurDB::getById($id_utilisateur);
+                $this->getProUrl = Librairie::getProjetUrl();
+                $view = new View();
+                $view->setHead('head.html')
+                    ->setHeader('header.php')
+                    ->setMain('utilisateur.php')
+                    ->setFooter('footer.html');
+                $view->render([
+                    'flash' => $this->getFlashMessage(),
+                    'titlePage' => $this->titlePage,
+                    'windowName' => 'Gestion de Projets - Utilisateur',
+                    'utilisateur' => $this->utilisateur ?? null,
+                    'getProUrl' => $this->getProUrl ?? null,
+                    'token' => Securite::getToken(),
+                    'isConnected' => Securite::isConnected()
+                ]);
+            }
+            
+            
+            
         }
-        /*
-        $view = new View();
-        $view->setHead('head.html')
-        ->setHeader('header.php')
-        ->setMain('utilisateur.php')
-        ->setFooter('footer.html');
-        $view->render([
-            'flash' => $this->getFlashMessage(),
-            'titlePage' => $this->titlePage,
-            'windowName' => 'Gestion de Projets - Utilisateur',
-            'utilisateur' => $this->utilisateur ?? null,
-            'getProUrl' => $this->getProUrl ?? null,
-            'token' => Securite::getToken(),
-            'isConnected' => Securite::isConnected()
-        ]);*/
+        else {
+            Librairie::redirectErrorPage('Vue interdite : Problème de Token');
+        }
     }
 }

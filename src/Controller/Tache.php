@@ -72,6 +72,7 @@ class Tache extends AbstractController
         else {
             echo '<script>alert("Token et/ou Connexion incorrects");</script>';
         }
+        if(!Securite::isTokenOk()) Librairie::redirectErrorPage('Edition interdite : Problème de Token');
         
     }
 
@@ -89,6 +90,7 @@ class Tache extends AbstractController
             $this->titlePage = 'Page de consultation d\'une tâche';
             $this->index();
         }
+        if(!Securite::isTokenOk()) Librairie::redirectErrorPage('Vue interdite : Problème de Token');
         
     }
 
@@ -105,6 +107,7 @@ class Tache extends AbstractController
         } else {
             echo '<script>alert("Token incorrect");</script>';
         }
+        if(!Securite::isTokenOk()) Librairie::redirectErrorPage('Création interdite : Problème de Token');
     }
 
     /**
@@ -131,6 +134,11 @@ class Tache extends AbstractController
             $isOkPart = ParticiperDB::updateIdUtilByIdTache($id_tache, $id_utilisateur);
             echo (($isOk) ?  '<script>alert("Modification de la taĉhe effectuée");</script>' : '<script>alert("Modification de la taĉhe non effectuée");</script>');
             echo (($isOkPart) ?  '<script>alert("Modification de la participation effectuée");</script>' : '<script>alert("Modification de la participation non effectuée");</script>');
+        }
+        if(!Securite::isTokenOk()) {
+            Librairie::redirectErrorPage('Modification interdite : Problème de Token');
+        }
+        else {
             Librairie::returnToProjet();
         }
     }
@@ -161,7 +169,12 @@ class Tache extends AbstractController
             } else {
                 echo '<script>alert("Ajout de la tâche et de participation non effectué");</script>';
             }
-            Librairie::returnToProjet();
+            if(!Securite::isTokenOk()) {
+                Librairie::redirectErrorPage('Insertion interdite : Problème de Token');
+            }
+            else {
+                Librairie::returnToProjet();
+            }
         }
     }
 }
