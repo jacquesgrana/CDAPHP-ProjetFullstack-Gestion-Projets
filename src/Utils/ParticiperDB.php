@@ -33,5 +33,21 @@ class ParticiperDB extends Model {
         $stmt = $db->prepare($sql);
         return $stmt->execute();
     }
+
+    /*
+    public static function getIdUtilisateurByTacheId(int $id_tache): int {
+        $sql = "SELECT u.id_utilisateur 
+            FROM utilisateur u , participer p , tache t 
+            WHERE u.id_utilisateur = p.id_utilisateur 
+            AND p.id_tache = t.id_tache 
+            AND t.id_tache = " . $id_tache;
+            $db = DataBase::getInstance();
+            $stmt = $db->prepare($sql);
+            $result = intval($stmt->execute());
+            echo '$return : ' . $result; 
+            echo '$id_tache : ' . $id_tache; 
+            var_dump($result);
+            return $result;
+    }*/
 }
 ?>

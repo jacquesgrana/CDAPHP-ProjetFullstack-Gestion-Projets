@@ -101,6 +101,16 @@ class TacheDB extends Model
         return $stmt->execute();
     }
 
+    public static function getUtilisateurIdByTacheId($id_tache): int {
+        $sql ="SELECT p.id_utilisateur 
+        FROM projet p , tache t 
+        WHERE p.id_projet = t.id_projet 
+        AND t.id_tache = $id_tache";
+        $result = Model::Execute($sql)[0];
+        $toReturn = $result->id_utilisateur;
+        return intval($toReturn);
+    }
+
     /*
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
     private static function makeObjectFromGeneric($generic): Tache

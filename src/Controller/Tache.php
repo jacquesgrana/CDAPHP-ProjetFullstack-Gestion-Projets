@@ -68,12 +68,10 @@ class Tache extends AbstractController
             $this->mode = 'edit';
             $this->titlePage = 'Page d\'édition d\'une tâche';
             $this->index();
-        }
-        else {
+        } else {
             echo '<script>alert("Token et/ou Connexion incorrects");</script>';
         }
-        if(!Securite::isTokenOk()) Librairie::redirectErrorPage('Edition interdite : Problème de Token');
-        
+        if (!Securite::isTokenOk()) Librairie::redirectErrorPage('Edition interdite : Problème de Token');
     }
 
     /**
@@ -90,8 +88,7 @@ class Tache extends AbstractController
             $this->titlePage = 'Page de consultation d\'une tâche';
             $this->index();
         }
-        if(!Securite::isTokenOk()) Librairie::redirectErrorPage('Vue interdite : Problème de Token');
-        
+        if (!Securite::isTokenOk()) Librairie::redirectErrorPage('Vue interdite : Problème de Token');
     }
 
     /**
@@ -107,7 +104,7 @@ class Tache extends AbstractController
         } else {
             echo '<script>alert("Token incorrect");</script>';
         }
-        if(!Securite::isTokenOk()) Librairie::redirectErrorPage('Création interdite : Problème de Token');
+        if (!Securite::isTokenOk()) Librairie::redirectErrorPage('Création interdite : Problème de Token');
     }
 
     /**
@@ -130,15 +127,19 @@ class Tache extends AbstractController
             $id_statut = intval($_POST['statut']);
             $id_priorite = intval($_POST['priorite']);
             $id_projet = intval($_SESSION['id_projet']);
-            $isOk = TacheDB::updateTache($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet);
-            $isOkPart = ParticiperDB::updateIdUtilByIdTache($id_tache, $id_utilisateur);
-            echo (($isOk) ?  '<script>alert("Modification de la taĉhe effectuée");</script>' : '<script>alert("Modification de la taĉhe non effectuée");</script>');
-            echo (($isOkPart) ?  '<script>alert("Modification de la participation effectuée");</script>' : '<script>alert("Modification de la participation non effectuée");</script>');
+            if (Librairie::isTacheUtilisateurLegit($id_tache, intval($_SESSION['user_id']))) {
+                $isOk = TacheDB::updateTache($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet);
+                $isOkPart = ParticiperDB::updateIdUtilByIdTache($id_tache, $id_utilisateur);
+                echo (($isOk) ?  '<script>alert("Modification de la taĉhe effectuée");</script>' : '<script>alert("Modification de la taĉhe non effectuée");</script>');
+                echo (($isOkPart) ?  '<script>alert("Modification de la participation effectuée");</script>' : '<script>alert("Modification de la participation non effectuée");</script>');
+            }
+            else {
+                Librairie::redirectErrorPage('Modification interdite : Données incohérentes');
+            }
         }
-        if(!Securite::isTokenOk()) {
+        if (!Securite::isTokenOk()) {
             Librairie::redirectErrorPage('Modification interdite : Problème de Token');
-        }
-        else {
+        } else {
             Librairie::returnToProjet();
         }
     }
@@ -169,12 +170,13 @@ class Tache extends AbstractController
             } else {
                 echo '<script>alert("Ajout de la tâche et de participation non effectué");</script>';
             }
-            if(!Securite::isTokenOk()) {
+            if (!Securite::isTokenOk()) {
                 Librairie::redirectErrorPage('Insertion interdite : Problème de Token');
-            }
-            else {
+            } else {
                 Librairie::returnToProjet();
             }
         }
     }
+
+    
 }

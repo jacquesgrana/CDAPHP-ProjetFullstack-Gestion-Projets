@@ -62,4 +62,16 @@ class Librairie
         $_SESSION['error_comment'] = $comment;
         self::redirect('index.php', ['page' => 'Erreur', 'method' => 'index']);
     }
+
+    public static function isTacheUtilisateurLegit(int $id_tache, int $id_utilisateur): bool
+    {
+        //echo 'is legit : ' . $id_utilisateur === ParticiperDB::getIdUtilisateurByTacheId($id_tache);
+        return $id_utilisateur === TacheDB::getUtilisateurIdByTacheId($id_tache);
+        //return false;
+    }
+
+    public static function isProjetUtilisateurLegit(int $id_projet, int $id_utilisateur): bool
+    {
+        return $id_utilisateur === ProjetDB::getUtilisateurIdByProjetId($id_projet);
+    }
 }

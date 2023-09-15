@@ -101,6 +101,15 @@ class ProjetDB extends Model {
         return $stmt->execute();
     }
 
+    public static function getUtilisateurIdByProjetId($id_projet): int {
+        $sql ="SELECT p.id_utilisateur 
+        FROM projet p
+        WHERE p.id_projet = $id_projet";
+        $result = Model::Execute($sql)[0];
+        $toReturn = $result->id_utilisateur;
+        return intval($toReturn);
+    }
+
     /*
     // TODO mettre dans une classe abstraite avec boucle sur l'objet generique
     public static function makeObjectFromGeneric($generic): Projet {

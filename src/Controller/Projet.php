@@ -119,13 +119,15 @@ class Projet extends AbstractController {
      * son id.
      */
     public function deleteTache() {
-        // recuperer l'id
         if(isset($_GET['id']) && Securite::isTokenOk()) {
             $id_tache = intVal($_GET['id']);
-            // appeler fonction de TacheDB pour supprimer la tache
-            $isOk = TacheDB::deleteTache($id_tache);
-            // selon retour afficher message
-            echo (($isOk) ?  '<script>alert("Suppression de la taĉhe effectuée");</script>' : '<script>alert("Suppression de la taĉhe non effectuée");</script>');
+            if (Librairie::isTacheUtilisateurLegit($id_tache, intval($_SESSION['user_id']))) {
+                $isOk = TacheDB::deleteTache($id_tache);
+                echo (($isOk) ?  '<script>alert("Suppression de la taĉhe effectuée");</script>' : '<script>alert("Suppression de la taĉhe non effectuée");</script>');
+            }
+            else {
+                Librairie::redirectErrorPage('Suppression interdite : Données incohérentes');  
+            }
         }
         if(!Securite::isTokenOk()) {
             Librairie::redirectErrorPage('Suppression interdite : Problème de Token');
@@ -140,18 +142,25 @@ class Projet extends AbstractController {
      * son id.
      */
     public function update() {
+         // TODO modifier autoriser modification que si user possede le projet
+
         if(isset($_POST['titre']) && isset($_POST['description']) 
         && isset($_GET['id']) && Securite::isTokenOk()) {
             $id_projet = intval($_GET['id']);
             $titre = $_POST['titre'];
             $description = $_POST['description'];
             $id_utilisateur = intval($_SESSION['user_id']);
-            $isOk = ProjetDB::updateProjet($id_projet, $titre, $description, $id_utilisateur);
-            if($isOk) {
-                echo '<script>alert("Modification du projet effectuée");</script>';
+            if (Librairie::isProjetUtilisateurLegit($id_projet, intval($_SESSION['user_id']))) {
+                $isOk = ProjetDB::updateProjet($id_projet, $titre, $description, $id_utilisateur);
+                if($isOk) {
+                    echo '<script>alert("Modification du projet effectuée");</script>';
+                }
+                else {
+                    echo '<script>alert("Modification du projet non effectuée");</script>';
+                }
             }
             else {
-                echo '<script>alert("Modification du projet non effectuée");</script>';
+                Librairie::redirectErrorPage('Modification interdite : Données incohérentes');
             }
         }
         if(!Securite::isTokenOk()) {
