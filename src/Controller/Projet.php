@@ -44,6 +44,7 @@ class Projet extends AbstractController {
             'tachesAll' => $this->tachesAll ?? [],
             'mode' => $this->mode,
             'utilisateurs' => $this->utilisateurs,
+            'token' => Securite::getToken(),
             'isConnected' => Securite::isConnected()
         ]);
     }
@@ -52,37 +53,45 @@ class Projet extends AbstractController {
      * Fonction qui demande l'affichage de la page en mode edit/modifier.
      */
     public function edit() {
-        if (Securite::isConnected()) {
+        if (Securite::isConnected() && Securite::isTokenOk()) {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
                 $tempObj= ProjetDB::getById($id_projet);
                 $this->projet = ProjetCreator::makeObjectFromGeneric($tempObj);
                 $_SESSION['id_projet'] = $id_projet;
-            }            
+            } 
+           $this->mode = 'edit';
+            $_SESSION['mode_projet'] = $this->mode;
+            $this->titlePage = 'Page d\'édition d\'un projet';
+            $this->index();            
         }
-        $this->mode = 'edit';
-        $_SESSION['mode_projet'] = $this->mode;
-        $this->titlePage = 'Page d\'édition d\'un projet';
-        $this->index();
+        else {
+            echo '<script>alert("Token et/ou Connexion incorrects");</script>';
+        }
+        
     }
 
     /**
      * Fonction qui demande l'affichage de la page en mode view/consulter.
      */
     public function view() {
-        if (Securite::isConnected()) {
+        if (Securite::isConnected() && Securite::isTokenOk()) {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
                 $tempObj= ProjetDB::getById($id_projet);
                 $this->projet = ProjetCreator::makeObjectFromGeneric($tempObj);
                 //$this->projet = ProjetObj::getById($id_projet);
                 $_SESSION['id_projet'] = $id_projet;
-            }            
+            }
+            $this->mode = 'view';
+            $_SESSION['mode_projet'] = $this->mode;
+            $this->titlePage = 'Page de consultation d\'un projet';
+            $this->index();            
         }
-        $this->mode = 'view';
-        $_SESSION['mode_projet'] = $this->mode;
-        $this->titlePage = 'Page de consultation d\'un projet';
-        $this->index();
+        else {
+            echo '<script>alert("Token et/ou Connexion incorrects");</script>';
+        }
+        
     }
 
     /**
@@ -90,10 +99,15 @@ class Projet extends AbstractController {
      */
     public function create() {
         //$this->projet = null;
-        $this->mode = 'create';
-        $_SESSION['mode_projet'] = $this->mode;
-        $this->titlePage = 'Page de création d\'un projet';
-        $this->index();
+        if(Securite::isTokenOk()) {
+            $this->mode = 'create';
+            $_SESSION['mode_projet'] = $this->mode;
+            $this->titlePage = 'Page de création d\'un projet';
+            $this->index();
+        }
+        else {
+            echo '<script>alert("Token et/ou Connexion incorrects");</script>';
+        }
     }
 
     /**
@@ -102,7 +116,7 @@ class Projet extends AbstractController {
      */
     public function deleteTache() {
         // recuperer l'id
-        if(isset($_GET['id'])) {
+        if(isset($_GET['id']) && Securite::isTokenOk()) {
             $id_tache = intVal($_GET['id']);
             // appeler fonction de TacheDB pour supprimer la tache
             $isOk = TacheDB::deleteTache($id_tache);
@@ -118,7 +132,8 @@ class Projet extends AbstractController {
      */
     public function update() {
         // tester et recuperer les variables $_POST
-        if(isset($_POST['titre']) && isset($_POST['description']) && isset($_GET['id'])) {
+        if(isset($_POST['titre']) && isset($_POST['description']) 
+        && isset($_GET['id']) && Securite::isTokenOk()) {
             $id_projet = intval($_GET['id']);
             $titre = $_POST['titre'];
             $description = $_POST['description'];
@@ -141,7 +156,8 @@ class Projet extends AbstractController {
      */
     public function insert() {
         // tester et recuperer les variables $_POST
-        if(isset($_POST['titre']) && isset($_POST['description'])) {
+        if(isset($_POST['titre']) && isset($_POST['description'])
+        && Securite::isTokenOk()) {
             $titre = $_POST['titre'];
             $description = $_POST['description'];
             $id_utilisateur = intval($_SESSION['user_id']);

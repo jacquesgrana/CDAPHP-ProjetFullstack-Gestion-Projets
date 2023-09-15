@@ -23,6 +23,32 @@ class Securite
         return false;
     }
 
+
+    public static function isTokenOk(): bool {
+        if(isset($_SESSION['user_token']) && isset($_GET['token'])) {
+            return self::getToken() === $_GET['token'];
+        }
+        return false;
+    }
+
+    private static function generateToken(int $length): string {
+        $start = 0;
+        //$length = 20;
+        $strings='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle($strings), $start, $length);
+    }
+
+    public static function getToken(): string {
+        if(isset($_SESSION['user_token'])) {
+            return $_SESSION['user_token'];
+        }
+        return '';
+    }
+
+    private static function setToken(string $token): void {
+        $_SESSION['user_token'] = $token;
+    }
+
     /**
     * Fonction qui déconnecte l'utilisateur
     * @return void
@@ -30,8 +56,9 @@ class Securite
     public static function disconnect()
    {
        if (self::isConnected()) {
-            $_SESSION['user'] === false;
-           session_destroy();
+            $_SESSION['user'] = false;
+            session_unset();
+            session_destroy();
        }
    }
 
@@ -44,6 +71,9 @@ class Securite
                 if (self::isUserExistsAndValidated($_POST['email'], $_POST['mdp']) === true) {
                     //session_start();
                     self::setUserSessionInfos($_POST['email']);
+                    // set token -> crée le token
+                    self::setToken(self::generateToken(24));
+                    //echo 'token : ' . $_SESSION['user_token'];
                     $_SESSION['user'] = true;
                 }
                 else {
@@ -56,6 +86,7 @@ class Securite
         } 
         else {
             $_SESSION['user'] = false;
+            session_unset();
             session_destroy();
         }
     }
@@ -82,6 +113,7 @@ class Securite
      */
     public static function isUserExistsAndValidated(string $email, string $pwd): bool
     {
+        /*
         $users = UtilisateurDB::getAll();
         if (count($users) > 0) {
             foreach ($users as $user) {
@@ -90,6 +122,17 @@ class Securite
                 }
             }
         }
-        return false;
+        return false;*/
+
+        $user = UtilisateurDB::getUserByEmail($email);
+        if($user) {
+            $isOk = password_verify($pwd, $user->getMdp());
+            if(!$isOk) echo '<script>alert("Mot de passe incorrect");</script>';
+            return $isOk;
+        }
+        else {
+            echo '<script>alert("Email inconnu");</script>';
+            return false;
+        }
     }
 }

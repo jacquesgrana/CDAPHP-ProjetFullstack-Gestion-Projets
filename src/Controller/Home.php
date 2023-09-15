@@ -29,20 +29,21 @@ class Home extends AbstractController
             $id = $_SESSION['user_id'];
             $projetsDirected = ProjetDB::getByDirectorUserId($id);
             $projetsParticip = ProjetDB::getByParticipation($id);
+            $view = new View();
+            $view->setHead('head.html')
+                ->setHeader('header.php')
+                ->setMain('home.php')
+                ->setFooter('footer.html');
+            $view->render([
+                'flash' => $this->getFlashMessage(),
+                'titlePage' => 'Page Accueil',
+                'windowName' => 'Gestion de Projets - Accueil',
+                'projetsDirected' => $projetsDirected ?? [],
+                'projetsParticip' => $projetsParticip ?? [],
+                'token' => Securite::getToken(),
+                'isConnected' => Securite::isConnected()
+            ]);
         }
-        $view = new View();
-        $view->setHead('head.html')
-            ->setHeader('header.php')
-            ->setMain('home.php')
-            ->setFooter('footer.html');
-        $view->render([
-            'flash' => $this->getFlashMessage(),
-            'titlePage' => 'Page Accueil',
-            'windowName' => 'Gestion de Projets - Accueil',
-            'projetsDirected' => $projetsDirected ?? [],
-            'projetsParticip' => $projetsParticip ?? [],
-            'isConnected' => Securite::isConnected()
-        ]);
     }
 
     // TODO mettre ailleurs -> Securite?
@@ -60,7 +61,7 @@ class Home extends AbstractController
      */
     public function deleteProjet()
     {
-        if (isset($_GET['id'])) {
+        if (isset($_GET['id']) && Securite::isTokenOk()) {
             $id_projet = intVal($_GET['id']);
             $isOk = ProjetDB::deleteProjet($id_projet);
             echo (($isOk) ?  '<script>alert("Suppression du projet effectuée");</script>' : '<script>alert("Suppression du projet non effectuée");</script>');

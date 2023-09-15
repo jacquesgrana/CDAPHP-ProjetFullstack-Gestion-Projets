@@ -1,5 +1,8 @@
 <main class="d-flex flex-column align-items-center justify-content-start">
     <?php
+
+use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
+
     echo '<h2>' . $titlePage . '</h2>';
 
     if ($isConnected) {
@@ -8,12 +11,12 @@
         // mettre l'id de la tache dans la requete &id=... pour l'update
         if ($mode === 'edit') {
             echo '<form action="/index.php?page=Tache&method=update&id=' 
-            .  $tache->getId_tache() . '" method="POST">';
+            .  $tache->getId_tache() . '&token=' . $token . '" method="POST">';
         }
         if ($mode === 'create') {
-            echo '<form action="/index.php?page=Tache&method=insert" method="POST">';
+            echo '<form action="/index.php?page=Tache&method=insert&token='. $token . '" method="POST">';
         } else {
-            echo '<form action="/index.php?page=Tache" method="POST">';
+            echo '<form action="/index.php?page=Tache&token=' . $token . '" method="POST">';
         }
         echo '<div>';
 

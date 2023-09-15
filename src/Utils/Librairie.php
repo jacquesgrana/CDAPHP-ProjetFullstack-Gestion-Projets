@@ -2,6 +2,8 @@
 
 namespace Jacques\ProjetPhpGestionProjets\Utils;
 
+use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
+
 class Librairie
 {
 
@@ -30,7 +32,7 @@ class Librairie
         // revenir a la page du projet en respectant le mode et l'id du projet (faire fonction pour construire l'url)
         $id_projet = $_SESSION['id_projet'];
         $method = $_SESSION['mode_projet'];
-        $tabParams = ['page' => 'Projet', 'method' => $method, 'id' => $id_projet];
+        $tabParams = ['page' => 'Projet', 'method' => $method, 'id' => $id_projet, 'token' => Securite::getToken()];
         // appeler fonction de la librairie de redirection js
         self::redirect('index.php', $tabParams);
     }
@@ -45,9 +47,9 @@ class Librairie
         $url = '/index.php?page=Projet&method=create';
         if (isset($_SESSION['id_projet']) && isset($_SESSION['mode_projet'])) {
             if ($_SESSION['mode_projet'] === 'edit') {
-                $url = "/index.php?page=Projet&method=edit&id=" . $_SESSION['id_projet'];
+                $url = "/index.php?page=Projet&method=edit&id=" . $_SESSION['id_projet'] . "&token=" . Securite::getToken();
             } elseif ($_SESSION['mode_projet'] === 'view') {
-                $url = "/index.php?page=Projet&method=view&id=" . $_SESSION['id_projet'];
+                $url = "/index.php?page=Projet&method=view&id=" . $_SESSION['id_projet'] . "&token=" . Securite::getToken();
             }
         }
         return $url;

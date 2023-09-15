@@ -13,5 +13,10 @@ class Config {
     public const DBUSER = 'admin';
     public const DBPASS = 'admin';
     public const DBNAME = 'gestion_projet';
+
+    // TODO a utiliser
+    public const ENTITY_TO_VERIFY = 'Jacques\ProjetPhpGestionProjets\Entity\Utilisateur';
+    public const USER_NAME_PROPERTY = 'email';
+    public const USER_PASSWORD_PROPERTY = 'mdp';
 }
 ?>

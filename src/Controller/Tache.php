@@ -1,4 +1,5 @@
 <?php
+
 namespace Jacques\ProjetPhpGestionProjets\Controller;
 
 use Jacques\ProjetPhpGestionProjets\Kernel\View;
@@ -15,7 +16,8 @@ use Jacques\ProjetPhpGestionProjets\Utils\PrioriteDB;
 /**
  * Contrôleur de la page tache. Gère différentes requêtes.
  */
-class Tache extends AbstractController {
+class Tache extends AbstractController
+{
     private string $titlePage = 'Page d\'une tâche';
     private string $mode = 'view';
     private TacheObj $tache;
@@ -35,9 +37,9 @@ class Tache extends AbstractController {
         $this->getProUrl = Librairie::getProjetUrl();
         $view = new View();
         $view->setHead('head.html')
-        ->setHeader('header.php')
-        ->setMain('tache.php')
-        ->setFooter('footer.html');
+            ->setHeader('header.php')
+            ->setMain('tache.php')
+            ->setFooter('footer.html');
         $view->render([
             'flash' => $this->getFlashMessage(),
             'titlePage' => $this->titlePage,
@@ -48,6 +50,7 @@ class Tache extends AbstractController {
             'priorites' => $this->priorites,
             'utilisateurs' => $this->utilisateurs,
             'getProUrl' => $this->getProUrl ?? null,
+            'token' => Securite::getToken(),
             'isConnected' => Securite::isConnected()
         ]);
     }
@@ -55,40 +58,53 @@ class Tache extends AbstractController {
     /**
      * Fonction qui demande l'affichage de la page en mode edit/modifier.
      */
-    public function edit() {
-        if (Securite::isConnected()) {
-            if(isset($_GET['id'])) {
+    public function edit()
+    {
+        if (Securite::isConnected() && Securite::isTokenOk()) {
+            if (isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
                 $this->tache = TacheDB::getById($id_tache);
             }
+            $this->mode = 'edit';
+            $this->titlePage = 'Page d\'édition d\'une tâche';
+            $this->index();
         }
-        $this->mode = 'edit';
-        $this->titlePage = 'Page d\'édition d\'une tâche';
-        $this->index();
+        else {
+            echo '<script>alert("Token et/ou Connexion incorrects");</script>';
+        }
+        
     }
 
     /**
      * Fonction qui demande l'affichage de la page en mode view/consulter.
      */
-    public function view() {
-        if (Securite::isConnected()) {
-            if(isset($_GET['id'])) {
+    public function view()
+    {
+        if (Securite::isConnected() && Securite::isTokenOk()) {
+            if (isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
                 $this->tache = TacheDB::getById($id_tache);
             }
+            $this->mode = 'view';
+            $this->titlePage = 'Page de consultation d\'une tâche';
+            $this->index();
         }
-        $this->mode = 'view';
-        $this->titlePage = 'Page de consultation d\'une tâche';
-        $this->index();
+        
     }
 
     /**
      * Fonction qui demande l'affichage de la page en mode create/créer.
      */
-    public function create() {
-        $this->mode = 'create';
-        $this->titlePage = 'Page de création d\'une tâche';
-        $this->index();
+    public function create()
+    {
+        //echo '$tokenToTest : ' . $tokenToTest;
+        if (Securite::isTokenOk()) {
+            $this->mode = 'create';
+            $this->titlePage = 'Page de création d\'une tâche';
+            $this->index();
+        } else {
+            echo '<script>alert("Token incorrect");</script>';
+        }
     }
 
     /**
@@ -96,10 +112,14 @@ class Tache extends AbstractController {
      * d'une tâche selon son id.
      * Demande une requête sur la table participer pour la mettre à jour.
      */
-    public function update() {
-        if (isset($_POST['nom']) && isset($_POST['description']) 
-        && isset($_POST['utilisateur']) && isset($_POST['statut']) 
-        && isset($_POST['priorite']) && isset($_GET['id'])) {
+    public function update()
+    {
+        if (
+            isset($_POST['nom']) && isset($_POST['description'])
+            && isset($_POST['utilisateur']) && isset($_POST['statut'])
+            && isset($_POST['priorite']) && isset($_GET['id'])
+            && Securite::isTokenOk()
+        ) {
             $id_tache = $_GET['id'];
             $nom = $_POST['nom'];
             $description = $_POST['description'];
@@ -120,10 +140,13 @@ class Tache extends AbstractController {
      * nouvelle tâche.
      * Demande une requête sur la table participer pour la mettre à jour.
      */
-    public function insert() {
-        if (isset($_POST['nom']) && isset($_POST['description']) 
-        && isset($_POST['utilisateur']) && isset($_POST['statut']) 
-        && isset($_POST['priorite'])) {
+    public function insert()
+    {
+        if (
+            isset($_POST['nom']) && isset($_POST['description'])
+            && isset($_POST['utilisateur']) && isset($_POST['statut'])
+            && isset($_POST['priorite']) && Securite::isTokenOk()
+        ) {
             $nom = $_POST['nom'];
             $description = $_POST['description'];
             $utilisateur = intval($_POST['utilisateur']);
@@ -131,12 +154,11 @@ class Tache extends AbstractController {
             $priorite = intval($_POST['priorite']);
             $projet = intval($_SESSION['id_projet']);
             $idTache = TacheDB::insertTache($nom, $description, $utilisateur, $statut, $priorite, $projet);
-            if ($idTache !== false) { 
+            if ($idTache !== false) {
                 echo '<script>alert("Ajout de la tâche effectué");</script>';
                 $isOkPart = ParticiperDB::insertParticiper($projet, $utilisateur, $idTache);
                 echo ($isOkPart ? '<script>alert("Ajout de la participation effectué");</script>' : '');
-            } 
-            else { 
+            } else {
                 echo '<script>alert("Ajout de la tâche et de participation non effectué");</script>';
             }
             Librairie::returnToProjet();

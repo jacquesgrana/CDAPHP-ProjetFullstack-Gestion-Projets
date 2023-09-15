@@ -1,5 +1,8 @@
 <main class="d-flex flex-column align-items-center justify-content-start">
     <?php
+
+use Jacques\ProjetPhpGestionProjets\Kernel\Securite;
+
     echo '<h2>' . $titlePage . '</h2>';
 
     if ($isConnected) {
@@ -7,12 +10,17 @@
         if ($mode === 'edit') {
             echo '<form action="/index.php?page=Projet&method=update&id='
                 . $projet->getId_projet()
+                . '&token=' . $token
                 . '" method="POST">';
         }
         if ($mode === 'create') {
-            echo '<form action="/index.php?page=Projet&method=insert" method="POST">';
+            echo '<form action="/index.php?page=Projet&method=insert'
+            . '&token=' . $token
+            . '" method="POST">';
         } else {
-            echo '<form action="/index.php?page=Projet" method="POST">';
+            echo '<form action="/index.php?page=Projet'
+            . '&token=' . $token
+            . '" method="POST">';
         }
         echo '<div>';
         echo '<label for="id_projet">Id projet : </label>';
@@ -87,16 +95,16 @@
                     . ' : ' 
                     . $t->prenom 
                     . ' '
-                    . '<a href="index.php?page=Utilisateur&method=index&id=' . $t->id_utilisateur . '" class="btn-01-sm-blue">&#128196; Voir</a>'
+                    . '<a href="index.php?page=Utilisateur&method=index&id=' . $t->id_utilisateur . '&token=' . $token . '" class="btn-01-sm-blue">&#128196; Voir</a>'
                     . '</td>'
                     . '<td>' . $t->statut . '</td>'
                     . '<td>' . $t->priorite . '</td>'
                     . '<td>'
-                    . '<a href="index.php?page=Tache&method=view&id=' . $t->id_tache . '" class="btn-01-sm-blue">&#128196; Voir</a>';
+                    . '<a href="index.php?page=Tache&method=view&id=' . $t->id_tache . '&token=' . $token . '" class="btn-01-sm-blue">&#128196; Voir</a>';
 
                 if ($mode !== 'view') {
-                    echo '<a href="index.php?page=Tache&method=edit&id=' . $t->id_tache . '" class="btn-01-sm">&#9998; Modifier</a>'
-                        . '<a href="index.php?page=Projet&method=deleteTache&id=' . $t->id_tache . '" class="btn-01-sm-red" onclick="return confirm(\'Voulez-vous supprimer cette tâche ?\')">X Supprimer</a>';
+                    echo '<a href="index.php?page=Tache&method=edit&id=' . $t->id_tache . '&token=' . $token . '" class="btn-01-sm">&#9998; Modifier</a>'
+                        . '<a href="index.php?page=Projet&method=deleteTache&id=' . $t->id_tache . '&token=' . $token . '" class="btn-01-sm-red" onclick="return confirm(\'Voulez-vous supprimer cette tâche ?\')">X Supprimer</a>';
                 }
                 echo '</td></tr>';
             }
@@ -105,9 +113,9 @@
 
         echo '<div>';
         if ($mode === 'edit') {
-            echo '<a href="/index.php?page=Tache&method=create" class="btn-01 btn-space-01">Ajouter une nouvelle tâche</a>';
+            echo '<a href="/index.php?page=Tache&method=create&token='. $token . '" class="btn-01 btn-space-01">Ajouter une nouvelle tâche</a>';
         }
-        echo '<a href="/index.php?page=Home&method=index" class="btn-01  btn-space-01">&#10226; Retour</a>';
+        echo '<a href="/index.php?page=Home&method=index&token=' . $token . '" class="btn-01  btn-space-01">&#10226; Retour</a>';
         echo '</div>';
     } else {
         echo '<h3>Veuillez vous connecter</h3>';
