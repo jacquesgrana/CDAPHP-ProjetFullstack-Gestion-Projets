@@ -53,12 +53,19 @@ class Projet extends AbstractController {
      * Fonction qui demande l'affichage de la page en mode edit/modifier.
      */
     public function edit() {
+        // TODO ajouter verification de l'user id si matche avec $id_projet
         if (Securite::isConnected() && Securite::isTokenOk()) {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
-                $tempObj= ProjetDB::getById($id_projet);
-                $this->projet = ProjetCreator::makeObjectFromGeneric($tempObj);
-                $_SESSION['id_projet'] = $id_projet;
+                if(Librairie::isProjetUtilisateurLegit($id_projet, $_SESSION['user_id'])) {
+                    $tempObj= ProjetDB::getById($id_projet);
+                    $this->projet = ProjetCreator::makeObjectFromGeneric($tempObj);
+                    $_SESSION['id_projet'] = $id_projet;
+                }
+                else {
+                    Librairie::redirectErrorPage('Edition interdite : Données incohérentes');
+                }
+                
             } 
            $this->mode = 'edit';
             $_SESSION['mode_projet'] = $this->mode;
@@ -80,10 +87,11 @@ class Projet extends AbstractController {
         if (Securite::isConnected() && Securite::isTokenOk()) {
             if(isset($_GET['id'])) {
                 $id_projet = $_GET['id'];
-                $tempObj= ProjetDB::getById($id_projet);
-                $this->projet = ProjetCreator::makeObjectFromGeneric($tempObj);
-                //$this->projet = ProjetObj::getById($id_projet);
-                $_SESSION['id_projet'] = $id_projet;
+                
+                    $tempObj= ProjetDB::getById($id_projet);
+                    $this->projet = ProjetCreator::makeObjectFromGeneric($tempObj);
+                    $_SESSION['id_projet'] = $id_projet;
+                
             }
             $this->mode = 'view';
             $_SESSION['mode_projet'] = $this->mode;

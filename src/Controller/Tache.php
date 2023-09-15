@@ -60,10 +60,16 @@ class Tache extends AbstractController
      */
     public function edit()
     {
+        // TODO ajouter verification de l'user id si matche avec $id_tache
         if (Securite::isConnected() && Securite::isTokenOk()) {
             if (isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
-                $this->tache = TacheDB::getById($id_tache);
+                if(Librairie::isTacheUtilisateurLegit($id_tache, $_SESSION['user_id'])) {
+                    $this->tache = TacheDB::getById($id_tache);
+                }
+                else {
+                    Librairie::redirectErrorPage('Edition interdite : Données incohérentes');
+                }
             }
             $this->mode = 'edit';
             $this->titlePage = 'Page d\'édition d\'une tâche';
