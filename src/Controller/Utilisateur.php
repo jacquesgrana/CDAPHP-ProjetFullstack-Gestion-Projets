@@ -22,13 +22,10 @@ class Utilisateur extends AbstractController
      */
     public function index()
     {
-        // TODO ajouter test si utilisateur loggé possède des projets ou
-        // participe l'utilisateur à montrer
         if (isset($_GET['id']) && Securite::isConnected() && Securite::isTokenOk()) {
             $id_utilisateur = $_GET['id'];
             if (Librairie::isUtilisateurLegit($id_utilisateur, $_SESSION['user_id'])) {
                 $this->utilisateur = UtilisateurDB::getById($id_utilisateur);
-
                 $this->getProUrl = Librairie::getProjetUrl();
                 $view = new View();
                 $view->setHead('head.html')
@@ -48,6 +45,7 @@ class Utilisateur extends AbstractController
                 Librairie::redirectErrorPage('Vue interdite : Données requête incohérentes');
             }
         }
+        if(!Securite::isConnected()) Librairie::redirectErrorPage('Vue interdite : Problème de Connexion');
         if (!Securite::isTokenOk()) {
             Librairie::redirectErrorPage('Vue interdite : Problème de Token');
         }

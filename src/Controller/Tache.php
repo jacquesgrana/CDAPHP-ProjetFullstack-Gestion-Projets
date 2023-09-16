@@ -63,10 +63,9 @@ class Tache extends AbstractController
         if (Securite::isConnected() && Securite::isTokenOk()) {
             if (isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
-                if(Librairie::isTacheUtilisateurDirLegit($id_tache, $_SESSION['user_id'])) {
+                if (Librairie::isTacheUtilisateurDirLegit($id_tache, $_SESSION['user_id'])) {
                     $this->tache = TacheDB::getById($id_tache);
-                }
-                else {
+                } else {
                     Librairie::redirectErrorPage('Edition interdite : Données requête incohérentes');
                 }
             }
@@ -76,6 +75,7 @@ class Tache extends AbstractController
         } else {
             echo '<script>alert("Token et/ou Connexion incorrects");</script>';
         }
+        if (!Securite::isConnected()) Librairie::redirectErrorPage('Edition interdite : Problème de Connexion');
         if (!Securite::isTokenOk()) Librairie::redirectErrorPage('Edition interdite : Problème de Token');
     }
 
@@ -84,28 +84,23 @@ class Tache extends AbstractController
      */
     public function view()
     {
-        // TODO ajouter test si utilisateur loggé possède le projet 
-        // de la tâche -> ok
-        // ou si utilisateur participe à la tache
         if (Securite::isConnected() && Securite::isTokenOk()) {
             if (isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
-
-                // ajouter test si util loggé legit
-                if(Librairie::isTacheUtilisateurDirLegit($id_tache, $_SESSION['user_id']) ||
-                Librairie::isTacheUtilisateurPartLegit($id_tache, $_SESSION['user_id'])) {
+                if (
+                    Librairie::isTacheUtilisateurDirLegit($id_tache, $_SESSION['user_id']) ||
+                    Librairie::isTacheUtilisateurPartLegit($id_tache, $_SESSION['user_id'])
+                ) {
                     $this->tache = TacheDB::getById($id_tache);
+                } else {
+                    Librairie::redirectErrorPage('Vue interdite : Données requête incohérentes');
                 }
-                else {
-                    Librairie::redirectErrorPage('Vue interdite : Données requête incohérentes');  
-                }
-
-                
             }
             $this->mode = 'view';
             $this->titlePage = 'Page de consultation d\'une tâche';
             $this->index();
         }
+        if (!Securite::isConnected()) Librairie::redirectErrorPage('Vue interdite : Problème de Connexion');
         if (!Securite::isTokenOk()) Librairie::redirectErrorPage('Vue interdite : Problème de Token');
     }
 
@@ -114,7 +109,6 @@ class Tache extends AbstractController
      */
     public function create()
     {
-        //echo '$tokenToTest : ' . $tokenToTest;
         if (Securite::isConnected() && Securite::isTokenOk()) {
             $this->mode = 'create';
             $this->titlePage = 'Page de création d\'une tâche';
@@ -122,6 +116,7 @@ class Tache extends AbstractController
         } else {
             echo '<script>alert("Token incorrect");</script>';
         }
+        if (!Securite::isConnected()) Librairie::redirectErrorPage('Création interdite : Problème de Connexion');
         if (!Securite::isTokenOk()) Librairie::redirectErrorPage('Création interdite : Problème de Token');
     }
 
@@ -150,16 +145,15 @@ class Tache extends AbstractController
                 $isOkPart = ParticiperDB::updateIdUtilByIdTache($id_tache, $id_utilisateur);
                 echo (($isOk) ?  '<script>alert("Modification de la taĉhe effectuée");</script>' : '<script>alert("Modification de la taĉhe non effectuée");</script>');
                 echo (($isOkPart) ?  '<script>alert("Modification de la participation effectuée");</script>' : '<script>alert("Modification de la participation non effectuée");</script>');
-            }
-            else {
+            } else {
                 Librairie::redirectErrorPage('Modification interdite : Données requête incohérentes');
             }
         }
+        if (!Securite::isConnected()) Librairie::redirectErrorPage('Modification interdite : Problème de Connexion');
         if (!Securite::isTokenOk()) {
             Librairie::redirectErrorPage('Modification interdite : Problème de Token');
-        } else {
-            Librairie::returnToProjet();
         }
+        Librairie::returnToProjet();
     }
 
     /**
@@ -172,8 +166,8 @@ class Tache extends AbstractController
         if (
             isset($_POST['nom']) && isset($_POST['description'])
             && isset($_POST['utilisateur']) && isset($_POST['statut'])
-            && isset($_POST['priorite']) && Securite::isConnected() 
-            && Securite::isTokenOk() 
+            && isset($_POST['priorite']) && Securite::isConnected()
+            && Securite::isTokenOk()
         ) {
             $nom = $_POST['nom'];
             $description = $_POST['description'];
@@ -189,13 +183,11 @@ class Tache extends AbstractController
             } else {
                 echo '<script>alert("Ajout de la tâche et de participation non effectué");</script>';
             }
+            if (!Securite::isConnected()) Librairie::redirectErrorPage('Insertion interdite : Problème de Connexion');
             if (!Securite::isTokenOk()) {
                 Librairie::redirectErrorPage('Insertion interdite : Problème de Token');
-            } else {
-                Librairie::returnToProjet();
-            }
+            } 
+            Librairie::returnToProjet();
         }
     }
-
-    
 }
