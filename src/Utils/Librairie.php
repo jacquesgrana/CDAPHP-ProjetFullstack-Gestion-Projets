@@ -29,7 +29,7 @@ class Librairie
      */
     public static function returnToProjet()
     {
-        // revenir a la page du projet en respectant le mode et l'id du projet (faire fonction pour construire l'url)
+        // TODO tester les variables de session isset sinon -> page erreur
         $id_projet = $_SESSION['id_projet'];
         $method = $_SESSION['mode_projet'];
         $tabParams = ['page' => 'Projet', 
@@ -65,16 +65,12 @@ class Librairie
 
     public static function isTacheUtilisateurDirLegit(int $id_tache, int $id_utilisateur): bool
     {
-        //echo 'is legit : ' . $id_utilisateur === ParticiperDB::getIdUtilisateurByTacheId($id_tache);
         return $id_utilisateur === TacheDB::getUtilisateurDirIdByTacheId($id_tache);
-        //return false;
     }
 
     public static function isTacheUtilisateurPartLegit(int $id_tache, int $id_utilisateur): bool
     {
-        //echo 'is legit : ' . $id_utilisateur === ParticiperDB::getIdUtilisateurByTacheId($id_tache);
         return $id_utilisateur === ParticiperDB::getUtilisateurPartIdByTacheId($id_tache);
-        //return false;
     }
 
     public static function isProjetUtilisateurDirLegit(int $id_projet, int $id_utilisateur): bool
@@ -84,10 +80,21 @@ class Librairie
 
     public static function isProjetUtilisateurPartLegit($id_projet, $id_utilisateur): bool {
         $ids = ParticiperDB::getUtilisateurIdByProjetId($id_projet);
-        //var_dump($ids);
         if (count($ids) > 0) {
             foreach($ids as $id) {
                 if($id === $id_utilisateur) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static function isUtilisateurLegit($id_utilisateur, $id_directeur): bool {
+        $ids = ParticiperDB::getUtilisateurDirIdByUtilisateurId($id_utilisateur);
+        if (count($ids) > 0) {
+            foreach($ids as $id) {
+                if($id === $id_directeur) {
                     return true;
                 }
             }
