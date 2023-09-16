@@ -58,26 +58,43 @@ class Librairie
         return $url;
     }
 
+    /**
+     * Fonction qui renvoi vers la page d'erreur qui affichera 
+     * le commentaire.
+     */
     public static function redirectErrorPage($comment) {
         $_SESSION['error_comment'] = $comment;
         self::redirect('index.php', ['page' => 'Erreur', 'method' => 'index']);
     }
 
+    /**
+     * Fonction qui renvoi vrai si l'utilisateur est directeur 
+     * de la tâche.
+     */
     public static function isTacheUtilisateurDirLegit(int $id_tache, int $id_utilisateur): bool
     {
         return $id_utilisateur === TacheDB::getUtilisateurDirIdByTacheId($id_tache);
     }
 
+    /**
+     * Fonction qui renvoi vrai si l'utilisateur participe à la tâche.
+     */
     public static function isTacheUtilisateurPartLegit(int $id_tache, int $id_utilisateur): bool
     {
         return $id_utilisateur === ParticiperDB::getUtilisateurPartIdByTacheId($id_tache);
     }
 
+    /**
+     * Fonction qui renvoi vrai si l'utilisateur est directeur du projet.
+     */
     public static function isProjetUtilisateurDirLegit(int $id_projet, int $id_utilisateur): bool
     {
         return $id_utilisateur === ProjetDB::getUtilisateurIdByProjetId($id_projet);
     }
 
+    /**
+     * Fonction qui renvoi vrai si l'utilisateur participe au projet.
+     */
     public static function isProjetUtilisateurPartLegit($id_projet, $id_utilisateur): bool {
         $ids = ParticiperDB::getUtilisateurIdByProjetId($id_projet);
         if (count($ids) > 0) {
@@ -90,6 +107,10 @@ class Librairie
         return false;
     }
 
+    /**
+     * Fonction qui renvoi vrai si le directeur est directeur d'un
+     * des projets auquel participe l'utilisateur.
+     */
     public static function isUtilisateurLegit($id_utilisateur, $id_directeur): bool {
         $ids = ParticiperDB::getUtilisateurDirIdByUtilisateurId($id_utilisateur);
         if (count($ids) > 0) {
