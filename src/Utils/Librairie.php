@@ -77,11 +77,20 @@ class Librairie
     }
 
     /**
-     * Fonction qui renvoi vrai si l'utilisateur participe à la tâche.
+     * Fonction qui renvoi vrai si l'utilisateur participe à des
+     * tâches du projet de la tâche.
      */
     public static function isTacheUtilisateurPartLegit(int $id_tache, int $id_utilisateur): bool
     {
-        return $id_utilisateur === ParticiperDB::getUtilisateurPartIdByTacheId($id_tache);
+        $ids = ParticiperDB::getUtilisateurPartIdByTacheId($id_tache);
+        if (count($ids) > 0) {
+            foreach($ids as $id) {
+                if($id === $id_utilisateur) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

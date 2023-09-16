@@ -86,7 +86,7 @@ class ParticiperDB extends Model {
         $sql = "SELECT pa.id_utilisateur
         FROM participer pa, projet pr
         WHERE pa.id_projet = pr.id_projet 
-        AND pa.id_projet = (SELECT pro.id_projet FROM projet pro, participer par WHERE pro.id_projet = par.id_projet AND par.id_utilisateur = $id_utilisateur)";
+        AND pa.id_projet IN (SELECT pro.id_projet FROM projet pro, participer par WHERE pro.id_projet = par.id_projet AND par.id_utilisateur = $id_utilisateur)";
         $result = Model::Execute($sql);
         if(count($result) > 0) {
             $toReturn = [];
@@ -100,22 +100,24 @@ class ParticiperDB extends Model {
         }
     }
 
-
     /**
      * Fonction qui renvoie l'id de l'utilisateur participant
      * à une tâche selon son id.
      */
-    public static function getUtilisateurPartIdByTacheId(int $id_tache): int {
-        $sql = "SELECT pa.id_utilisateur 
-        FROM participer pa 
-        WHERE pa.id_tache = $id_tache";
-        $result = Model::Execute($sql)[0];
-        if($result) {
-            $toReturn = $result->id_utilisateur;
-            return intval($toReturn);
+    public static function getUtilisateurPartIdByTacheId(int $id_tache): array {
+        $sql = "SELECT DISTINCT pa.id_utilisateur 
+        FROM participer pa, projet pr
+        WHERE pa.id_projet IN (SELECT pro.id_projet FROM projet pro, tache t  WHERE t.id_projet = pro.id_projet AND t.id_tache = $id_tache)";
+        $result = Model::Execute($sql);
+        if(count($result) > 0) {
+            $toReturn = [];
+            foreach($result as $id) {
+                $toReturn[] = intval($id->id_utilisateur);
+            }
+            return $toReturn;
         }
         else {
-            return -1;
+            return [];
         }
     }
 }
