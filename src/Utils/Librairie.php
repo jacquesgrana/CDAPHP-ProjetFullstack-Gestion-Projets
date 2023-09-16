@@ -70,6 +70,13 @@ class Librairie
         //return false;
     }
 
+    public static function isTacheUtilisateurPartLegit(int $id_tache, int $id_utilisateur): bool
+    {
+        //echo 'is legit : ' . $id_utilisateur === ParticiperDB::getIdUtilisateurByTacheId($id_tache);
+        return $id_utilisateur === ParticiperDB::getUtilisateurPartIdByTacheId($id_tache);
+        //return false;
+    }
+
     public static function isProjetUtilisateurDirLegit(int $id_projet, int $id_utilisateur): bool
     {
         return $id_utilisateur === ProjetDB::getUtilisateurIdByProjetId($id_projet);
@@ -78,9 +85,11 @@ class Librairie
     public static function isProjetUtilisateurPartLegit($id_projet, $id_utilisateur): bool {
         $ids = ParticiperDB::getUtilisateurIdByProjetId($id_projet);
         //var_dump($ids);
-        foreach($ids as $id) {
-            if($id === $id_utilisateur) {
-                return true;
+        if (count($ids) > 0) {
+            foreach($ids as $id) {
+                if($id === $id_utilisateur) {
+                    return true;
+                }
             }
         }
         return false;

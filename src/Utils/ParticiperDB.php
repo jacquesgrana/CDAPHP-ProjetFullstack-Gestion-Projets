@@ -35,6 +35,10 @@ class ParticiperDB extends Model {
     }
 
 
+    /**
+     * Fonction qui renvoie un tableau contenant les id des utilisateurs
+     * participant à un projet selon l'id du projet
+     */
     public static function getUtilisateurIdByProjetId(int $id_projet): array {
         $sql = "SELECT DISTINCT pa.id_utilisateur 
         FROM participer pa 
@@ -50,7 +54,22 @@ class ParticiperDB extends Model {
         else {
             return [];
         }
-        //$toReturn = $result->id_utilisateur;
+    }
+
+
+    public static function getUtilisateurPartIdByTacheId(int $id_tache): int {
+        $sql = "SELECT pa.id_utilisateur 
+        FROM participer pa 
+        WHERE pa.id_tache = $id_tache";
+        $result = Model::Execute($sql)[0];
+        //var_dump($result);
+        if($result) {
+            $toReturn = $result->id_utilisateur;
+            return intval($toReturn);
+        }
+        else {
+            return -1;
+        }
         
     }
 

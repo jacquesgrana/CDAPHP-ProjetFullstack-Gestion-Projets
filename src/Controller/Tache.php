@@ -90,7 +90,17 @@ class Tache extends AbstractController
         if (Securite::isConnected() && Securite::isTokenOk()) {
             if (isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
-                $this->tache = TacheDB::getById($id_tache);
+
+                // ajouter test si util loggé legit
+                if(Librairie::isTacheUtilisateurDirLegit($id_tache, $_SESSION['user_id']) ||
+                Librairie::isTacheUtilisateurPartLegit($id_tache, $_SESSION['user_id'])) {
+                    $this->tache = TacheDB::getById($id_tache);
+                }
+                else {
+                    Librairie::redirectErrorPage('Vue interdite : Données requête incohérentes');  
+                }
+
+                
             }
             $this->mode = 'view';
             $this->titlePage = 'Page de consultation d\'une tâche';
