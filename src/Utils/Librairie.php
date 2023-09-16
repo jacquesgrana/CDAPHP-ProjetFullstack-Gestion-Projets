@@ -63,15 +63,26 @@ class Librairie
         self::redirect('index.php', ['page' => 'Erreur', 'method' => 'index']);
     }
 
-    public static function isTacheUtilisateurLegit(int $id_tache, int $id_utilisateur): bool
+    public static function isTacheUtilisateurDirLegit(int $id_tache, int $id_utilisateur): bool
     {
         //echo 'is legit : ' . $id_utilisateur === ParticiperDB::getIdUtilisateurByTacheId($id_tache);
-        return $id_utilisateur === TacheDB::getUtilisateurIdByTacheId($id_tache);
+        return $id_utilisateur === TacheDB::getUtilisateurDirIdByTacheId($id_tache);
         //return false;
     }
 
-    public static function isProjetUtilisateurLegit(int $id_projet, int $id_utilisateur): bool
+    public static function isProjetUtilisateurDirLegit(int $id_projet, int $id_utilisateur): bool
     {
         return $id_utilisateur === ProjetDB::getUtilisateurIdByProjetId($id_projet);
+    }
+
+    public static function isProjetUtilisateurPartLegit($id_projet, $id_utilisateur): bool {
+        $ids = ParticiperDB::getUtilisateurIdByProjetId($id_projet);
+        //var_dump($ids);
+        foreach($ids as $id) {
+            if($id === $id_utilisateur) {
+                return true;
+            }
+        }
+        return false;
     }
 }

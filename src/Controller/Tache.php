@@ -60,15 +60,14 @@ class Tache extends AbstractController
      */
     public function edit()
     {
-        // TODO ajouter verification de l'user id si matche avec $id_tache
         if (Securite::isConnected() && Securite::isTokenOk()) {
             if (isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
-                if(Librairie::isTacheUtilisateurLegit($id_tache, $_SESSION['user_id'])) {
+                if(Librairie::isTacheUtilisateurDirLegit($id_tache, $_SESSION['user_id'])) {
                     $this->tache = TacheDB::getById($id_tache);
                 }
                 else {
-                    Librairie::redirectErrorPage('Edition interdite : Données incohérentes');
+                    Librairie::redirectErrorPage('Edition interdite : Données requête incohérentes');
                 }
             }
             $this->mode = 'edit';
@@ -85,6 +84,9 @@ class Tache extends AbstractController
      */
     public function view()
     {
+        // TODO ajouter test si utilisateur loggé possède le projet 
+        // de la tâche -> ok
+        // ou si utilisateur participe à la tache
         if (Securite::isConnected() && Securite::isTokenOk()) {
             if (isset($_GET['id'])) {
                 $id_tache = $_GET['id'];
@@ -103,7 +105,7 @@ class Tache extends AbstractController
     public function create()
     {
         //echo '$tokenToTest : ' . $tokenToTest;
-        if (Securite::isTokenOk()) {
+        if (Securite::isConnected() && Securite::isTokenOk()) {
             $this->mode = 'create';
             $this->titlePage = 'Page de création d\'une tâche';
             $this->index();
@@ -124,7 +126,7 @@ class Tache extends AbstractController
             isset($_POST['nom']) && isset($_POST['description'])
             && isset($_POST['utilisateur']) && isset($_POST['statut'])
             && isset($_POST['priorite']) && isset($_GET['id'])
-            && Securite::isTokenOk()
+            && Securite::isConnected() && Securite::isTokenOk()
         ) {
             $id_tache = $_GET['id'];
             $nom = $_POST['nom'];
@@ -133,14 +135,14 @@ class Tache extends AbstractController
             $id_statut = intval($_POST['statut']);
             $id_priorite = intval($_POST['priorite']);
             $id_projet = intval($_SESSION['id_projet']);
-            if (Librairie::isTacheUtilisateurLegit($id_tache, intval($_SESSION['user_id']))) {
+            if (Librairie::isTacheUtilisateurDirLegit($id_tache, intval($_SESSION['user_id']))) {
                 $isOk = TacheDB::updateTache($id_tache, $nom, $description, $id_utilisateur, $id_statut, $id_priorite, $id_projet);
                 $isOkPart = ParticiperDB::updateIdUtilByIdTache($id_tache, $id_utilisateur);
                 echo (($isOk) ?  '<script>alert("Modification de la taĉhe effectuée");</script>' : '<script>alert("Modification de la taĉhe non effectuée");</script>');
                 echo (($isOkPart) ?  '<script>alert("Modification de la participation effectuée");</script>' : '<script>alert("Modification de la participation non effectuée");</script>');
             }
             else {
-                Librairie::redirectErrorPage('Modification interdite : Données incohérentes');
+                Librairie::redirectErrorPage('Modification interdite : Données requête incohérentes');
             }
         }
         if (!Securite::isTokenOk()) {
@@ -160,7 +162,8 @@ class Tache extends AbstractController
         if (
             isset($_POST['nom']) && isset($_POST['description'])
             && isset($_POST['utilisateur']) && isset($_POST['statut'])
-            && isset($_POST['priorite']) && Securite::isTokenOk()
+            && isset($_POST['priorite']) && Securite::isConnected() 
+            && Securite::isTokenOk() 
         ) {
             $nom = $_POST['nom'];
             $description = $_POST['description'];

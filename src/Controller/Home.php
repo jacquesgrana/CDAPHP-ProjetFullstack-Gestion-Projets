@@ -62,20 +62,19 @@ class Home extends AbstractController
      */
     public function deleteProjet()
     {
-        // TODO modifier autoriser suppression que si user possede le projet
         if (isset($_GET['id']) 
         && Securite::isTokenOk() 
         && Securite::isConnected()) {
             $id_projet = intVal($_GET['id']);
 
-            if (Librairie::isProjetUtilisateurLegit($id_projet, intval($_SESSION['user_id']))) {
+            if (Librairie::isProjetUtilisateurDirLegit($id_projet, intval($_SESSION['user_id']))) {
                 $isOk = ProjetDB::deleteProjet($id_projet);
             echo (($isOk) ?  '<script>alert("Suppression du projet effectuée");</script>' : '<script>alert("Suppression du projet non effectuée");</script>');
             Librairie::redirect('index.php', ['page' => 'Home', 'method' => 'index']);
 
             }
             else {
-                Librairie::redirectErrorPage('Suppression interdite : Données incohérentes');  
+                Librairie::redirectErrorPage('Suppression interdite : Données requête incohérentes');  
             }
 
             

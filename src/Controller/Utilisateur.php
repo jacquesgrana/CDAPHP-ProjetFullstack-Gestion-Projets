@@ -22,8 +22,9 @@ class Utilisateur extends AbstractController
      */
     public function index()
     {
+        // TODO ajouter test si utilisateur loggé possède des projets ou
+        // participe l'utilisateur à montrer
         if (isset($_GET['id']) && Securite::isConnected() && Securite::isTokenOk()) {
-            
                 $id_utilisateur = $_GET['id'];
                 $this->utilisateur = UtilisateurDB::getById($id_utilisateur);
                 $this->getProUrl = Librairie::getProjetUrl();

@@ -37,7 +37,7 @@ class ProjetDB extends Model {
      */
     public static function getByParticipation(int $id_utilisateur): array {
 
-        $sql = "SELECT pr.id_projet, pr.titre, pr.description, pr.id_utilisateur 
+        $sql = "SELECT DISTINCT pr.id_projet, pr.titre, pr.description, pr.id_utilisateur 
         FROM projet pr, participer pa, utilisateur u  
         WHERE pr.id_projet = pa.id_projet 
         AND pa.id_utilisateur = u.id_utilisateur 
@@ -84,7 +84,6 @@ class ProjetDB extends Model {
         $sql = "UPDATE " . self::$tableName .
         " SET titre = '$titre', description = '$description', id_utilisateur = $id_utilisateur" .
         " WHERE id_projet=" . $id_projet;
-        //echo 'sql : ' . $sql . '<br />';
         $db = DataBase::getInstance();
         $stmt = $db->prepare($sql);
         return $stmt->execute();

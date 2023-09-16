@@ -34,6 +34,26 @@ class ParticiperDB extends Model {
         return $stmt->execute();
     }
 
+
+    public static function getUtilisateurIdByProjetId(int $id_projet): array {
+        $sql = "SELECT DISTINCT pa.id_utilisateur 
+        FROM participer pa 
+        WHERE pa.id_projet = $id_projet";
+        $result = Model::Execute($sql);
+        if(count($result) > 0) {
+            $toReturn = [];
+            foreach($result as $id) {
+                $toReturn[] = intval($id->id_utilisateur);
+            }
+            return $toReturn;
+        }
+        else {
+            return [];
+        }
+        //$toReturn = $result->id_utilisateur;
+        
+    }
+
     /*
     public static function getIdUtilisateurByTacheId(int $id_tache): int {
         $sql = "SELECT u.id_utilisateur 

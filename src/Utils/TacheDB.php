@@ -107,7 +107,7 @@ class TacheDB extends Model
      * @param int $id_tache : id de la tâche à tester
      * @return int : id du directeur de la tâche
      */
-    public static function getUtilisateurIdByTacheId($id_tache): int {
+    public static function getUtilisateurDirIdByTacheId($id_tache): int {
         $sql ="SELECT p.id_utilisateur 
         FROM projet p , tache t 
         WHERE p.id_projet = t.id_projet 
