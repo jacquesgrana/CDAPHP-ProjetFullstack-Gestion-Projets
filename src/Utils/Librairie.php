@@ -111,11 +111,27 @@ class Librairie
      * Fonction qui renvoi vrai si le directeur est directeur d'un
      * des projets auquel participe l'utilisateur.
      */
-    public static function isUtilisateurLegit($id_utilisateur, $id_directeur): bool {
+    public static function isUtilisateurDirLegit($id_utilisateur, $id_directeur): bool {
         $ids = ParticiperDB::getUtilisateurDirIdByUtilisateurId($id_utilisateur);
         if (count($ids) > 0) {
             foreach($ids as $id) {
                 if($id === $id_directeur) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Fonction qui renvoi vrai si l'utilisateur actif participe à
+     * un des projets ou est présent l'utilisateur
+     */
+    public static function isUtilisateurPartLegit($id_utilisateur, $id_utilisateur_active): bool {
+        $ids = ParticiperDB::getUtilisateurPartProjetIdByUtilisateurId($id_utilisateur);
+        if (count($ids) > 0) {
+            foreach($ids as $id) {
+                if($id === $id_utilisateur_active) {
                     return true;
                 }
             }

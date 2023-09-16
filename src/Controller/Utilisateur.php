@@ -24,7 +24,7 @@ class Utilisateur extends AbstractController
     {
         if (isset($_GET['id']) && Securite::isConnected() && Securite::isTokenOk()) {
             $id_utilisateur = $_GET['id'];
-            if (Librairie::isUtilisateurLegit($id_utilisateur, $_SESSION['user_id'])) {
+            if (Librairie::isUtilisateurDirLegit($id_utilisateur, $_SESSION['user_id']) || Librairie::isUtilisateurPartLegit($id_utilisateur, $_SESSION['user_id'])) {
                 $this->utilisateur = UtilisateurDB::getById($id_utilisateur);
                 $this->getProUrl = Librairie::getProjetUrl();
                 $view = new View();
