@@ -44,8 +44,8 @@ class Inscription extends AbstractController {
         && isset($_POST['email'])
         && isset($_POST['connexion'])) {
             if($_POST['connexion'] === 'create') {
-                $nom = $_POST['nom'];
-                $prenom = $_POST['prenom'];
+                $nom = htmlentities($_POST['nom'], ENT_QUOTES, 'UTF-8');
+                $prenom = htmlentities($_POST['prenom'], ENT_QUOTES, 'UTF-8');
                 $mdp = $_POST['mdp'];
                 $email = $_POST['email'];
                 // hasher le mdp

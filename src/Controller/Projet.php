@@ -163,8 +163,8 @@ class Projet extends AbstractController
             && Securite::isTokenOk()
         ) {
             $id_projet = intval($_GET['id']);
-            $titre = $_POST['titre'];
-            $description = $_POST['description'];
+            $titre = htmlentities($_POST['titre'], ENT_QUOTES, 'UTF-8');
+            $description = htmlentities($_POST['description'], ENT_QUOTES, 'UTF-8');
             $id_utilisateur = intval($_SESSION['user_id']);
             if (Librairie::isProjetUtilisateurDirLegit($id_projet, intval($_SESSION['user_id']))) {
                 $isOk = ProjetDB::updateProjet($id_projet, $titre, $description, $id_utilisateur);
@@ -193,8 +193,8 @@ class Projet extends AbstractController
             isset($_POST['titre']) && isset($_POST['description'])
             && Securite::isConnected() && Securite::isTokenOk()
         ) {
-            $titre = $_POST['titre'];
-            $description = $_POST['description'];
+            $titre = htmlentities($_POST['titre'], ENT_QUOTES, 'UTF-8');
+            $description = htmlentities($_POST['description'], ENT_QUOTES, 'UTF-8');
             $id_utilisateur = intval($_SESSION['user_id']);
             // appeler fonction de ProjetDB
             $isOk = ProjetDB::insertProjet($titre, $description, $id_utilisateur);

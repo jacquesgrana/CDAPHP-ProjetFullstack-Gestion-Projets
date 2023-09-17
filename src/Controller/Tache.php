@@ -134,8 +134,8 @@ class Tache extends AbstractController
             && Securite::isConnected() && Securite::isTokenOk()
         ) {
             $id_tache = $_GET['id'];
-            $nom = $_POST['nom'];
-            $description = $_POST['description'];
+            $nom = htmlentities($_POST['nom'], ENT_QUOTES, 'UTF-8');
+            $description = htmlentities($_POST['description'], ENT_QUOTES, 'UTF-8');
             $id_utilisateur = intval($_POST['utilisateur']);
             $id_statut = intval($_POST['statut']);
             $id_priorite = intval($_POST['priorite']);
@@ -169,8 +169,8 @@ class Tache extends AbstractController
             && isset($_POST['priorite']) && Securite::isConnected()
             && Securite::isTokenOk()
         ) {
-            $nom = $_POST['nom'];
-            $description = $_POST['description'];
+            $nom = htmlentities($_POST['nom'], ENT_QUOTES, 'UTF-8');
+            $description = htmlentities($_POST['description'], ENT_QUOTES, 'UTF-8');
             $utilisateur = intval($_POST['utilisateur']);
             $statut = intval($_POST['statut']);
             $priorite = intval($_POST['priorite']);
